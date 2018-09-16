@@ -3,6 +3,7 @@
 **/target
 
 **/.~lock*
+**/*.bak_*
 
 # Mac
 .DS_Store
