@@ -23,4 +23,14 @@ public class CredentialEntity implements Serializable {
     @Basic
     private String passhash;
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ id:").append(id)
+                .append("; login:").append(login)
+                .append("; passhash:*")
+                .append("}");
+        return sb.toString();
+    }
+
 }

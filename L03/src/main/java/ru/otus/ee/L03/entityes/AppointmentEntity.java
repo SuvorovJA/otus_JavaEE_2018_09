@@ -22,4 +22,11 @@ public class AppointmentEntity implements Serializable {
     @NaturalId
     private String name;
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ id:").append(id).append("; name:").append(name).append("}");
+        return sb.toString();
+    }
+
 }

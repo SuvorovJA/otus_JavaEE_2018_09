@@ -20,4 +20,11 @@ public class DepartmentEntity implements Serializable {
     @Column(nullable = false, unique = true)
     @NaturalId
     private String name;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ id:").append(id).append("; name:").append(name).append("}");
+        return sb.toString();
+    }
 }

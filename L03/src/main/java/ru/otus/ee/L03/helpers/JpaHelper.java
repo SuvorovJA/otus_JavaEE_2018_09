@@ -9,11 +9,14 @@ import ru.otus.ee.L03.entityes.DepartmentEntity;
 import ru.otus.ee.L03.entityes.EmployeEntity;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.servlet.ServletContext;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class JpaHelper {
 
@@ -151,14 +154,61 @@ public class JpaHelper {
     }
 
     public static String PrintAllEmployes(EntityManager em) {
-        return getMethodName() + "<br>";
+        StringBuilder out = new StringBuilder();
+        try {
+            out.append("start ").append(getMethodName()).append(". <br>");
+            em.getTransaction().begin();
+            Query q = em.createQuery("select e from EmployeEntity e order by e.id desc");
+            List<EmployeEntity> result = q.getResultList();
+            result.stream().forEach(r -> out.append(r).append("<br>"));
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            out.append("_ rollback occured.<br>");
+            out.append("_ ").append(e.getMessage()).append("<br>");
+        } finally {
+            out.append("final ").append(getMethodName()).append(". <br>");
+        }
+
+        return out.toString();
     }
 
     public static String ModifyTwoRandomEmployeeByMovingToTopManagement(EntityManager em) {
+        StringBuilder out = new StringBuilder();
+        try {
+            out.append("start ").append(getMethodName()).append(". <br>");
+            em.getTransaction().begin();
+
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            out.append("_ rollback occured.<br>");
+        } finally {
+            out.append("final ").append(getMethodName()).append(". <br>");
+        }
+
+//        return out.toString();
         return getMethodName() + "<br>";
     }
 
     public static String RemoveThreeRandomEmployee(EntityManager em) {
+        StringBuilder out = new StringBuilder();
+        try {
+            out.append("start ").append(getMethodName()).append(". <br>");
+            em.getTransaction().begin();
+
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            out.append("_ rollback occured.<br>");
+        } finally {
+            out.append("final ").append(getMethodName()).append(". <br>");
+        }
+
+//        return out.toString();
         return getMethodName() + "<br>";
     }
 
@@ -202,9 +252,9 @@ public class JpaHelper {
      * поле должно быть отмечено @NaturalId и @Column(nullable = false, unique = true)
      * Session.class => import org.hibernate.Session;
      *
-     * @param em - EntityManager
+     * @param em     - EntityManager
      * @param tClass - тип Entity (T.class)
-     * @param value - искомая строка
+     * @param value  - искомая строка
      * @return - объект Entity
      */
     private static <T> T getEntity(EntityManager em, Class<T> tClass, String value) {

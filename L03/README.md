@@ -43,7 +43,7 @@
 
 5. :black_square_button: поиск, модификация и удаление данных.
 
-    - :black_square_button: вывести информацию с сотрудниками, отсортированную по ИД сотрудника по убыванию.**
+    - :ballot_box_with_check: вывести информацию с сотрудниками, отсортированную по ИД сотрудника по убыванию.**
   
     - :black_square_button: произвести изменение 2 строк данной таблицы, подменив фамилию сотрудника, а также его должность (на данном этапе не обязательно брать во внимание предусмотренные в системе роли: рядовой сотрудник, Бухгалтер, HR-специалист, директор).**
   
@@ -69,21 +69,58 @@ start CreateAndSaveBigBoss().
 _ hardcoded 'Big B. Boss' create.
 final CreateAndSaveBigBoss().
 start LoadAndCreateDepartamentsFromCsvFile().
-_ read departm.csv
+_ read departm.csv.
 final LoadAndCreateDepartamentsFromCsvFile().
 start LoadAndCreateAppointmentsFromCsvFile().
-_ read appoint.csv
+_ read appoint.csv.
 final LoadAndCreateAppointmentsFromCsvFile().
 start LoadAndCreateEmployesFromCsvFile().
-_ read employs.csv
+_ read employs.csv.
 final LoadAndCreateEmployesFromCsvFile().
-PrintAllEmployes()
+start PrintAllEmployes().
+{ id:34; fullname:Graeme Fishbourne; city:Ngamba; salary:3337; department:{ id:8; name:Training}; appointment:{ id:10; name:Engineer}; credentials:{ id:35; login:Chariot; passhash:*}}
+{ id:32; fullname:Vina Titcombe; city:Sokol?niki; salary:6568; department:{ id:9; name:Support}; appointment:{ id:11; name:Accountant}; credentials:{ id:33; login:Yukon XL 1500; passhash:*}}
+{ id:30; fullname:Gisella Magee; city:Mendefera; salary:8204; department:{ id:8; name:Training}; appointment:{ id:12; name:Manager}; credentials:{ id:31; login:Z4; passhash:*}}
+{ id:28; fullname:Violette Gathercole; city:?ibenik; salary:4416; department:{ id:5; name:Sales}; appointment:{ id:13; name:Developer}; credentials:{ id:29; login:Legend; passhash:*}}
+{ id:26; fullname:Tomasine Beevis; city:Firminópolis; salary:9589; department:{ id:5; name:Sales}; appointment:{ id:14; name:Professor}; credentials:{ id:27; login:Quest; passhash:*}}
+{ id:24; fullname:Don Fryd; city:Kista; salary:8740; department:{ id:7; name:Services}; appointment:{ id:10; name:Engineer}; credentials:{ id:25; login:Ranger; passhash:*}}
+{ id:22; fullname:Leora Crotty; city:Tân Hi?p; salary:9278; department:{ id:7; name:Services}; appointment:{ id:15; name:Administrator}; credentials:{ id:23; login:Dakota Club; passhash:*}}
+{ id:20; fullname:Launce Rookeby; city:Xiacang; salary:5233; department:{ id:6; name:Marketing}; appointment:{ id:10; name:Engineer}; credentials:{ id:21; login:300; passhash:*}}
+{ id:18; fullname:Normie Lutas; city:Yongfeng; salary:4622; department:{ id:7; name:Services}; appointment:{ id:11; name:Accountant}; credentials:{ id:19; login:Eldorado; passhash:*}}
+{ id:16; fullname:Ray Riggey; city:Banag; salary:8084; department:{ id:5; name:Sales}; appointment:{ id:10; name:Engineer}; credentials:{ id:17; login:Ram 3500; passhash:*}}
+{ id:4; fullname:Big B. Boss; city:TOMSK; salary:100000; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:2; name:BOSS}; credentials:{ id:3; login:boss; passhash:*}}
+final PrintAllEmployes().
 ModifyTwoRandomEmployeeByMovingToTopManagement()
-PrintAllEmployes()
+start PrintAllEmployes().
+{ id:34; fullname:Graeme Fishbourne; city:Ngamba; salary:3337; department:{ id:8; name:Training}; appointment:{ id:10; name:Engineer}; credentials:{ id:35; login:Chariot; passhash:*}}
+{ id:32; fullname:Vina Titcombe; city:Sokol?niki; salary:6568; department:{ id:9; name:Support}; appointment:{ id:11; name:Accountant}; credentials:{ id:33; login:Yukon XL 1500; passhash:*}}
+{ id:30; fullname:Gisella Magee; city:Mendefera; salary:8204; department:{ id:8; name:Training}; appointment:{ id:12; name:Manager}; credentials:{ id:31; login:Z4; passhash:*}}
+{ id:28; fullname:Violette Gathercole; city:?ibenik; salary:4416; department:{ id:5; name:Sales}; appointment:{ id:13; name:Developer}; credentials:{ id:29; login:Legend; passhash:*}}
+{ id:26; fullname:Tomasine Beevis; city:Firminópolis; salary:9589; department:{ id:5; name:Sales}; appointment:{ id:14; name:Professor}; credentials:{ id:27; login:Quest; passhash:*}}
+{ id:24; fullname:Don Fryd; city:Kista; salary:8740; department:{ id:7; name:Services}; appointment:{ id:10; name:Engineer}; credentials:{ id:25; login:Ranger; passhash:*}}
+{ id:22; fullname:Leora Crotty; city:Tân Hi?p; salary:9278; department:{ id:7; name:Services}; appointment:{ id:15; name:Administrator}; credentials:{ id:23; login:Dakota Club; passhash:*}}
+{ id:20; fullname:Launce Rookeby; city:Xiacang; salary:5233; department:{ id:6; name:Marketing}; appointment:{ id:10; name:Engineer}; credentials:{ id:21; login:300; passhash:*}}
+{ id:18; fullname:Normie Lutas; city:Yongfeng; salary:4622; department:{ id:7; name:Services}; appointment:{ id:11; name:Accountant}; credentials:{ id:19; login:Eldorado; passhash:*}}
+{ id:16; fullname:Ray Riggey; city:Banag; salary:8084; department:{ id:5; name:Sales}; appointment:{ id:10; name:Engineer}; credentials:{ id:17; login:Ram 3500; passhash:*}}
+{ id:4; fullname:Big B. Boss; city:TOMSK; salary:100000; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:2; name:BOSS}; credentials:{ id:3; login:boss; passhash:*}}
+final PrintAllEmployes().
 RemoveThreeRandomEmployee()
-PrintAllEmployes()
+start PrintAllEmployes().
+{ id:34; fullname:Graeme Fishbourne; city:Ngamba; salary:3337; department:{ id:8; name:Training}; appointment:{ id:10; name:Engineer}; credentials:{ id:35; login:Chariot; passhash:*}}
+{ id:32; fullname:Vina Titcombe; city:Sokol?niki; salary:6568; department:{ id:9; name:Support}; appointment:{ id:11; name:Accountant}; credentials:{ id:33; login:Yukon XL 1500; passhash:*}}
+{ id:30; fullname:Gisella Magee; city:Mendefera; salary:8204; department:{ id:8; name:Training}; appointment:{ id:12; name:Manager}; credentials:{ id:31; login:Z4; passhash:*}}
+{ id:28; fullname:Violette Gathercole; city:?ibenik; salary:4416; department:{ id:5; name:Sales}; appointment:{ id:13; name:Developer}; credentials:{ id:29; login:Legend; passhash:*}}
+{ id:26; fullname:Tomasine Beevis; city:Firminópolis; salary:9589; department:{ id:5; name:Sales}; appointment:{ id:14; name:Professor}; credentials:{ id:27; login:Quest; passhash:*}}
+{ id:24; fullname:Don Fryd; city:Kista; salary:8740; department:{ id:7; name:Services}; appointment:{ id:10; name:Engineer}; credentials:{ id:25; login:Ranger; passhash:*}}
+{ id:22; fullname:Leora Crotty; city:Tân Hi?p; salary:9278; department:{ id:7; name:Services}; appointment:{ id:15; name:Administrator}; credentials:{ id:23; login:Dakota Club; passhash:*}}
+{ id:20; fullname:Launce Rookeby; city:Xiacang; salary:5233; department:{ id:6; name:Marketing}; appointment:{ id:10; name:Engineer}; credentials:{ id:21; login:300; passhash:*}}
+{ id:18; fullname:Normie Lutas; city:Yongfeng; salary:4622; department:{ id:7; name:Services}; appointment:{ id:11; name:Accountant}; credentials:{ id:19; login:Eldorado; passhash:*}}
+{ id:16; fullname:Ray Riggey; city:Banag; salary:8084; department:{ id:5; name:Sales}; appointment:{ id:10; name:Engineer}; credentials:{ id:17; login:Ram 3500; passhash:*}}
+{ id:4; fullname:Big B. Boss; city:TOMSK; salary:100000; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:2; name:BOSS}; credentials:{ id:3; login:boss; passhash:*}}
+final PrintAllEmployes().
 *** PL/SQL WAS HERE ***
 final servlet.
+
 ```
 
 ##### Tomcat config

@@ -34,4 +34,19 @@ public class EmployeEntity implements Serializable {
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "credentials_id")
     private CredentialEntity credentials;
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ id:").append(id)
+                .append("; fullname:").append(fullname)
+                .append("; city:").append(city)
+                .append("; salary:").append(salary)
+                .append("; department:").append(department.toString())
+                .append("; appointment:").append(appointment.toString())
+                .append("; credentials:").append(credentials.toString())
+                .append("}");
+        return sb.toString();
+    }
 }
