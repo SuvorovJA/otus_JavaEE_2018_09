@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>210e67b1-d2b3-4fc9-8d56-26751ddac286.SCHEMA:tutorial.public</OriginalElement>
+  <nodes>
+    <node x="476.0" y="12.0">210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.departs</node>
+    <node x="238.0" y="12.0">210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.appointments</node>
+    <node x="0.0" y="0.0">210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.credentials</node>
+    <node x="238.0" y="210.0">210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.employes</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.employes" target="210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.appointments">
+      <point x="0.0" y="-100.5" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.employes" target="210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.credentials">
+      <point x="-72.66666666666669" y="-100.5" />
+      <point x="274.3333333333333" y="130.0" />
+      <point x="109.0" y="130.0" />
+      <point x="0.0" y="52.5" />
+    </edge>
+    <edge source="210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.employes" target="210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.departs">
+      <point x="72.66666666666669" y="-100.5" />
+      <point x="419.6666666666667" y="130.0" />
+      <point x="569.0" y="130.0" />
+      <point x="0.0" y="40.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="264.0" y="324.5" />
+  <SelectedNodes>
+    <node>210e67b1-d2b3-4fc9-8d56-26751ddac286.TABLE:tutorial.public.employes</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+
