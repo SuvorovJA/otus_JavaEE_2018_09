@@ -2,9 +2,7 @@ package ru.otus.ee.L03.servlets;
 
 import ru.otus.ee.L03.helpers.JpaHelper;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +38,11 @@ public class FirstServlet extends HttpServlet {
             out.println(JpaHelper.ModifyTwoRandomEmployeeByMovingToTopManagement(em));
             out.println(JpaHelper.RemoveThreeRandomEmployee(em));
             out.println(JpaHelper.PrintAllEmployes(em));
-            out.println("*** PL/SQL WAS HERE *** <br>");
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("get_fullname_with_max_salary");
+            storedProcedure.registerStoredProcedureParameter("user",String.class, ParameterMode.OUT);
+            storedProcedure.execute();
+            out.println("PL/pqSQL: " + (String)storedProcedure.getOutputParameterValue("user") + "<br>");
         } finally {
             out.println("final servlet.<br>");
             em.close();
