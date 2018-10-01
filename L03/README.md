@@ -49,7 +49,7 @@
 
     - :ballot_box_with_check: вывести информацию с сотрудниками, отсортированную по ИД сотрудника по убыванию.**
   
-    - :ballot_box_with_check: произвести изменение 2 строк данной таблицы, подменив фамилию сотрудника, а также его должность (на данном этапе не обязательно брать во внимание предусмотренные в системе роли: рядовой сотрудник, Бухгалтер, HR-специалист, директор).**
+    - :ballot_box_with_check: произвести изменение 2 строк данной таблицы, подменив ~~фамилию сотрудника, а также его должность~~ отдел (на данном этапе не обязательно брать во внимание предусмотренные в системе роли: рядовой сотрудник, Бухгалтер, HR-специалист, директор).**
   
     - :ballot_box_with_check: Удалить произвольные 3 строки из данной таблицы.**
 
@@ -144,23 +144,31 @@ add to context.xml
 
 ##### Problems
 
-`WARN  org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService HHH000342: Could not obtain connection to query metadata : Not supported by BasicDataSource`
-`INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder HHH000422: Disabling contextual LOB creation as connection was null`
-`javax.persistence.PersistenceException: [PersistenceUnit: JPAPersistenceUnit] Unable to build Hibernate SessionFactory`
-`java.lang.UnsupportedOperationException: Not supported by BasicDataSource`
+1. 
+```
+WARN  org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService HHH000342: Could not obtain connection to query metadata : Not supported by BasicDataSource
+INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder HHH000422: Disabling contextual LOB creation as connection was null
+javax.persistence.PersistenceException: [PersistenceUnit: JPAPersistenceUnit] Unable to build Hibernate SessionFactory
+java.lang.UnsupportedOperationException: Not supported by BasicDataSource
+```
 
 https://wiki.apache.org/tomcat/TomcatHibernate
 закомментировано 5 строк в persistence.xml
 
 
+2.
 `INFO  org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory.getObjectInstance Name = PostgresDS Ignoring unknown property: value of "DB Connection" for "description" property`
 
 закомментировано "description" в web.xml
 
+
+3.
 `INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException`
 
 ?
 
+
+4.
 ```
 ...entityes/CredentialEntity.java
 Error:(10, 16) Cannot resolve table 'credentials'
@@ -185,3 +193,5 @@ Error:(17, 21) Cannot resolve column 'appointment_id'
 что оно хочет?
 
 сборка и запуск при этом работают.
+
+5.
