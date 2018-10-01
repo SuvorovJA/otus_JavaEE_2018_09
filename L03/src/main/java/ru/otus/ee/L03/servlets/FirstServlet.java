@@ -38,7 +38,6 @@ public class FirstServlet extends HttpServlet {
             out.println(JpaHelper.LoadAndCreateEmployesFromCsvFile(em, context));
             out.println(JpaHelper.PrintAllEmployes(em));
             out.println(JpaHelper.ModifyTwoRandomEmployeeByMovingToTopManagement(em));
-            out.println(JpaHelper.PrintAllEmployes(em));
             out.println(JpaHelper.RemoveThreeRandomEmployee(em));
             out.println(JpaHelper.PrintAllEmployes(em));
             out.println("*** PL/SQL WAS HERE *** <br>");

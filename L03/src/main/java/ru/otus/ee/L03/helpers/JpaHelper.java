@@ -179,7 +179,18 @@ public class JpaHelper {
         try {
             out.append("start ").append(getMethodName()).append(". <br>");
             em.getTransaction().begin();
+            Query q = em.createQuery("select e from EmployeEntity e order by e.fullname desc");
+            List<EmployeEntity> result = q.getResultList();
 
+            EmployeEntity ee1 = result.get(5);
+            ee1.setDepartment(getEntity(em,DepartmentEntity.class,"TOP MANAGEMENT"));
+            out.append(ee1.toString()).append(". <br>");
+            em.persist(ee1);
+
+            EmployeEntity ee2 = result.get(2);
+            ee2.setDepartment(getEntity(em,DepartmentEntity.class,"TOP MANAGEMENT"));
+            out.append(ee2.toString()).append(". <br>");
+            em.persist(ee2);
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -189,8 +200,7 @@ public class JpaHelper {
             out.append("final ").append(getMethodName()).append(". <br>");
         }
 
-//        return out.toString();
-        return getMethodName() + "<br>";
+        return out.toString();
     }
 
     public static String RemoveThreeRandomEmployee(EntityManager em) {
@@ -198,8 +208,14 @@ public class JpaHelper {
         try {
             out.append("start ").append(getMethodName()).append(". <br>");
             em.getTransaction().begin();
-
-
+            Query q = em.createQuery("select e from EmployeEntity e order by e.salary desc");
+            List<EmployeEntity> result = q.getResultList();
+            out.append("removed ").append(result.get(1).getFullname()).append("<br>");
+            out.append("removed ").append(result.get(3).getFullname()).append("<br>");
+            out.append("removed ").append(result.get(6).getFullname()).append("<br>");
+            em.remove(result.get(1));
+            em.remove(result.get(3));
+            em.remove(result.get(6));
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -208,8 +224,7 @@ public class JpaHelper {
             out.append("final ").append(getMethodName()).append(". <br>");
         }
 
-//        return out.toString();
-        return getMethodName() + "<br>";
+        return out.toString();
     }
 
 
