@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "CREDENTIALS")
+@Table(name = "credentials")
 public class CredentialEntity implements Serializable {
 
     @Id

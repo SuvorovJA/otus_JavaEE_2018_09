@@ -1,15 +1,15 @@
 package ru.otus.ee.L03.entityes;
 
 import lombok.Data;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 
 
 @Data
 @Entity
-@Table(name = "APPOINTMENTS")
+@Table(name = "appointments")
 public class AppointmentEntity implements Serializable {
 
     @Id
@@ -18,6 +18,8 @@ public class AppointmentEntity implements Serializable {
     private long id;
 
     @Basic
+    @Column(nullable = false, unique = true)
+    @NaturalId
     private String name;
-    
+
 }

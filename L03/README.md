@@ -33,9 +33,13 @@
  
     - :ballot_box_with_check: соединяться с созданной ранее БД и выполнять DML-операции  или осуществлять отображение таблиц БД (JPA)
 
-4. :black_square_button: наполнение таблиц.
+4. :ballot_box_with_check: наполнение таблиц.
 
-    - :black_square_button: Заполнить данными имеющиеся таблицы произвольными статичными данными или данными из внешнего файла (csv, txt, xml). Достаточно десятка записей.
+    - :ballot_box_with_check: Заполнить данными имеющиеся таблицы произвольными статичными данными или данными из внешнего файла (csv, txt, xml). Достаточно десятка записей.
+
+    генерация на https://www.mockaroo.com/
+    
+    загрузка csv файлов
 
 5. :black_square_button: поиск, модификация и удаление данных.
 
@@ -60,20 +64,26 @@
 Вывод происходит в браузер.
 
 ```
-   start servlet.
-   start CreateAndSaveBigBoss().
-   _ 'Big B. Boss' created.
-   final CreateAndSaveBigBoss().
-   LoadAndCreateDepartamentsFromCsvFile()
-   LoadAndCreateAppointmentsFromCsvFile()
-   LoadAndCreateEmployesFromCsvFile()
-   PrintAllEmployes()
-   ModifyTwoRandomEmployeeByMovingToTopManagement()
-   PrintAllEmployes()
-   RemoveThreeRandomEmployee()
-   PrintAllEmployes()
-   *** PL/SQL WAS HERE ***
-   final servlet.
+start servlet.
+start CreateAndSaveBigBoss().
+_ hardcoded 'Big B. Boss' create.
+final CreateAndSaveBigBoss().
+start LoadAndCreateDepartamentsFromCsvFile().
+_ read departm.csv
+final LoadAndCreateDepartamentsFromCsvFile().
+start LoadAndCreateAppointmentsFromCsvFile().
+_ read appoint.csv
+final LoadAndCreateAppointmentsFromCsvFile().
+start LoadAndCreateEmployesFromCsvFile().
+_ read employs.csv
+final LoadAndCreateEmployesFromCsvFile().
+PrintAllEmployes()
+ModifyTwoRandomEmployeeByMovingToTopManagement()
+PrintAllEmployes()
+RemoveThreeRandomEmployee()
+PrintAllEmployes()
+*** PL/SQL WAS HERE ***
+final servlet.
 ```
 
 ##### Tomcat config
@@ -117,3 +127,28 @@ https://wiki.apache.org/tomcat/TomcatHibernate
 `INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException`
 
 ?
+
+```
+...entityes/CredentialEntity.java
+Error:(10, 16) Cannot resolve table 'credentials'
+...entityes/EmployeEntity.java
+Error:(10, 16) Cannot resolve table 'employes'
+Error:(27, 25) <statement> expected, got 'depart_id'
+Error:(27, 25) Cannot resolve column 'depart_id'
+Error:(27, 61) Cannot resolve column 'depart_id'
+Error:(31, 25) <statement> expected, got 'appointment_id'
+Error:(31, 25) Cannot resolve column 'appointment_id'
+Error:(31, 66) Cannot resolve column 'appointment_id'
+Error:(35, 25) <statement> expected, got 'credentials_id'
+Error:(35, 25) Cannot resolve column 'credentials_id'
+...entityes/DepartmentEntity.java
+Error:(11, 16) Cannot resolve table 'departs'
+Error:(16, 21) Cannot resolve column 'depart_id'
+...entityes/AppointmentEntity.java
+Error:(12, 16) Cannot resolve table 'appointments'
+Error:(17, 21) Cannot resolve column 'appointment_id'
+```
+
+что оно хочет?
+
+сборка и запуск при этом работают.

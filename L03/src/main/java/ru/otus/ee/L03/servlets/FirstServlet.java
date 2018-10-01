@@ -5,7 +5,7 @@ import ru.otus.ee.L03.helpers.JpaHelper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.servlet.ServletException;
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +16,12 @@ import java.io.PrintWriter;
 @WebServlet(value = "/first", name = "FirstServlet")
 public class FirstServlet extends HttpServlet {
 
-    public static final String PERSISTENCE_UNIT_NAME = "JPAPersistenceUnit";
+    private static final String PERSISTENCE_UNIT_NAME = "JPAPersistenceUnit";
     private static final EntityManagerFactory emf =
             Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME); // for Tomcat
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -29,11 +29,13 @@ public class FirstServlet extends HttpServlet {
 
         EntityManager em = emf.createEntityManager(); // for Tomcat
 
+        ServletContext context = request.getServletContext();
+
         try {
             out.println(JpaHelper.CreateAndSaveBigBoss(em));
-            out.println(JpaHelper.LoadAndCreateDepartamentsFromCsvFile(em));
-            out.println(JpaHelper.LoadAndCreateAppointmentsFromCsvFile(em));
-            out.println(JpaHelper.LoadAndCreateEmployesFromCsvFile(em));
+            out.println(JpaHelper.LoadAndCreateDepartamentsFromCsvFile(em, context));
+            out.println(JpaHelper.LoadAndCreateAppointmentsFromCsvFile(em, context));
+            out.println(JpaHelper.LoadAndCreateEmployesFromCsvFile(em, context));
             out.println(JpaHelper.PrintAllEmployes(em));
             out.println(JpaHelper.ModifyTwoRandomEmployeeByMovingToTopManagement(em));
             out.println(JpaHelper.PrintAllEmployes(em));
@@ -49,7 +51,7 @@ public class FirstServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doGet(request, response);
     }
 }
