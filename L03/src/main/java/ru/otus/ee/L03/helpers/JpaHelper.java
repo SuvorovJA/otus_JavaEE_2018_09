@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.servlet.ServletContext;
 import java.io.FileReader;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,45 +20,7 @@ import java.util.List;
 public class JpaHelper {
 
     public static String createAndSaveBigBoss(EntityManager em) {
-
-        StringBuilder out = new StringBuilder();
-        try {
-            out.append("start ").append(getMethodName()).append(". <br>");
-            em.getTransaction().begin();
-
-            AppointmentEntity appointmentEntity = new AppointmentEntity();
-            appointmentEntity.setName("BOSS");
-
-            DepartmentEntity departmentEntity = new DepartmentEntity();
-            departmentEntity.setName("TOP MANAGEMENT");
-
-            EmployeEntity employeEntity = createEmployeEntity(
-                    "Big B. Boss",
-                    "TOMSK",
-                    100000L,
-                    "boss",
-                    "0xABCD1234",
-                    appointmentEntity,
-                    departmentEntity
-            );
-
-            em.persist(departmentEntity);
-            em.persist(appointmentEntity);
-            em.persist(employeEntity.getCredentials());
-            em.persist(employeEntity);
-
-            // em.flush(); // transaction.commit will flush?
-            em.getTransaction().commit();
-            out.append("_ hardcoded \'").append(employeEntity.getFullname()).append("\' create.<br>");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            out.append("_ rollback occured.<br>");
-            //throw new ServletException(e);
-        } finally {
-            out.append("final ").append(getMethodName()).append(". <br>");
-        }
-
-        return out.toString();
+        return strategyExecutor(em, new CreateAndSaveBigBossStrategy());
     }
 
     // TODO ennoble need
@@ -154,81 +115,39 @@ public class JpaHelper {
     }
 
     public static String printAllEmployes(EntityManager em) {
+        return strategyExecutor(em, new PrintAllEmployesStrategy());
+    }
+
+    public static String modifyTwoRandomEmployeeByMovingToTopManagement(EntityManager em) {
+        return strategyExecutor(em, new ModifyTwoRandomEmployeeByMovingToTopManagementStrategy());
+    }
+
+    public static String removeThreeRandomEmployee(EntityManager em) {
+        return strategyExecutor(em, new RemoveThreeRandomEmployeeStrategy());
+    }
+
+    // **************************************************************************************
+
+    private interface Strategy {
+        void invoke(EntityManager em, StringBuilder out);
+    }
+
+    private static String strategyExecutor(EntityManager em, Strategy strategy) {
         StringBuilder out = new StringBuilder();
         try {
-            out.append("start ").append(getMethodName()).append(". <br>");
+            out.append("start ").append(strategy.getClass().getSimpleName()).append(". <br>");
             em.getTransaction().begin();
-            Query q = em.createQuery("select e from EmployeEntity e order by e.id desc");
-            List<EmployeEntity> result = q.getResultList();
-            result.stream().forEach(r -> out.append(r).append("<br>"));
+            strategy.invoke(em, out);
             em.getTransaction().commit();
-
         } catch (Exception e) {
             em.getTransaction().rollback();
             out.append("_ rollback occured.<br>");
             out.append("_ ").append(e.getMessage()).append("<br>");
         } finally {
-            out.append("final ").append(getMethodName()).append(". <br>");
+            out.append("final ").append(strategy.getClass().getSimpleName()).append(". <br>");
         }
-
         return out.toString();
     }
-
-    public static String modifyTwoRandomEmployeeByMovingToTopManagement(EntityManager em) {
-        StringBuilder out = new StringBuilder();
-        try {
-            out.append("start ").append(getMethodName()).append(". <br>");
-            em.getTransaction().begin();
-            Query q = em.createQuery("select e from EmployeEntity e order by e.fullname desc");
-            List<EmployeEntity> result = q.getResultList();
-
-            EmployeEntity ee1 = result.get(5);
-            ee1.setDepartment(getEntity(em,DepartmentEntity.class,"TOP MANAGEMENT"));
-            out.append(ee1.toString()).append(". <br>");
-            em.persist(ee1);
-
-            EmployeEntity ee2 = result.get(2);
-            ee2.setDepartment(getEntity(em,DepartmentEntity.class,"TOP MANAGEMENT"));
-            out.append(ee2.toString()).append(". <br>");
-            em.persist(ee2);
-
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            out.append("_ rollback occured.<br>");
-        } finally {
-            out.append("final ").append(getMethodName()).append(". <br>");
-        }
-
-        return out.toString();
-    }
-
-    public static String removeThreeRandomEmployee(EntityManager em) {
-        StringBuilder out = new StringBuilder();
-        try {
-            out.append("start ").append(getMethodName()).append(". <br>");
-            em.getTransaction().begin();
-            Query q = em.createQuery("select e from EmployeEntity e order by e.salary desc");
-            List<EmployeEntity> result = q.getResultList();
-            out.append("removed ").append(result.get(1).getFullname()).append("<br>");
-            out.append("removed ").append(result.get(3).getFullname()).append("<br>");
-            out.append("removed ").append(result.get(6).getFullname()).append("<br>");
-            em.remove(result.get(1));
-            em.remove(result.get(3));
-            em.remove(result.get(6));
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            out.append("_ rollback occured.<br>");
-        } finally {
-            out.append("final ").append(getMethodName()).append(". <br>");
-        }
-
-        return out.toString();
-    }
-
-
-    // **************************************************************************************
 
     private static EmployeEntity createEmployeEntity(
             String fullName,
@@ -256,7 +175,6 @@ public class JpaHelper {
         return employeEntity;
     }
 
-
     private static String getMethodName() {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         return stackTraceElements[2].getMethodName() + "()";
@@ -275,5 +193,81 @@ public class JpaHelper {
     private static <T> T getEntity(EntityManager em, Class<T> tClass, String value) {
         return em.unwrap(Session.class).bySimpleNaturalId(tClass).load(value);
     }
+
+    // **************************************************************************************
+
+    private static class PrintAllEmployesStrategy implements Strategy {
+        @Override
+        public void invoke(EntityManager em, StringBuilder out) {
+            Query q = em.createQuery("select e from EmployeEntity e order by e.id desc");
+            List<EmployeEntity> result = q.getResultList();
+            result.stream().forEach(r -> out.append(r).append("<br>"));
+        }
+    }
+
+    private static class ModifyTwoRandomEmployeeByMovingToTopManagementStrategy implements Strategy {
+        @Override
+        public void invoke(EntityManager em, StringBuilder out) {
+            Query q = em.createQuery("select e from EmployeEntity e order by e.fullname desc");
+            List<EmployeEntity> result = q.getResultList();
+
+            EmployeEntity ee1 = result.get(5);
+            ee1.setDepartment(getEntity(em, DepartmentEntity.class, "TOP MANAGEMENT"));
+            out.append(ee1.toString()).append(". <br>");
+            em.persist(ee1);
+
+            EmployeEntity ee2 = result.get(2);
+            ee2.setDepartment(getEntity(em, DepartmentEntity.class, "TOP MANAGEMENT"));
+            out.append(ee2.toString()).append(". <br>");
+            em.persist(ee2);
+        }
+    }
+
+    private static class RemoveThreeRandomEmployeeStrategy implements Strategy {
+        @Override
+        public void invoke(EntityManager em, StringBuilder out) {
+            Query q = em.createQuery("select e from EmployeEntity e order by e.salary desc");
+            List<EmployeEntity> result = q.getResultList();
+            out.append("removed ").append(result.get(1).getFullname()).append("<br>");
+            out.append("removed ").append(result.get(3).getFullname()).append("<br>");
+            out.append("removed ").append(result.get(6).getFullname()).append("<br>");
+            em.remove(result.get(1));
+            em.remove(result.get(3));
+            em.remove(result.get(6));
+        }
+    }
+
+    private static class CreateAndSaveBigBossStrategy implements Strategy {
+        @Override
+        public void invoke(EntityManager em, StringBuilder out) {
+            AppointmentEntity appointmentEntity = new AppointmentEntity();
+            appointmentEntity.setName("BOSS");
+
+            DepartmentEntity departmentEntity = new DepartmentEntity();
+            departmentEntity.setName("TOP MANAGEMENT");
+
+            EmployeEntity employeEntity = createEmployeEntity(
+                    "Big B. Boss",
+                    "TOMSK",
+                    100000L,
+                    "boss",
+                    "0xABCD1234",
+                    appointmentEntity,
+                    departmentEntity
+            );
+
+            em.persist(departmentEntity);
+            em.persist(appointmentEntity);
+            em.persist(employeEntity.getCredentials());
+            em.persist(employeEntity);
+        }
+    }
+
+//    private static class TemplateStrategy implements Strategy {
+//        @Override
+//        public void invoke(EntityManager em, StringBuilder out) {
+//
+//        }
+//    }
 
 }

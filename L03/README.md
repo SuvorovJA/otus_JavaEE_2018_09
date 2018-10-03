@@ -90,19 +90,18 @@
 
 ```
 start servlet.
-start CreateAndSaveBigBoss().
-_ hardcoded 'Big B. Boss' create.
-final CreateAndSaveBigBoss().
-start LoadAndCreateDepartamentsFromCsvFile().
+start CreateAndSaveBigBossStrategy.
+final CreateAndSaveBigBossStrategy.
+start loadAndCreateDepartamentsFromCsvFile().
 _ read departm.csv.
-final LoadAndCreateDepartamentsFromCsvFile().
-start LoadAndCreateAppointmentsFromCsvFile().
+final loadAndCreateDepartamentsFromCsvFile().
+start loadAndCreateAppointmentsFromCsvFile().
 _ read appoint.csv.
-final LoadAndCreateAppointmentsFromCsvFile().
-start LoadAndCreateEmployesFromCsvFile().
+final loadAndCreateAppointmentsFromCsvFile().
+start loadAndCreateEmployesFromCsvFile().
 _ read employs.csv.
-final LoadAndCreateEmployesFromCsvFile().
-start PrintAllEmployes().
+final loadAndCreateEmployesFromCsvFile().
+start PrintAllEmployesStrategy.
 { id:34; fullname:Graeme Fishbourne; city:Ngamba; salary:3337; department:{ id:8; name:Training}; appointment:{ id:10; name:Engineer}; credentials:{ id:35; login:Chariot; passhash:*}}
 { id:32; fullname:Vina Titcombe; city:Sokol?niki; salary:6568; department:{ id:9; name:Support}; appointment:{ id:11; name:Accountant}; credentials:{ id:33; login:Yukon XL 1500; passhash:*}}
 { id:30; fullname:Gisella Magee; city:Mendefera; salary:8204; department:{ id:8; name:Training}; appointment:{ id:12; name:Manager}; credentials:{ id:31; login:Z4; passhash:*}}
@@ -114,17 +113,17 @@ start PrintAllEmployes().
 { id:18; fullname:Normie Lutas; city:Yongfeng; salary:4622; department:{ id:7; name:Services}; appointment:{ id:11; name:Accountant}; credentials:{ id:19; login:Eldorado; passhash:*}}
 { id:16; fullname:Ray Riggey; city:Banag; salary:8084; department:{ id:5; name:Sales}; appointment:{ id:10; name:Engineer}; credentials:{ id:17; login:Ram 3500; passhash:*}}
 { id:4; fullname:Big B. Boss; city:TOMSK; salary:100000; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:2; name:BOSS}; credentials:{ id:3; login:boss; passhash:*}}
-final PrintAllEmployes().
-start ModifyTwoRandomEmployeeByMovingToTopManagement().
+final PrintAllEmployesStrategy.
+start ModifyTwoRandomEmployeeByMovingToTopManagementStrategy.
 { id:22; fullname:Leora Crotty; city:Tân Hi?p; salary:9278; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:15; name:Administrator}; credentials:{ id:23; login:Dakota Club; passhash:*}}.
 { id:26; fullname:Tomasine Beevis; city:Firminópolis; salary:9589; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:14; name:Professor}; credentials:{ id:27; login:Quest; passhash:*}}.
-final ModifyTwoRandomEmployeeByMovingToTopManagement().
-start RemoveThreeRandomEmployee().
+final ModifyTwoRandomEmployeeByMovingToTopManagementStrategy.
+start RemoveThreeRandomEmployeeStrategy.
 removed Tomasine Beevis
 removed Don Fryd
 removed Vina Titcombe
-final RemoveThreeRandomEmployee().
-start PrintAllEmployes().
+final RemoveThreeRandomEmployeeStrategy.
+start PrintAllEmployesStrategy.
 { id:34; fullname:Graeme Fishbourne; city:Ngamba; salary:3337; department:{ id:8; name:Training}; appointment:{ id:10; name:Engineer}; credentials:{ id:35; login:Chariot; passhash:*}}
 { id:30; fullname:Gisella Magee; city:Mendefera; salary:8204; department:{ id:8; name:Training}; appointment:{ id:12; name:Manager}; credentials:{ id:31; login:Z4; passhash:*}}
 { id:28; fullname:Violette Gathercole; city:?ibenik; salary:4416; department:{ id:5; name:Sales}; appointment:{ id:13; name:Developer}; credentials:{ id:29; login:Legend; passhash:*}}
@@ -133,7 +132,7 @@ start PrintAllEmployes().
 { id:18; fullname:Normie Lutas; city:Yongfeng; salary:4622; department:{ id:7; name:Services}; appointment:{ id:11; name:Accountant}; credentials:{ id:19; login:Eldorado; passhash:*}}
 { id:16; fullname:Ray Riggey; city:Banag; salary:8084; department:{ id:5; name:Sales}; appointment:{ id:10; name:Engineer}; credentials:{ id:17; login:Ram 3500; passhash:*}}
 { id:4; fullname:Big B. Boss; city:TOMSK; salary:100000; department:{ id:1; name:TOP MANAGEMENT}; appointment:{ id:2; name:BOSS}; credentials:{ id:3; login:boss; passhash:*}}
-final PrintAllEmployes().
+final PrintAllEmployesStrategy.
 PL/pqSQL: Big B. Boss
 final servlet.
 
