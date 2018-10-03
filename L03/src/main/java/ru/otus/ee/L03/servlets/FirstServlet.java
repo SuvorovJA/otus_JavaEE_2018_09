@@ -30,14 +30,14 @@ public class FirstServlet extends HttpServlet {
         ServletContext context = request.getServletContext();
 
         try {
-            out.println(JpaHelper.CreateAndSaveBigBoss(em));
-            out.println(JpaHelper.LoadAndCreateDepartamentsFromCsvFile(em, context));
-            out.println(JpaHelper.LoadAndCreateAppointmentsFromCsvFile(em, context));
-            out.println(JpaHelper.LoadAndCreateEmployesFromCsvFile(em, context));
-            out.println(JpaHelper.PrintAllEmployes(em));
-            out.println(JpaHelper.ModifyTwoRandomEmployeeByMovingToTopManagement(em));
-            out.println(JpaHelper.RemoveThreeRandomEmployee(em));
-            out.println(JpaHelper.PrintAllEmployes(em));
+            out.println(JpaHelper.createAndSaveBigBoss(em));
+            out.println(JpaHelper.loadAndCreateDepartamentsFromCsvFile(em, context));
+            out.println(JpaHelper.loadAndCreateAppointmentsFromCsvFile(em, context));
+            out.println(JpaHelper.loadAndCreateEmployesFromCsvFile(em, context));
+            out.println(JpaHelper.printAllEmployes(em));
+            out.println(JpaHelper.modifyTwoRandomEmployeeByMovingToTopManagement(em));
+            out.println(JpaHelper.removeThreeRandomEmployee(em));
+            out.println(JpaHelper.printAllEmployes(em));
 
             StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("get_fullname_with_max_salary");
             storedProcedure.registerStoredProcedureParameter("user",String.class, ParameterMode.OUT);

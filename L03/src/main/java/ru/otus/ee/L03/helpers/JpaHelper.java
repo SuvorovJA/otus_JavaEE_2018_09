@@ -20,7 +20,7 @@ import java.util.List;
 
 public class JpaHelper {
 
-    public static String CreateAndSaveBigBoss(EntityManager em) {
+    public static String createAndSaveBigBoss(EntityManager em) {
 
         StringBuilder out = new StringBuilder();
         try {
@@ -63,7 +63,7 @@ public class JpaHelper {
     }
 
     // TODO ennoble need
-    public static String LoadAndCreateDepartamentsFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
+    public static String loadAndCreateDepartamentsFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
         StringBuilder out = new StringBuilder();
         String file = "departm.csv";
 
@@ -91,7 +91,7 @@ public class JpaHelper {
     }
 
     // TODO ennoble need
-    public static String LoadAndCreateAppointmentsFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
+    public static String loadAndCreateAppointmentsFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
         StringBuilder out = new StringBuilder();
         String file = "appoint.csv";
 
@@ -119,7 +119,7 @@ public class JpaHelper {
     }
 
     // TODO ennoble need
-    public static String LoadAndCreateEmployesFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
+    public static String loadAndCreateEmployesFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
         StringBuilder out = new StringBuilder();
         String file = "employs.csv";
 
@@ -153,7 +153,7 @@ public class JpaHelper {
         return out.toString();
     }
 
-    public static String PrintAllEmployes(EntityManager em) {
+    public static String printAllEmployes(EntityManager em) {
         StringBuilder out = new StringBuilder();
         try {
             out.append("start ").append(getMethodName()).append(". <br>");
@@ -174,7 +174,7 @@ public class JpaHelper {
         return out.toString();
     }
 
-    public static String ModifyTwoRandomEmployeeByMovingToTopManagement(EntityManager em) {
+    public static String modifyTwoRandomEmployeeByMovingToTopManagement(EntityManager em) {
         StringBuilder out = new StringBuilder();
         try {
             out.append("start ").append(getMethodName()).append(". <br>");
@@ -203,7 +203,7 @@ public class JpaHelper {
         return out.toString();
     }
 
-    public static String RemoveThreeRandomEmployee(EntityManager em) {
+    public static String removeThreeRandomEmployee(EntityManager em) {
         StringBuilder out = new StringBuilder();
         try {
             out.append("start ").append(getMethodName()).append(". <br>");
