@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(value = "/xml2json", name = "Xml2JsonServlet")
 public class Xml2JsonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

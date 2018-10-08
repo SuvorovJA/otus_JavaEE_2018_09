@@ -15,6 +15,8 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JpaHelper {
@@ -23,95 +25,16 @@ public class JpaHelper {
         return strategyExecutor(em, new CreateAndSaveBigBossStrategy());
     }
 
-    // TODO ennoble need
     public static String loadAndCreateDepartamentsFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
-        StringBuilder out = new StringBuilder();
-        String file = "departm.csv";
-
-        out.append("start ").append(getMethodName()).append(". <br>");
-        URL departmUrl = context.getResource("/WEB-INF/classes/" + file);
-        try (Reader in = new FileReader(departmUrl.getFile())) {
-            em.getTransaction().begin();
-            out.append("_ read ").append(file).append(". <br>");
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-            for (CSVRecord record : records) {
-                DepartmentEntity departmentEntity = new DepartmentEntity();
-                departmentEntity.setName(record.get(0));
-                em.persist(departmentEntity);
-            }
-            em.getTransaction().commit();
-        } catch (NullPointerException e) {
-            out.append("_ not found ").append(file).append(". <br>");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            out.append("_ rollback occured.<br>");
-            out.append("_ ").append(e.getMessage()).append("<br>");
-        }
-        out.append("final ").append(getMethodName()).append(". <br>");
-        return out.toString();
+        return strategyExecutorForCsvLoader(em, context, "departm.csv", new LoadAndCreateDepartamentsFromCsvFileStrategy());
     }
 
-    // TODO ennoble need
     public static String loadAndCreateAppointmentsFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
-        StringBuilder out = new StringBuilder();
-        String file = "appoint.csv";
-
-        out.append("start ").append(getMethodName()).append(". <br>");
-        URL departmUrl = context.getResource("/WEB-INF/classes/" + file);
-        try (Reader in = new FileReader(departmUrl.getFile())) {
-            em.getTransaction().begin();
-            out.append("_ read ").append(file).append(". <br>");
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-            for (CSVRecord record : records) {
-                AppointmentEntity appointmentEntity = new AppointmentEntity();
-                appointmentEntity.setName(record.get(0));
-                em.persist(appointmentEntity);
-            }
-            em.getTransaction().commit();
-        } catch (NullPointerException e) {
-            out.append("_ not found ").append(file).append(". <br>");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            out.append("_ rollback occured.<br>");
-            out.append("_ ").append(e.getMessage()).append("<br>");
-        }
-        out.append("final ").append(getMethodName()).append(". <br>");
-        return out.toString();
+        return strategyExecutorForCsvLoader(em, context, "appoint.csv", new LoadAndCreateAppointmentsFromCsvFileStrategy());
     }
 
-    // TODO ennoble need
     public static String loadAndCreateEmployesFromCsvFile(EntityManager em, ServletContext context) throws MalformedURLException {
-        StringBuilder out = new StringBuilder();
-        String file = "employs.csv";
-
-        out.append("start ").append(getMethodName()).append(". <br>");
-        URL departmUrl = context.getResource("/WEB-INF/classes/" + file);
-        try (Reader in = new FileReader(departmUrl.getFile())) {
-            em.getTransaction().begin();
-            out.append("_ read ").append(file).append(". <br>");
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            for (CSVRecord record : records) {
-                EmployeEntity employeEntity = createEmployeEntity(
-                        record.get("fullname"),
-                        record.get("city"),
-                        Long.parseLong(record.get("salary")),
-                        record.get("login"),
-                        record.get("passhash"),
-                        getEntity(em, AppointmentEntity.class, record.get("appointment")),
-                        getEntity(em, DepartmentEntity.class, record.get("departament"))
-                );
-                em.persist(employeEntity);
-            }
-            em.getTransaction().commit();
-        } catch (NullPointerException e) {
-            out.append("_ not found ").append(file).append(". <br>");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            out.append("_ rollback occured.<br>");
-            out.append("_ ").append(e.getMessage()).append("<br>");
-        }
-        out.append("final ").append(getMethodName()).append(". <br>");
-        return out.toString();
+        return strategyExecutorForCsvLoader(em, context, "employs.csv", new LoadAndCreateEmployesFromCsvFileStrategy());
     }
 
     public static String printAllEmployes(EntityManager em) {
@@ -126,11 +49,11 @@ public class JpaHelper {
         return strategyExecutor(em, new RemoveThreeRandomEmployeeStrategy());
     }
 
-    // **************************************************************************************
-
-    private interface Strategy {
-        void invoke(EntityManager em, StringBuilder out);
+    public static List<EmployeEntity> getAllEmployes(EntityManager em) throws SQLException {
+        return strategyExecutorForGetter(em, new GetAllEmployesStrategyForGetter());
     }
+
+    // **************************************************************************************
 
     private static String strategyExecutor(EntityManager em, Strategy strategy) {
         StringBuilder out = new StringBuilder();
@@ -146,6 +69,40 @@ public class JpaHelper {
         } finally {
             out.append("final ").append(strategy.getClass().getSimpleName()).append(". <br>");
         }
+        return out.toString();
+    }
+
+    private static List<EmployeEntity> strategyExecutorForGetter(EntityManager em, StrategyForGetter strategy) throws SQLException {
+        List<EmployeEntity> list = new ArrayList<>();
+        try {
+            em.getTransaction().begin();
+            list = strategy.invoke(em);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new SQLException(e);
+        }
+        return list;
+    }
+
+    private static String strategyExecutorForCsvLoader(EntityManager em, ServletContext context, String file, StrategyForCsvLoader strategy) throws MalformedURLException {
+        StringBuilder out = new StringBuilder();
+        out.append("start ").append(getMethodName()).append(". <br>");
+        URL fileUrl = context.getResource("/WEB-INF/classes/" + file);
+        try (Reader in = new FileReader(fileUrl.getFile())) {
+            em.getTransaction().begin();
+            out.append("_ read ").append(file).append(". <br>");
+            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+            strategy.invoke(em, records);
+            em.getTransaction().commit();
+        } catch (NullPointerException e) {
+            out.append("_ not found ").append(file).append(". <br>");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            out.append("_ rollback occured.<br>");
+            out.append("_ ").append(e.getMessage()).append("<br>");
+        }
+        out.append("final ").append(getMethodName()).append(". <br>");
         return out.toString();
     }
 
@@ -195,6 +152,19 @@ public class JpaHelper {
     }
 
     // **************************************************************************************
+
+
+    private interface Strategy {
+        void invoke(EntityManager em, StringBuilder out);
+    }
+
+    private interface StrategyForGetter {
+        List<EmployeEntity> invoke(EntityManager em);
+    }
+
+    private interface StrategyForCsvLoader {
+        void invoke(EntityManager em, Iterable<CSVRecord> records);
+    }
 
     private static class PrintAllEmployesStrategy implements Strategy {
         @Override
@@ -263,9 +233,66 @@ public class JpaHelper {
         }
     }
 
+    private static class GetAllEmployesStrategyForGetter implements StrategyForGetter {
+        @Override
+        public List<EmployeEntity> invoke(EntityManager em) {
+            Query q = em.createQuery("select e from EmployeEntity e order by e.id asc");
+            List<EmployeEntity> result = q.getResultList();
+            return result;
+        }
+    }
+
+    private static class LoadAndCreateEmployesFromCsvFileStrategy implements StrategyForCsvLoader {
+        @Override
+        public void invoke(EntityManager em, Iterable<CSVRecord> records) {
+            for (CSVRecord record : records) {
+                EmployeEntity employeEntity = createEmployeEntity(
+                        record.get("fullname"),
+                        record.get("city"),
+                        Long.parseLong(record.get("salary")),
+                        record.get("login"),
+                        record.get("passhash"),
+                        getEntity(em, AppointmentEntity.class, record.get("appointment")),
+                        getEntity(em, DepartmentEntity.class, record.get("departament"))
+                );
+                em.persist(employeEntity);
+            }
+        }
+    }
+
+    private static class LoadAndCreateAppointmentsFromCsvFileStrategy implements StrategyForCsvLoader {
+        @Override
+        public void invoke(EntityManager em, Iterable<CSVRecord> records) {
+            for (CSVRecord record : records) {
+                AppointmentEntity appointmentEntity = new AppointmentEntity();
+                appointmentEntity.setName(record.get("appointment"));
+                em.persist(appointmentEntity);
+            }
+        }
+    }
+
+    private static class LoadAndCreateDepartamentsFromCsvFileStrategy implements StrategyForCsvLoader {
+        @Override
+        public void invoke(EntityManager em, Iterable<CSVRecord> records) {
+            for (CSVRecord record : records) {
+                DepartmentEntity departmentEntity = new DepartmentEntity();
+                departmentEntity.setName(record.get("departament"));
+                em.persist(departmentEntity);
+            }
+        }
+    }
+
+
 //    private static class TemplateStrategy implements Strategy {
 //        @Override
 //        public void invoke(EntityManager em, StringBuilder out) {
+//
+//        }
+//    }
+
+//    private static class TemplateStrategy implements StrategyForCsvLoader {
+//        @Override
+//        public void invoke(EntityManager em, Iterable<CSVRecord> records) {
 //
 //        }
 //    }
