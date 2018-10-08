@@ -3,10 +3,7 @@ package ru.otus.ee.L03.helpers;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.hibernate.Session;
-import ru.otus.ee.L03.entityes.AppointmentEntity;
-import ru.otus.ee.L03.entityes.CredentialEntity;
-import ru.otus.ee.L03.entityes.DepartmentEntity;
-import ru.otus.ee.L03.entityes.EmployeEntity;
+import ru.otus.ee.L03.entityes.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,7 +13,6 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JpaHelper {
@@ -49,7 +45,7 @@ public class JpaHelper {
         return strategyExecutor(em, new RemoveThreeRandomEmployeeStrategy());
     }
 
-    public static List<EmployeEntity> getAllEmployes(EntityManager em) throws SQLException {
+    public static Employes getAllEmployes(EntityManager em) throws SQLException {
         return strategyExecutorForGetter(em, new GetAllEmployesStrategyForGetter());
     }
 
@@ -72,11 +68,11 @@ public class JpaHelper {
         return out.toString();
     }
 
-    private static List<EmployeEntity> strategyExecutorForGetter(EntityManager em, StrategyForGetter strategy) throws SQLException {
-        List<EmployeEntity> list = new ArrayList<>();
+    private static Employes strategyExecutorForGetter(EntityManager em, StrategyForGetter strategy) throws SQLException {
+        Employes list = new Employes();
         try {
             em.getTransaction().begin();
-            list = strategy.invoke(em);
+            list=strategy.invoke(em);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -159,7 +155,7 @@ public class JpaHelper {
     }
 
     private interface StrategyForGetter {
-        List<EmployeEntity> invoke(EntityManager em);
+        Employes invoke(EntityManager em);
     }
 
     private interface StrategyForCsvLoader {
@@ -235,9 +231,10 @@ public class JpaHelper {
 
     private static class GetAllEmployesStrategyForGetter implements StrategyForGetter {
         @Override
-        public List<EmployeEntity> invoke(EntityManager em) {
+        public Employes invoke(EntityManager em) {
             Query q = em.createQuery("select e from EmployeEntity e order by e.id asc");
-            List<EmployeEntity> result = q.getResultList();
+            Employes result = new Employes();
+            result.setEmployes(q.getResultList());
             return result;
         }
     }
