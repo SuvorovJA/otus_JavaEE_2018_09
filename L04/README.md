@@ -67,7 +67,7 @@ start PrintAllEmployesStrategy.
 final PrintAllEmployesStrategy.
 Export to file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes_jaxb.xml
 File length before= 100
-File length after= 6179
+File length after= 5389
 final servlet.
 ```
 
@@ -76,7 +76,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <employes>
     <employes-list>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="12">
+        <employee id="12">
             <fullname>Ray Riggey</fullname>
             <city>Banag</city>
             <salary>8084</salary>
@@ -91,7 +91,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>0acc84d958e88dfc3b205fc26b67b623</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="14">
+        <employee id="14">
             <fullname>Normie Lutas</fullname>
             <city>Yongfeng</city>
             <salary>4622</salary>
@@ -106,7 +106,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>87dc36d8239839ca2525d030afd284cd</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="16">
+        <employee id="16">
             <fullname>Launce Rookeby</fullname>
             <city>Xiacang</city>
             <salary>5233</salary>
@@ -121,7 +121,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>8136f81e7fbb51082e4367be72cc0d1f</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="18">
+        <employee id="18">
             <fullname>Leora Crotty</fullname>
             <city>Tân Hiệp</city>
             <salary>9278</salary>
@@ -136,7 +136,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>8947e944fd93a5a17345417675da857e</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="20">
+        <employee id="20">
             <fullname>Don Fryd</fullname>
             <city>Kista</city>
             <salary>8740</salary>
@@ -151,7 +151,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>f68d3786f76369a2fd010425e67c770e</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="22">
+        <employee id="22">
             <fullname>Tomasine Beevis</fullname>
             <city>Firminópolis</city>
             <salary>9589</salary>
@@ -166,7 +166,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>ea94886f8c4080fe2957c192ff09845f</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="24">
+        <employee id="24">
             <fullname>Violette Gathercole</fullname>
             <city>Šibenik</city>
             <salary>4416</salary>
@@ -181,7 +181,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>e1172d7a844c89d2f477e4218b1143f4</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="26">
+        <employee id="26">
             <fullname>Gisella Magee</fullname>
             <city>Mendefera</city>
             <salary>8204</salary>
@@ -196,7 +196,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>4738d7ba03a3cb44327e23a0ad4e9503</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="28">
+        <employee id="28">
             <fullname>Vina Titcombe</fullname>
             <city>Sokol’niki</city>
             <salary>6568</salary>
@@ -211,7 +211,7 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
                 <passhash>9b15bba26f73f83889472ad2e4ceff62</passhash>
             </credentials>
         </employee>
-        <employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="employeEntity" id="30">
+        <employee id="30">
             <fullname>Graeme Fishbourne</fullname>
             <city>Ngamba</city>
             <salary>3337</salary>
@@ -228,7 +228,6 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
         </employee>
     </employes-list>
 </employes>
-
 ```
 
 ``` 
@@ -260,8 +259,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Ram 3500",
       "passhash": "0acc84d958e88dfc3b205fc26b67b623"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Engineer",
       "id": 6
@@ -281,8 +278,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Eldorado",
       "passhash": "87dc36d8239839ca2525d030afd284cd"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Accountant",
       "id": 7
@@ -302,8 +297,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": 300,
       "passhash": "8136f81e7fbb51082e4367be72cc0d1f"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Engineer",
       "id": 6
@@ -323,8 +316,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Dakota Club",
       "passhash": "8947e944fd93a5a17345417675da857e"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Administrator",
       "id": 11
@@ -344,8 +335,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Ranger",
       "passhash": "f68d3786f76369a2fd010425e67c770e"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Engineer",
       "id": 6
@@ -365,8 +354,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Quest",
       "passhash": "ea94886f8c4080fe2957c192ff09845f"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Professor",
       "id": 10
@@ -386,8 +373,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Legend",
       "passhash": "e1172d7a844c89d2f477e4218b1143f4"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Developer",
       "id": 9
@@ -407,8 +392,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Z4",
       "passhash": "4738d7ba03a3cb44327e23a0ad4e9503"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Manager",
       "id": 8
@@ -428,8 +411,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Yukon XL 1500",
       "passhash": "9b15bba26f73f83889472ad2e4ceff62"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Accountant",
       "id": 7
@@ -449,8 +430,6 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "login": "Chariot",
       "passhash": "e51120e6b86abbc702fc66abc6dac399"
     },
-    "xsi:type": "employeEntity",
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "appointment": {
       "name": "Engineer",
       "id": 6
@@ -466,12 +445,21 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
 ]}}}
 
 Export to file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes.json
-Json file length = 4579
+Json file length = 3629
 final servlet.
-
 ``` 
 
+``` 
+http://localhost:8080/L04/json2obj
+start servlet.
+Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes.json
+final servlet.
+```
+
+
 #### Проблемы
+ - не отрабатывает json-b unmarshalling
+
  - стирается база между 0 и 1 при первых кликах
  
         0. fill database - база загружена

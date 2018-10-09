@@ -35,12 +35,13 @@ public class Xml2JsonServlet extends HttpServlet {
         out.println("Import from file: " + filex.toString() + "<br>");
         try {
             JSONObject jsonObject = XML.toJSONObject(new String(Files.readAllBytes(filex.toPath())));
-            out.println("<pre>"+jsonObject.toString(2)+"</pre>");
+            String json = jsonObject.toString(2);
+            out.println("<pre>" + json + "</pre>");
             out.println("Export to file: " + filej.toString() + "<br>");
-            Files.write(filej.toPath(), jsonObject.toString(2).getBytes());
+            Files.write(filej.toPath(), json.getBytes());
             out.println("Json file length = " + filej.length() + "<br>");
-        } catch (JSONException e) {
-            out.println("Exception occured. " + e.getMessage());
+        } catch (Exception e) {
+            out.println("Exception occured. " + e.getCause().getMessage());
             e.printStackTrace();
         } finally {
             out.println("final servlet.<br>");

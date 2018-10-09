@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JpaHelper {
@@ -234,7 +235,7 @@ public class JpaHelper {
         public Employes invoke(EntityManager em) {
             Query q = em.createQuery("select e from EmployeEntity e order by e.id asc");
             Employes result = new Employes();
-            result.setEmployes(q.getResultList());
+            result.setEmployes((ArrayList<EmployeEntity>) q.getResultList());
             return result;
         }
     }

@@ -2,6 +2,7 @@ package ru.otus.ee.L03.entityes;
 
 import lombok.Data;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class CredentialEntity implements Serializable {
 
     @OneToOne(optional = false, mappedBy = "credentials")
     @XmlTransient  // http://blog.bdoughan.com/2010/07/jpa-entities-to-xml-bidirectional.html
+    @JsonbTransient
     private EmployeEntity employe;
 
     @Basic

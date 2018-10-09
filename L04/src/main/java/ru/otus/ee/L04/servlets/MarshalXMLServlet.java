@@ -44,7 +44,7 @@ public class MarshalXMLServlet extends HttpServlet {
             out.println("Read from db " + list.getEmployes().size() + " Employes.<br>");
             out.println(JpaHelper.printAllEmployes(em));
             //
-            JAXBContext context = JAXBContext.newInstance(Employes.class,EmployeEntity.class);
+            JAXBContext context = JAXBContext.newInstance(Employes.class, EmployeEntity.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             File folder = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
