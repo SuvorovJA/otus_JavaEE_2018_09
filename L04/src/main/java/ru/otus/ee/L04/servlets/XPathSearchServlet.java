@@ -1,27 +1,15 @@
 package ru.otus.ee.L04.servlets;
 
-import com.sun.org.apache.xerces.internal.util.DOMUtil;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import ru.otus.ee.L03.entityes.EmployeEntity;
-import ru.otus.ee.L03.entityes.Employes;
-import ru.otus.ee.L03.helpers.JpaHelper;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,7 +17,6 @@ import javax.xml.xpath.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.stream.IntStream;
 
 @WebServlet(value = "/xpathinxml", name = "XPathSearchServlet")

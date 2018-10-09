@@ -55,6 +55,12 @@
             <!--<artifactId>commons-csv</artifactId>-->
             <!--<version>1.6</version>-->
         <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.json/org.json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>org.json</artifactId>
+            <version>chargebee-1.0</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
