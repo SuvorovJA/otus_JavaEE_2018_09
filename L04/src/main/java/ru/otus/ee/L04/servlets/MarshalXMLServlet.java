@@ -37,14 +37,13 @@ public class MarshalXMLServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("start servlet.<br>");
-
         EntityManager em = emf.createEntityManager();
 
         try {
             Employes list = JpaHelper.getAllEmployes(em);
             out.println("Read from db " + list.getEmployes().size() + " Employes.<br>");
             out.println(JpaHelper.printAllEmployes(em));
-
+            //
             JAXBContext context = JAXBContext.newInstance(Employes.class,EmployeEntity.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -54,9 +53,8 @@ public class MarshalXMLServlet extends HttpServlet {
             out.println("File length before= " + file.length() + "<br>");
             m.marshal(list, file);
             out.println("File length after= " + file.length() + "<br>");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
+            //
+        } catch (SQLException | JAXBException e) {
             e.printStackTrace();
         } finally {
             out.println("final servlet.<br>");

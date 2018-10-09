@@ -7,8 +7,8 @@
 
 2. поиск XPath.
 
-- [ ] Считав содержимое xml-документа employee.xml в объект org.w3c.dom.Document или org.xml.sax.InputSource, 
-- [ ] необходимо найти все xml-теги сотрудников, у которых зарплата превышает среднее значение. 
+- [x] Считав содержимое xml-документа employee.xml в объект org.w3c.dom.Document или org.xml.sax.InputSource, 
+- [x] необходимо найти все xml-теги сотрудников, у которых зарплата превышает среднее значение. 
 Допустимо логику описать в том же сервлете MarshalXMLServlet либо создать запускаемый класс.
 
 3. конвертация XML в JSON.
@@ -231,10 +231,29 @@ $ cat '/home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Cat
 
 ```
 
+``` 
+http://localhost:8080/L04/xpathinxml
+start servlet.
+Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes_jaxb.xml
+Get 10 salary records with content: 8084 4622 5233 9278 8740 9589 4416 8204 6568 3337
+Avegage salary: 6807
+Get 5 employes with salary over average: 
+Ray Riggey Banag 8084 Sales Engineer Ram 3500 0acc84d958e88dfc3b205fc26b67b623
+Leora Crotty Tân Hi?p 9278 Services Administrator Dakota Club 8947e944fd93a5a17345417675da857e
+Don Fryd Kista 8740 Services Engineer Ranger f68d3786f76369a2fd010425e67c770e
+Tomasine Beevis Firminópolis 9589 Sales Professor Quest ea94886f8c4080fe2957c192ff09845f
+Gisella Magee Mendefera 8204 Training Manager Z4 4738d7ba03a3cb44327e23a0ad4e9503
+
+final servlet.
+```
+
+
 #### Проблемы
  - стирается база между 0 и 1 при первых кликах
+ 
         0. fill database - база загружена
         1. xml marshaling - база стерта
         0. fill database - база загружена еще раз
         1. xml marshaling - база осталась, видится 04 модулем
+        
  влияет value="create-drop" в L03/../persistence.xml ?
