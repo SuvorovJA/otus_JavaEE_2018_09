@@ -246,6 +246,8 @@ Gisella Magee Mendefera 8204 Training Manager Z4 4738d7ba03a3cb44327e23a0ad4e950
 
 final servlet.
 ```
+
+```
 http://localhost:8080/L04/xml2json
 start servlet.
 Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes_jaxb.xml
@@ -468,8 +470,6 @@ Json file length = 4579
 final servlet.
 
 ``` 
-
-```
 
 #### Проблемы
  - стирается база между 0 и 1 при первых кликах
