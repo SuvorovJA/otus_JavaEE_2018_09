@@ -19,8 +19,8 @@
 
 4. отображение внешнего JSON-файла на объектную модель.
 
-- [ ] Используя содержимое employee.json и возможности технологии JSON-B, получить список объектов Employee 
-- [ ] и вывести в сервлете или запускаемом классе информацию о сотрудниках с нечетными индексами в списке.
+- [x] Используя содержимое employee.json и возможности технологии JSON-B, получить список объектов Employee 
+- [x] и вывести в сервлете или запускаемом классе информацию о сотрудниках с нечетными индексами в списке.
 
 ### Решение
 
@@ -251,7 +251,7 @@ http://localhost:8080/L04/xml2json
 start servlet.
 Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes_jaxb.xml
 
-{"employes": {"employes-list": {"employee": [
+[
   {
     "city": "Banag",
     "credentials": {
@@ -442,10 +442,10 @@ Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_proje
       "id": 4
     }
   }
-]}}}
+]
 
 Export to file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes.json
-Json file length = 3629
+Json file length = 3582
 final servlet.
 ``` 
 
@@ -453,18 +453,27 @@ final servlet.
 http://localhost:8080/L04/json2obj
 start servlet.
 Import from file: /home/lsua/.IntelliJIdea2018.2/system/tomcat/tomcat9_(1)_project/work/Catalina/localhost/L04/employes.json
+not have odd indexes, will print all.
+id 12 is Ray Riggey
+id 14 is Normie Lutas
+id 16 is Launce Rookeby
+id 18 is Leora Crotty
+id 20 is Don Fryd
+id 22 is Tomasine Beevis
+id 24 is Violette Gathercole
+id 26 is Gisella Magee
+id 28 is Vina Titcombe
+id 30 is Graeme Fishbourne
 final servlet.
 ```
 
 
 #### Проблемы
- - не отрабатывает json-b unmarshalling
 
  - стирается база между 0 и 1 при первых кликах
  
         0. fill database - база загружена
-        1. xml marshaling - база стерта
+        1. xml marshaling - база стерта, маршалер ничего не читает из базы
         0. fill database - база загружена еще раз
-        1. xml marshaling - база осталась, видится 04 модулем
+        1. xml marshaling - база осталась, видится маршалером
         
- влияет value="create-drop" в L03/../persistence.xml ?

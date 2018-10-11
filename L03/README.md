@@ -189,9 +189,9 @@ https://wiki.apache.org/tomcat/TomcatHibernate
 
 4.
 ```
-...entityes/CredentialEntity.java
+...ru.otus.ee.L03.entityes/CredentialEntity.java
 Error:(10, 16) Cannot resolve table 'credentials'
-...entityes/EmployeEntity.java
+...ru.otus.ee.L03.entityes/EmployeEntity.java
 Error:(10, 16) Cannot resolve table 'employes'
 Error:(27, 25) <statement> expected, got 'depart_id'
 Error:(27, 25) Cannot resolve column 'depart_id'
@@ -201,10 +201,10 @@ Error:(31, 25) Cannot resolve column 'appointment_id'
 Error:(31, 66) Cannot resolve column 'appointment_id'
 Error:(35, 25) <statement> expected, got 'credentials_id'
 Error:(35, 25) Cannot resolve column 'credentials_id'
-...entityes/DepartmentEntity.java
+...ru.otus.ee.L03.entityes/DepartmentEntity.java
 Error:(11, 16) Cannot resolve table 'departs'
 Error:(16, 21) Cannot resolve column 'depart_id'
-...entityes/AppointmentEntity.java
+...ru.otus.ee.L03.entityes/AppointmentEntity.java
 Error:(12, 16) Cannot resolve table 'appointments'
 Error:(17, 21) Cannot resolve column 'appointment_id'
 ```

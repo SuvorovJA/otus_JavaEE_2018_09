@@ -1,0 +1,192 @@
+[
+  {
+    "city": "Banag",
+    "credentials": {
+      "id": 13,
+      "login": "Ram 3500",
+      "passhash": "0acc84d958e88dfc3b205fc26b67b623"
+    },
+    "appointment": {
+      "name": "Engineer",
+      "id": 6
+    },
+    "id": 12,
+    "fullname": "Ray Riggey",
+    "salary": 8084,
+    "department": {
+      "name": "Sales",
+      "id": 1
+    }
+  },
+  {
+    "city": "Yongfeng",
+    "credentials": {
+      "id": 15,
+      "login": "Eldorado",
+      "passhash": "87dc36d8239839ca2525d030afd284cd"
+    },
+    "appointment": {
+      "name": "Accountant",
+      "id": 7
+    },
+    "id": 14,
+    "fullname": "Normie Lutas",
+    "salary": 4622,
+    "department": {
+      "name": "Services",
+      "id": 3
+    }
+  },
+  {
+    "city": "Xiacang",
+    "credentials": {
+      "id": 17,
+      "login": 300,
+      "passhash": "8136f81e7fbb51082e4367be72cc0d1f"
+    },
+    "appointment": {
+      "name": "Engineer",
+      "id": 6
+    },
+    "id": 16,
+    "fullname": "Launce Rookeby",
+    "salary": 5233,
+    "department": {
+      "name": "Marketing",
+      "id": 2
+    }
+  },
+  {
+    "city": "Tân Hiệp",
+    "credentials": {
+      "id": 19,
+      "login": "Dakota Club",
+      "passhash": "8947e944fd93a5a17345417675da857e"
+    },
+    "appointment": {
+      "name": "Administrator",
+      "id": 11
+    },
+    "id": 18,
+    "fullname": "Leora Crotty",
+    "salary": 9278,
+    "department": {
+      "name": "Services",
+      "id": 3
+    }
+  },
+  {
+    "city": "Kista",
+    "credentials": {
+      "id": 21,
+      "login": "Ranger",
+      "passhash": "f68d3786f76369a2fd010425e67c770e"
+    },
+    "appointment": {
+      "name": "Engineer",
+      "id": 6
+    },
+    "id": 20,
+    "fullname": "Don Fryd",
+    "salary": 8740,
+    "department": {
+      "name": "Services",
+      "id": 3
+    }
+  },
+  {
+    "city": "Firminópolis",
+    "credentials": {
+      "id": 23,
+      "login": "Quest",
+      "passhash": "ea94886f8c4080fe2957c192ff09845f"
+    },
+    "appointment": {
+      "name": "Professor",
+      "id": 10
+    },
+    "id": 22,
+    "fullname": "Tomasine Beevis",
+    "salary": 9589,
+    "department": {
+      "name": "Sales",
+      "id": 1
+    }
+  },
+  {
+    "city": "Šibenik",
+    "credentials": {
+      "id": 25,
+      "login": "Legend",
+      "passhash": "e1172d7a844c89d2f477e4218b1143f4"
+    },
+    "appointment": {
+      "name": "Developer",
+      "id": 9
+    },
+    "id": 24,
+    "fullname": "Violette Gathercole",
+    "salary": 4416,
+    "department": {
+      "name": "Sales",
+      "id": 1
+    }
+  },
+  {
+    "city": "Mendefera",
+    "credentials": {
+      "id": 27,
+      "login": "Z4",
+      "passhash": "4738d7ba03a3cb44327e23a0ad4e9503"
+    },
+    "appointment": {
+      "name": "Manager",
+      "id": 8
+    },
+    "id": 26,
+    "fullname": "Gisella Magee",
+    "salary": 8204,
+    "department": {
+      "name": "Training",
+      "id": 4
+    }
+  },
+  {
+    "city": "Sokol\u2019niki",
+    "credentials": {
+      "id": 29,
+      "login": "Yukon XL 1500",
+      "passhash": "9b15bba26f73f83889472ad2e4ceff62"
+    },
+    "appointment": {
+      "name": "Accountant",
+      "id": 7
+    },
+    "id": 28,
+    "fullname": "Vina Titcombe",
+    "salary": 6568,
+    "department": {
+      "name": "Support",
+      "id": 5
+    }
+  },
+  {
+    "city": "Ngamba",
+    "credentials": {
+      "id": 31,
+      "login": "Chariot",
+      "passhash": "e51120e6b86abbc702fc66abc6dac399"
+    },
+    "appointment": {
+      "name": "Engineer",
+      "id": 6
+    },
+    "id": 30,
+    "fullname": "Graeme Fishbourne",
+    "salary": 3337,
+    "department": {
+      "name": "Training",
+      "id": 4
+    }
+  }
+]
