@@ -99,3 +99,7 @@ footer {
 .footer-text {
     text-align: center;
 }
+
+.footer-text a {
+  margin-right: 24px;
+}
