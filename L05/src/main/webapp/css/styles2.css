@@ -103,3 +103,9 @@ footer {
 .footer-text a {
   margin-right: 24px;
 }
+
+.loginform {
+ 	margin-top: 5px;
+    display: inline-block;
+    width: 100px;
+}
