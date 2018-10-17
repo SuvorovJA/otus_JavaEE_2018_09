@@ -9,7 +9,8 @@
                     "id": "<xsl:value-of select="@ID"/>",
                     "char_code": "<xsl:value-of select="CharCode"/>",
                     "name": "<xsl:value-of select="Name"/>",
-                    "value": "<xsl:value-of select="Value"/>"
+                    "value": "<xsl:value-of select="Value"/>",
+                    "nominal": "<xsl:value-of select="Nominal"/>"
                     }
                 </xsl:when>
                 <xsl:otherwise>
@@ -17,7 +18,8 @@
                     "id": "<xsl:value-of select="@ID"/>",
                     "char_code": "<xsl:value-of select="CharCode"/>",
                     "name": "<xsl:value-of select="Name"/>",
-                    "value": "<xsl:value-of select="Value"/>"
+                    "value": "<xsl:value-of select="Value"/>",
+                    "nominal": "<xsl:value-of select="Nominal"/>"
                     }
                 </xsl:otherwise>
             </xsl:choose>
