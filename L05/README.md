@@ -65,21 +65,24 @@ INFO [http-nio-8080-exec-100] org.apache.catalina.core.ApplicationContext.log
                     "id": "R01235",
                     "char_code": "USD",
                     "name": "Доллар США",
-                    "value": "65,4026"
+                    "value": "65,4026",
+                    "nominal": "1"
                     }
                 
                     , {
                     "id": "R01239",
                     "char_code": "EUR",
                     "name": "Евро",
-                    "value": "75,6512"
+                    "value": "75,6512",
+                    "nominal": "1"
                     }
                 
                     , {
                     "id": "R01375",
                     "char_code": "CNY",
                     "name": "Китайских юаней",
-                    "value": "94,4469"
+                    "value": "94,4469",
+                    "nominal": "10"
                     }
                 
         ]}
