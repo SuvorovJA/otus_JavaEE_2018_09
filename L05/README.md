@@ -90,7 +90,8 @@ INFO [http-nio-8080-exec-100] org.apache.catalina.core.ApplicationContext.log
 новости по jsoup
 любая страница http://localhost:8080/L05  
 
-17-Oct-2018 23:41:15.134 INFO [http-nio-8080-exec-32] org.apache.catalina.core.ApplicationContext.log 
+NewsServlet:37
+INFO [http-nio-8080-exec-32] org.apache.catalina.core.ApplicationContext.log 
 {"news":[{"text":"Власти: вода на Большой Подгорной отступает","href":"http://www.tomsk.ru/news/view/137451"},
 {"text":"«Томь» оштрафовали за задержку матча","href":"http://www.tomsk.ru/news/view/137450"},
 {"text":"Жильцы на Большой Подгорной боятся, что вода попадет в дом","href":"http://www.tomsk.ru/news/view/137449"},
