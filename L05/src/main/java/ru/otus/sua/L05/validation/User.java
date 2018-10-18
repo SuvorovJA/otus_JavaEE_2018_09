@@ -14,12 +14,10 @@ import javax.validation.constraints.Size;
 public class User {
 
     @NotNull
-    @Size(max = 8, message = "Login must contain at max 8 characters.")
-    @Size(min = 3, message = "Login must contain at least 3 characters.")
+    @Size(max = 8, min = 3)
     private String login;
 
     @NotNull
-    @Size(max = 8, message = "Password must contain at max 8 characters.")
-    @Size(min = 3, message = "Password must contain at least 3 characters.")
+    @Size(max = 8, min = 3)
     private String password;
 }

@@ -13,16 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ExecuteServlet",urlPatterns = "/execute")
+@WebServlet(name = "ExecuteServlet", urlPatterns = "/execute")
 public class ExecuteServlet extends HttpServlet {
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ScriptEngineManager engineManager = new ScriptEngineManager();
         ScriptEngine engine = engineManager.getEngineByName("nashorn");
         PrintWriter out = response.getWriter();
         User user = (User) request.getSession().getAttribute("user");
-        if(user == null || !(user.getLogin().equals("123") && user.getLogin().equals("123"))) {
+        if (user == null || !(user.getLogin().equals("123") && user.getLogin().equals("123"))) {
             out.println("FORBIDDEN JS EXECUTE");
-        }else {
+        } else {
             out.println("GRANTED JS EXECUTE");
             try {
                 out.println(engine.eval(request.getParameter("jsscript")));
@@ -32,7 +34,4 @@ public class ExecuteServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

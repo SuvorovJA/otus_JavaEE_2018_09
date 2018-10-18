@@ -18,6 +18,8 @@ import java.io.IOException;
 
 @WebServlet(name = "NewsServlet",urlPatterns = "/news")
 public class NewsServlet extends HttpServlet {
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Document site = Jsoup.connect("http://www.tomsk.ru/news/").get();
         Elements newsAll = site.getElementsByClass("title");
@@ -38,7 +40,4 @@ public class NewsServlet extends HttpServlet {
         response.getWriter().write(root.toString());
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }
