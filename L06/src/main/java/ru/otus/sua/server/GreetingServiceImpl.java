@@ -9,7 +9,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
-    GreetingService {
+        GreetingService {
 
   public String greetServer(String input) throws IllegalArgumentException {
     // Verify that the input is valid. 
