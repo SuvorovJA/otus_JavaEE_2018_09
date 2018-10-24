@@ -32,3 +32,13 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+body {
+   text-align: center;
+   font-family: verdana, sans-serif;
+}
+
+.deckpanel {
+  border: 1px solid #BBBBBB;
+  padding: 3px;
+}
