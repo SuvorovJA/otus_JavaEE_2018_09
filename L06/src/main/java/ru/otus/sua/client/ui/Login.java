@@ -13,21 +13,21 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class L06_uibinder extends Composite {
+public class Login extends Composite {
 
-    private static L06_uibinderUiBinder uiBinder = GWT.create(L06_uibinderUiBinder.class);
+    private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 
     //     @UiTemplate is not mandatory but allows multiple XML templates to be used for the same widget.
     //     Default file loaded will be <class-name>.ui.xml
-    @UiTemplate("L06_uibinder.ui.xml")
-    interface L06_uibinderUiBinder extends UiBinder<Widget, L06_uibinder> {
+    @UiTemplate("Login.ui.xml")
+    interface LoginUiBinder extends UiBinder<Widget, Login> {
     }
 
     @UiField(provided = true)
-    final L06_uibinderResources res;
+    final LoginResources res;
 
-    public L06_uibinder() {
-        this.res = GWT.create(L06_uibinderResources.class);
+    public Login() {
+        this.res = GWT.create(LoginResources.class);
         res.style().ensureInjected();
         initWidget(uiBinder.createAndBindUi(this));
     }

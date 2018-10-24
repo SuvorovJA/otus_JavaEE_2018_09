@@ -1,8 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:gwt='urn:import:com.google.gwt.user.client.ui'>
-    <!--xmlns:res='urn:with:ru.otus.sua.client.L06_uibinderResources'>-->
-    <ui:with field="res" type="ru.otus.sua.client.ui.L06_uibinderResources"/>
+    <ui:with field="res" type="ru.otus.sua.client.ui.MainResources"/>
     <gwt:HTMLPanel>
         <div align="center">
             <!--if forgot braces in "{res.style.background}", -->

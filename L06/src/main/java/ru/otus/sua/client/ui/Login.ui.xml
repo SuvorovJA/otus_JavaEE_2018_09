@@ -1,0 +1,28 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:gwt='urn:import:com.google.gwt.user.client.ui'>
+    <!--xmlns:res='urn:with:ru.otus.sua.client.ui.LoginResources'>-->
+    <ui:with field="res" type="ru.otus.sua.client.ui.LoginResources"/>
+    <gwt:HTMLPanel>
+        <div align="center">
+            <!--if forgot braces in "{res.style.background}", -->
+            <!--as "res.style.background" - styles dont work!!!-->
+            <gwt:VerticalPanel styleName="{res.style.background}">
+                <gwt:Label text="Login" styleName="{res.style.blackText}"/>
+                <gwt:TextBox ui:field="loginBox" styleName="{res.style.box}"/>
+                <gwt:Label text="Password" styleName="{res.style.blackText}"/>
+                <gwt:PasswordTextBox ui:field="passwordBox" styleName="{res.style.box}"/>
+
+                <gwt:HorizontalPanel verticalAlignment="middle">
+                    <gwt:Button ui:field="buttonSubmit" text="Submit" styleName="{res.style.loginButton}"/>
+                    <gwt:CheckBox ui:field="myCheckBox"/>
+                    <gwt:Label ui:field="myLabel" text="Remember me" styleName="{res.style.blackText}"/>
+                </gwt:HorizontalPanel>
+
+                <gwt:Label ui:field="completionLabel1" styleName="{res.style.redText}"/>
+                <gwt:Label ui:field="completionLabel2" styleName="{res.style.redText}"/>
+            </gwt:VerticalPanel>
+
+        </div>
+    </gwt:HTMLPanel>
+</ui:UiBinder>

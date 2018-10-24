@@ -3,9 +3,9 @@ package ru.otus.sua.client.ui;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
-public interface L06_uibinderResources extends ClientBundle {
+public interface MainResources extends ClientBundle {
 
-    @Source("L06_uibinderResources.css")
+    @Source("MainResources.css")
     MyCss style();
 
     public interface MyCss extends CssResource {
