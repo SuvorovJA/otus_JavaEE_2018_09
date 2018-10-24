@@ -7,7 +7,7 @@ import ru.otus.sua.client.ui.L06_uibinder;
 public class L06_uibinderEntryPoint implements EntryPoint {
 
     public void onModuleLoad() {
-        RootPanel.get("uibinderContainer").add(new L06_uibinder());
+        RootPanel.get("Container1").add(new L06_uibinder());
     }
 }
 

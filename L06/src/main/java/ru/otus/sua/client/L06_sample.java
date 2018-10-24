@@ -40,9 +40,9 @@ public class L06_sample implements EntryPoint {
 
         // Add the nameField and sendButton to the RootPanel
         // Use RootPanel.get() to get the entire body element
-        RootPanel.get("nameFieldContainer").add(nameField);
-        RootPanel.get("sendButtonContainer").add(sendButton);
-        RootPanel.get("errorLabelContainer").add(errorLabel);
+        RootPanel.get("Container1").add(nameField);
+        RootPanel.get("Container2").add(sendButton);
+        RootPanel.get("Container3").add(errorLabel);
 
         // Focus the cursor on the name field when the app loads
         nameField.setFocus(true);

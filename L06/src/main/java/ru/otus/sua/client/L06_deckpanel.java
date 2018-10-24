@@ -53,6 +53,6 @@ public class L06_deckpanel implements EntryPoint {
         vPanel.add(buttonBar);
 
         // Add the widgets to the root panel.
-        RootPanel.get("deckpanelContainer").add(vPanel);
+        RootPanel.get("Container1").add(vPanel);
     }
 }

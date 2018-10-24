@@ -3,7 +3,7 @@
 - [x] JPA-подсистема, запуск на сконфигурированном tomcat из L03,L04. 
   - [x] создание в БД записи Admin при старте приложения, через ServletContextListener
   - [x] logback|slf4j logger (debug to file, info to stdout)
-  - [ ] ~ Для запуска JPA на "GWT Jetty 9.2" нужно готовить WEB-INF/jetty-*.xml для jndi записи для jdbc/PostgresDS.~
+  - [ ] ~~Для запуска JPA на "GWT Jetty 9.2" нужно готовить WEB-INF/jetty-*.xml для jndi записи для jdbc/PostgresDS.~~
   - [x] Tomcat deployment добавить в maven
 
 - [ ] Имеющуюся структуру приложения(L05) следует адаптировать под использование фреймворка GWT, 
@@ -12,7 +12,7 @@
 - [ ] UIBinder. Содержимое главной страницы необходимо переключать, воспользовавшись возможностями DeckPanel.
   - [x] Sample-приложение на DeckPanel
   - [x] Sample-приложение на UiBinder
-  - [ ] Html skeleton  
+  - [x] Html skeleton  
   
 - [ ] Для коммуникации с сервером следует воспользоваться GWT-RPC, переработав механизм авторизации: проверка согласно данным таблицы Employee (логин и пароль/хэш-пароля хранятся в этой таблице).
 
