@@ -33,13 +33,16 @@ public class L06_deckpanel implements EntryPoint {
         // create button and add click handlers
         // show different labels on click of different buttons
         Button button1 = new Button("Page 1");
+        button1.setStyleName("buttonLink");
         button1.addClickHandler(event -> deckPanel.showWidget(0));
 
         Button button2 = new Button("Page 2");
         button2.addClickHandler(event -> deckPanel.showWidget(1));
+        button2.setStyleName("buttonLink2");
 
         Button button3 = new Button("Page 3");
         button3.addClickHandler(event -> deckPanel.showWidget(2));
+//        button3.setStyleName("buttonLink2");
 
         buttonBar.add(button1);
         buttonBar.add(button2);
