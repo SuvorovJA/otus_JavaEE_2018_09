@@ -6,18 +6,40 @@ import com.google.gwt.resources.client.CssResource;
 public interface MainResources extends ClientBundle {
 
     @Source("MainResources.css")
-    MyCss style();
+    MainCss style();
 
-    public interface MyCss extends CssResource {
+    public interface MainCss extends CssResource {
         String blackText();
 
         String redText();
 
-        String loginButton();
+        String someButton();
 
         String box();
 
-        String background();
+        String backgroundMain();
+
+        String backgroundSubmain();
+
+        String backgroundSubsubmain();
+
+        String backgroundDeck();
+
+        String backgroundAside();
+
+        String backgroundNav();
+
+        String backgroundCurrency();
+
+        String backgroundNews();
+
+        String backgroundHeader();
+
+        String backgroundFooter();
+
+        String footerText();
+
+        String headerText();
     }
 
 

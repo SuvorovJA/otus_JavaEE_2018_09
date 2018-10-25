@@ -27,3 +27,9 @@
 - [ ] Интернационализация EN RU
 
 #### Решение
+
+#### Материалы
+
+1) примеры панелей 
+    https://examples.javacodegeeks.com/enterprise-java/gwt/gwt-panel-example/
+    https://www.tutorialspoint.com/gwt/gwt_layout_panels.htm

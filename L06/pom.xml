@@ -198,6 +198,9 @@
                     <startupUrls>
                         <startupUrl>L06.html</startupUrl>
                     </startupUrls>
+                    <style>PRETTY</style>
+                    <!--<style>DETAILED</style>-->
+                    <!--<style>OBFUSCATED</style>-->
                 </configuration>
             </plugin>
 

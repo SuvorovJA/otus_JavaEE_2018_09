@@ -16,35 +16,23 @@ import com.google.gwt.user.client.ui.Widget;
 public class Login extends Composite {
 
     private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
-
-    //     @UiTemplate is not mandatory but allows multiple XML templates to be used for the same widget.
-    //     Default file loaded will be <class-name>.ui.xml
-    @UiTemplate("Login.ui.xml")
-    interface LoginUiBinder extends UiBinder<Widget, Login> {
-    }
-
     @UiField(provided = true)
     final LoginResources res;
+    @UiField
+    TextBox loginBox;
+    @UiField
+    TextBox passwordBox;
+    @UiField
+    Label completionLabel1;
+    @UiField
+    Label completionLabel2;
+    private Boolean tooShort = false;
 
     public Login() {
         this.res = GWT.create(LoginResources.class);
         res.style().ensureInjected();
         initWidget(uiBinder.createAndBindUi(this));
     }
-
-    @UiField
-    TextBox loginBox;
-
-    @UiField
-    TextBox passwordBox;
-
-    @UiField
-    Label completionLabel1;
-
-    @UiField
-    Label completionLabel2;
-
-    private Boolean tooShort = false;
 
     //      Method name is not relevant, the binding is done according to the class of the parameter.
     @UiHandler("buttonSubmit")
@@ -76,6 +64,12 @@ public class Login extends Composite {
             tooShort = false;
             completionLabel2.setText("");
         }
+    }
+
+    //     @UiTemplate is not mandatory but allows multiple XML templates to be used for the same widget.
+    //     Default file loaded will be <class-name>.ui.xml
+    @UiTemplate("Login.ui.xml")
+    interface LoginUiBinder extends UiBinder<Widget, Login> {
     }
 
 }

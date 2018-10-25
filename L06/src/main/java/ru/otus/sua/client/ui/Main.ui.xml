@@ -1,27 +1,49 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:gwt='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <ui:with field="res" type="ru.otus.sua.client.ui.MainResources"/>
-    <gwt:HTMLPanel>
-        <div align="center">
-            <!--if forgot braces in "{res.style.background}", -->
-            <!--as "res.style.background" - styles dont work!!!-->
-            <gwt:VerticalPanel styleName="{res.style.background}">
-                <gwt:Label text="Login" styleName="{res.style.blackText}"/>
-                <gwt:TextBox ui:field="loginBox" styleName="{res.style.box}"/>
-                <gwt:Label text="Password" styleName="{res.style.blackText}"/>
-                <gwt:PasswordTextBox ui:field="passwordBox" styleName="{res.style.box}"/>
 
-                <gwt:HorizontalPanel verticalAlignment="middle">
-                    <gwt:Button ui:field="buttonSubmit" text="Submit" styleName="{res.style.loginButton}"/>
-                    <gwt:CheckBox ui:field="myCheckBox"/>
-                    <gwt:Label ui:field="myLabel" text="Remember me" styleName="{res.style.blackText}"/>
-                </gwt:HorizontalPanel>
 
-                <gwt:Label ui:field="completionLabel1" styleName="{res.style.redText}"/>
-                <gwt:Label ui:field="completionLabel2" styleName="{res.style.redText}"/>
-            </gwt:VerticalPanel>
+    <g:HeaderPanel styleName="{res.style.backgroundMain}">
+        <g:FlowPanel styleName="{res.style.backgroundHeader}">
+            <g:HTML ui:field="headerPanel" styleName="{res.style.headerText}"/>
+        </g:FlowPanel>
+        <!--<g:ResizeLayoutPanel>-->
+        <g:VerticalPanel styleName="{res.style.backgroundSubmain}">
+            <g:cell height="5%">
+                <g:HorizontalPanel styleName="{res.style.backgroundNav}">
+                    <g:HorizontalPanel ui:field="navigationPanel">
+                        <g:Label>NAVIGATION</g:Label>
+                    </g:HorizontalPanel>
+                </g:HorizontalPanel>
+            </g:cell>
+            <g:HorizontalSplitPanel splitPosition="80%" styleName="{res.style.backgroundSubsubmain}">
+                <g:DeckPanel ui:field="deckPanel" styleName="{res.style.backgroundDeck}"/>
+                <g:VerticalPanel styleName="{res.style.backgroundAside}">
+                    <g:cell height="33%">
+                        <g:VerticalPanel ui:field="currencyPanel" styleName="{res.style.backgroundCurrency}">
+                            <g:Label>currency</g:Label>
+                            <g:Label>currency</g:Label>
+                            <g:Label>currency</g:Label>
+                            <g:Label>currency</g:Label>
+                        </g:VerticalPanel>
+                    </g:cell>
+                    <g:VerticalPanel ui:field="newsPanel" styleName="{res.style.backgroundNews}">
+                        <g:Label>news</g:Label>
+                        <g:Label>news</g:Label>
+                        <g:Label>news</g:Label>
+                        <g:Label>news</g:Label>
+                    </g:VerticalPanel>
+                </g:VerticalPanel>
+            </g:HorizontalSplitPanel>
+            <g:cell height="1%">
+                <g:HorizontalPanel></g:HorizontalPanel>
+            </g:cell>
+        </g:VerticalPanel>
+        <!--</g:ResizeLayoutPanel>-->
+        <g:FlowPanel styleName="{res.style.backgroundFooter}">
+            <g:HTML ui:field="footerPanel" styleName="{res.style.footerText}"/>
+        </g:FlowPanel>
+    </g:HeaderPanel>
 
-        </div>
-    </gwt:HTMLPanel>
 </ui:UiBinder>
