@@ -11,12 +11,13 @@ public class Navigator extends Composite implements ClickHandler {
     final private Button aboutButton = new Button();
     final private Button loginButton = new Button();
     final private HorizontalPanel panel = new HorizontalPanel();
-    final private Label loginLabel = new Label("не залогинились");
+    final private Label loginLabel;
     final private DeckPanel deckPanel;
 
-    public Navigator(DeckPanel deckPanel) {
+    public Navigator(DeckPanel deckPanel, Label loginLabel) {
 
         this.deckPanel = deckPanel;
+        this.loginLabel = loginLabel;
 
         aboutButton.addClickHandler(this::onClick);
         employesButton.addClickHandler(this::onClick);
@@ -32,6 +33,7 @@ public class Navigator extends Composite implements ClickHandler {
         aboutButton.setText("Про");
         employesButton.setText("Работники");
         loginButton.setText("Вход");
+        loginLabel.setText("не залогинились");
 
         panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         panel.add(mainButton);
@@ -62,10 +64,6 @@ public class Navigator extends Composite implements ClickHandler {
             loginButton.setStyleName("buttonLink3");
             deckPanel.showWidget(3);
         }
-    }
-
-    public void setLoginLabel(String loginText) {
-        this.loginLabel.setText(loginText);
     }
 
     private void setDefaultStyle() {

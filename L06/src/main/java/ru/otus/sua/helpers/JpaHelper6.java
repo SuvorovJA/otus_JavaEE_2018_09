@@ -1,11 +1,13 @@
 package ru.otus.sua.helpers;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.entityes.AppointmentEntity;
 import ru.otus.sua.entityes.DepartmentEntity;
 import ru.otus.sua.entityes.EmployeEntity;
 import ru.otus.sua.entityes.Employes;
+import ru.otus.sua.shared.MyPair;
 
 import javax.persistence.*;
 import java.sql.SQLException;
@@ -98,6 +100,31 @@ public class JpaHelper6 {
         return list;
     }
 
+    public static EmployeEntity findByCredentials(MyPair<String, String> cred) throws SQLException {
+        // TODO pass as passhash -> to real hash
+
+        EmployeEntity entity = null;
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("select c.employe from CredentialEntity c where c.login = :logi and c.passhash = :pass");
+            q.setParameter("logi", cred.getLeft());
+            q.setParameter("pass", cred.getRight());
+            entity = (EmployeEntity) q.getSingleResult();
+            em.getTransaction().commit();
+        } catch (PersistenceException e) {
+            em.getTransaction().rollback();
+            log.error("Rollback when findByCredentials: {}", e.getMessage());
+            throw new SQLException(e.getMessage());
+        }
+        if (entity == null) {
+            throw new SQLException("Не найдено"); // TODO why not wrk?
+        }
+        if (entity.getFullname() == null) {
+            throw new SQLException("Не найдено.");// TODO why not wrk?
+        }
+        return entity;
+    }
+
     @SuppressWarnings("Duplicates")
     public static boolean saveAppointment(AppointmentEntity entity) {
         try {
@@ -173,4 +200,18 @@ public class JpaHelper6 {
         }
         return true;
     }
+
+    /**
+     * взять объект из базы по содержимому(@param value) не-id поля.
+     * поле должно быть отмечено @NaturalId и @Column(nullable = false, unique = true)
+     * Session.class => import org.hibernate.Session;
+     *
+     * @param tClass - тип Entity (T.class)
+     * @param value  - искомая строка
+     * @return - объект Entity
+     */
+    public static <T> T getEntity(Class<T> tClass, String value) {
+        return em.unwrap(Session.class).bySimpleNaturalId(tClass).load(value);
+    }
+
 }

@@ -1,6 +1,7 @@
 package ru.otus.sua.entityes;
 
 import lombok.Data;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;

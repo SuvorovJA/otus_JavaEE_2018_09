@@ -12,6 +12,9 @@ public class Main extends Composite {
     private static MainUiBinder uiBinder = GWT.create(MainUiBinder.class);
     @UiField(provided = true)
     final MainResources res;
+    private final Navigator navigator;
+    private final Label loginLabelOnNavigator= new Label();
+    private final Login loginWidget;
     @UiField
     HTML footerPanel;
     @UiField
@@ -29,29 +32,27 @@ public class Main extends Composite {
         this.res = GWT.create(MainResources.class);
         res.style().ensureInjected();
         initWidget(uiBinder.createAndBindUi(this));
+
         footerPanel.setHTML(FooterHtmlResource.INSTANCE.getHtml().getText());
         headerPanel.setHTML(HeaderHtmlResource.INSTANCE.getHtml().getText());
-        deckPanelInit();
-        navigationPanel.add(new Navigator(deckPanel));
-    }
 
-    private void deckPanelInit() {
-        // Create lables to add to deckpanel
-        Label label1 = new Label("This is first Page");
-        Label label2 = new Label("This is second Page");
-        Label label3 = new Label("This is third Page");
-        Label label4 = new Label("This is fourth Page");
-
-        // Add labels to deckpanel
+        HTML label1 = new HTML("Это главная страница. <br> Первый пользователь ADMIN admin/admin <br> <br>Тут новости компании. ");
+        Label label2 = new Label("Страница про работников");
+        Label label3 = new Label("Страница про компанию");
+        Label label4 = new Label("Страница логина");
         deckPanel.add(label1);
         deckPanel.add(label2);
         deckPanel.add(label3);
-        deckPanel.add(label4);
+        deckPanel.add(label4); // need 4 widgets in deckpanel
 
-        //show first label
-        //deckPanel.showWidget(0);
+        navigator = new Navigator(deckPanel, loginLabelOnNavigator);
+        navigationPanel.add(navigator);
+
+        loginWidget = new Login(loginLabelOnNavigator);
+
+        deckPanel.remove(label4);
+        deckPanel.add(loginWidget);
     }
-
 
     //     @UiTemplate is not mandatory but allows multiple XML templates to be used for the same widget.
     //     Default file loaded will be <class-name>.ui.xml
