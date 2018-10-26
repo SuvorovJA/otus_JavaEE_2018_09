@@ -12,9 +12,7 @@
         <g:VerticalPanel styleName="{res.style.backgroundSubmain}">
             <g:cell height="5%">
                 <g:HorizontalPanel styleName="{res.style.backgroundNav}">
-                    <g:HorizontalPanel ui:field="navigationPanel">
-                        <g:Label>NAVIGATION</g:Label>
-                    </g:HorizontalPanel>
+                    <g:HorizontalPanel ui:field="navigationPanel"/>
                 </g:HorizontalPanel>
             </g:cell>
             <g:HorizontalSplitPanel splitPosition="80%" styleName="{res.style.backgroundSubsubmain}">

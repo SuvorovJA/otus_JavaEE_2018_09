@@ -60,9 +60,34 @@ body {
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 12px 24px;
+    margin: 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
+}
+
+.buttonLink3 {
+    background-color: #50e254; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    margin: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.buttonLink4 {
+    background-color: rgba(66, 181, 70, 0.38); /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    margin: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
 }

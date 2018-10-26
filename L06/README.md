@@ -2,7 +2,7 @@
 
 - [x] JPA-подсистема, запуск на сконфигурированном tomcat из L03,L04. 
   - [x] создание в БД записи Admin при старте приложения, через ServletContextListener
-  - [x] logback|slf4j logger (debug to file, info to stdout)
+  - [x] logback|slf4j serverside logger (debug to file, info to stdout)
   - [ ] ~~Для запуска JPA на "GWT Jetty 9.2" нужно готовить WEB-INF/jetty-*.xml для jndi записи для jdbc/PostgresDS.~~
   - [x] Tomcat deployment добавить в maven
 
@@ -31,5 +31,6 @@
 #### Материалы
 
 1) примеры панелей 
+
     https://examples.javacodegeeks.com/enterprise-java/gwt/gwt-panel-example/
     https://www.tutorialspoint.com/gwt/gwt_layout_panels.htm
