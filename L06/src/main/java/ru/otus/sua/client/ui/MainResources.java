@@ -40,6 +40,8 @@ public interface MainResources extends ClientBundle {
         String footerText();
 
         String headerText();
+
+        String bold();
     }
 
 

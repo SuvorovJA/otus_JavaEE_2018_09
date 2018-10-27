@@ -2,7 +2,7 @@ package ru.otus.sua.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import ru.otus.sua.shared.MyPair;
+import ru.otus.sua.shared.entities.MyPair;
 
 /**
  * The client-side stub for the RPC service.

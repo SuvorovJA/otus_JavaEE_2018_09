@@ -7,7 +7,7 @@ import ru.otus.sua.entityes.AppointmentEntity;
 import ru.otus.sua.entityes.DepartmentEntity;
 import ru.otus.sua.entityes.EmployeEntity;
 import ru.otus.sua.entityes.Employes;
-import ru.otus.sua.shared.MyPair;
+import ru.otus.sua.shared.entities.MyPair;
 
 import javax.persistence.*;
 import java.sql.SQLException;

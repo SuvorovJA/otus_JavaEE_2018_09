@@ -1,5 +1,7 @@
 package ru.otus.sua.shared;
 
+import ru.otus.sua.shared.entities.MyPair;
+
 /**
  * <p>
  * FieldVerifier validates that the name the user enters is valid.

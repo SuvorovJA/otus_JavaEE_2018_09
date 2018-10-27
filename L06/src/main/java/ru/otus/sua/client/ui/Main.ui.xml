@@ -20,17 +20,11 @@
                 <g:VerticalPanel styleName="{res.style.backgroundAside}">
                     <g:cell height="33%">
                         <g:VerticalPanel ui:field="currencyPanel" styleName="{res.style.backgroundCurrency}">
-                            <g:Label>currency</g:Label>
-                            <g:Label>currency</g:Label>
-                            <g:Label>currency</g:Label>
-                            <g:Label>currency</g:Label>
+                            <g:Label styleName="{res.style.bold}">Курсы валют</g:Label>
                         </g:VerticalPanel>
                     </g:cell>
                     <g:VerticalPanel ui:field="newsPanel" styleName="{res.style.backgroundNews}">
-                        <g:Label>news</g:Label>
-                        <g:Label>news</g:Label>
-                        <g:Label>news</g:Label>
-                        <g:Label>news</g:Label>
+                        <g:Label styleName="{res.style.bold}">Новости</g:Label>
                     </g:VerticalPanel>
                 </g:VerticalPanel>
             </g:HorizontalSplitPanel>

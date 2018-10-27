@@ -5,7 +5,7 @@ import ru.otus.sua.client.LoginService;
 import ru.otus.sua.entityes.EmployeEntity;
 import ru.otus.sua.helpers.JpaHelper6;
 import ru.otus.sua.shared.FieldVerifier;
-import ru.otus.sua.shared.MyPair;
+import ru.otus.sua.shared.entities.MyPair;
 
 import java.sql.SQLException;
 

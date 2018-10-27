@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 import ru.otus.sua.client.LoginService;
 import ru.otus.sua.client.LoginServiceAsync;
 import ru.otus.sua.shared.FieldVerifier;
-import ru.otus.sua.shared.MyPair;
+import ru.otus.sua.shared.entities.MyPair;
 
 public class Login extends Composite {
 

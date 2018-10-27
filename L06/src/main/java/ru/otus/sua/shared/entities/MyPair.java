@@ -1,4 +1,4 @@
-package ru.otus.sua.shared;
+package ru.otus.sua.shared.entities;
 
 import java.io.Serializable;
 

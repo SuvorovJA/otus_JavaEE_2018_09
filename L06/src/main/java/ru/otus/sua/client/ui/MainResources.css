@@ -145,3 +145,7 @@
 .headerText {
     font-size: medium;
 }
+
+.bold {
+    font-weight:bold;
+}

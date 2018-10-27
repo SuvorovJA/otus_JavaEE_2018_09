@@ -1,7 +1,7 @@
 package ru.otus.sua.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import ru.otus.sua.shared.MyPair;
+import ru.otus.sua.shared.entities.MyPair;
 
 /**
  * The async counterpart of LoginService</code>.

@@ -15,6 +15,7 @@ public class Main extends Composite {
     private final Navigator navigator;
     private final Label loginLabelOnNavigator= new Label();
     private final Login loginWidget;
+    private final NewsFeeder newsFeeder;
     @UiField
     HTML footerPanel;
     @UiField
@@ -52,6 +53,9 @@ public class Main extends Composite {
 
         deckPanel.remove(label4);
         deckPanel.add(loginWidget);
+
+        newsFeeder = new NewsFeeder(newsPanel);
+        newsFeeder.FillNewsPanel();
     }
 
     //     @UiTemplate is not mandatory but allows multiple XML templates to be used for the same widget.
