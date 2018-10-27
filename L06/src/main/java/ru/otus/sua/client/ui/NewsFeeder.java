@@ -1,34 +1,30 @@
 package ru.otus.sua.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import ru.otus.sua.client.ui.entities.Feed;
-import ru.otus.sua.client.ui.entities.NewsEntry;
 
 public class NewsFeeder {
 
-    VerticalPanel newsPanel;
+    private final MainResources res;
+    private final VerticalPanel newsPanel;
 
-    public NewsFeeder(VerticalPanel newsPanel) {
+    public NewsFeeder(VerticalPanel newsPanel, MainResources res) {
         this.newsPanel = newsPanel;
+        this.res = res;
     }
 
     // TODO sheduling
     public void FillNewsPanel() {
-
         String url = GWT.getHostPageBaseURL() + "news";
         JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
-        jsonp.requestObject(url, new AsyncCallback<Feed>() {
-
+        AsyncCallback<Feed> asyncCallback = new AsyncCallback<Feed>() {
             public void onFailure(Throwable throwable) {
                 newsPanel.add(new Label("ошибка"));
             }
@@ -36,26 +32,40 @@ public class NewsFeeder {
             public void onSuccess(Feed feed) {
                 JsArray<NewsEntry> entries = feed.getEntries();
                 for (int i = 0; i < entries.length(); i++) {
-                    if (i > 10) break; // TODO rm hardcoded limit
                     NewsEntry entry = entries.get(i);
-                    newsPanel.add(new NewsAnchor(entry.getText(), entry.getHref()));
+                    Anchor anchor = new Anchor(entry.getText(), entry.getHref());
+                    SimplePanel wrap = new SimplePanel(anchor);
+                    wrap.setStyleName(res.style().marpadding());
+                    newsPanel.add(wrap);
                 }
             }
-        });
+        };
+        jsonp.requestObject(url, asyncCallback);
     }
 
-    class NewsAnchor extends Widget {
-        private Anchor anchor;
-
-        public NewsAnchor(String text, String href) {
-            anchor = new Anchor(text);
-            anchor.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    Window.open(href, "_blank", "");
-                }
-            });
+    static class Feed extends JavaScriptObject {
+        protected Feed() {
         }
+
+        public final native JsArray<NewsEntry> getEntries() /*-{
+            //console.log(this);
+            return this;
+        }-*/;
+    }
+
+    static class NewsEntry extends JavaScriptObject {
+
+        protected NewsEntry() {
+        }
+
+        public final native String getText() /*-{
+            return this.text;
+        }-*/;
+
+        public final native String getHref() /*-{
+            return this.href;
+        }-*/;
+
     }
 
 }

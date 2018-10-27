@@ -42,6 +42,8 @@ public interface MainResources extends ClientBundle {
         String headerText();
 
         String bold();
+
+        String marpadding();
     }
 
 

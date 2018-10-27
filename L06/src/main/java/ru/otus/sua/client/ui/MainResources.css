@@ -147,5 +147,9 @@
 }
 
 .bold {
-    font-weight:bold;
+    font-weight: bold;
+}
+
+.marpadding {
+    margin: 7px;
 }

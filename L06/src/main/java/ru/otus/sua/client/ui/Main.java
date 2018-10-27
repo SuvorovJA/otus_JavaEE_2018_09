@@ -13,7 +13,7 @@ public class Main extends Composite {
     @UiField(provided = true)
     final MainResources res;
     private final Navigator navigator;
-    private final Label loginLabelOnNavigator= new Label();
+    private final Label loginLabelOnNavigator = new Label();
     private final Login loginWidget;
     private final NewsFeeder newsFeeder;
     @UiField
@@ -54,7 +54,7 @@ public class Main extends Composite {
         deckPanel.remove(label4);
         deckPanel.add(loginWidget);
 
-        newsFeeder = new NewsFeeder(newsPanel);
+        newsFeeder = new NewsFeeder(newsPanel, res);
         newsFeeder.FillNewsPanel();
     }
 

@@ -36,22 +36,10 @@ public class NewsServlet extends HttpServlet {
         JsonObject root = Json.createObjectBuilder().add("news", jsonArray.build()).build();
         JsonArray array = root.getJsonArray("news"); // need clean array started from '['
 
-        String callbackRequestParameter = request.getParameter("callback");
-
-        // Construct: __gwt_jsonp__.P0.onSuccess([...arr...]);
-        StringBuilder callback = new StringBuilder();
-        // named array
-//        callback.append(callbackRequestParameter).append("(").append(root).append(");");
-        // array
-//        callback.append(callbackRequestParameter).append("(").append(array).append(");");
-        // test named array
-//        callback.append(callbackRequestParameter).append("(").append("{\"news\":[{ \"text\" : \"Jimmy\", \"href\" : \"Webber\" }]}").append(");");
-        // test array
-        callback.append(callbackRequestParameter).append("(").append("[{ \"text\" : \"Jimmy\", \"href\" : \"Webber\" }]").append(");");
-
+        String callback = request.getParameter("callback");
         response.setHeader("Content-Type", "application/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(callback.toString());
+        response.getWriter().write(callback + "(" + array + ");");
     }
 
 }
