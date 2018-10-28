@@ -20,6 +20,8 @@
     <!-- Other module inherits                                      -->
     <!-- Inherit the UiBinder module.                               -->
     <inherits name="com.google.gwt.uibinder.UiBinder"/>
+    <inherits name="com.google.gwt.xml.XML"/>
+    <inherits name="com.google.gwt.http.HTTP" />
     <!--<inherits name="com.google.gwt.logging.Logging"/>-->
 
     <!-- Specify the app entry point class.                         -->
