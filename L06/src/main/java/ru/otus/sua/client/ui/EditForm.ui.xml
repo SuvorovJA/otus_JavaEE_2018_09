@@ -1,0 +1,77 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:with field="res" type="ru.otus.sua.client.ui.EditFormResources"/>
+    <g:DialogBox ui:field="editFormDialogBox" width="300px" modal="true" visible="false">
+        <g:VerticalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">ID</g:Label>
+                <g:Label styleName="{res.style.labels}" ui:field="employeIdLabel"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">DepID</g:Label>
+                <g:Label styleName="{res.style.labels}" ui:field="departmentIdLabel"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">AppID</g:Label>
+                <g:Label styleName="{res.style.labels}" ui:field="appointmentIdLabel"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">CredID</g:Label>
+                <g:Label styleName="{res.style.labels}" ui:field="credentialsIdLabel"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Err</g:Label>
+                <g:Label styleName="{res.style.errors}" ui:field="errorLabel"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">ФИО</g:Label>
+                <g:TextBox ui:field="fullNameTextBox" styleName="{res.style.inputs}"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Зарплата</g:Label>
+                <g:TextBox ui:field="salaryTextBox" styleName="{res.style.inputs}"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Город</g:Label>
+                <g:ListBox ui:field="cityListBox" visibleItemCount="1" styleName="{res.style.inputs}">
+                    <g:item></g:item>
+                    <g:item>Томск</g:item>
+                    <g:item>Омск</g:item>
+                    <g:item>Энск</g:item>
+                </g:ListBox>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Департамент</g:Label>
+                <g:ListBox ui:field="departmentListBox" visibleItemCount="1" styleName="{res.style.inputs}">
+                    <g:item></g:item>
+                    <g:item>Производство</g:item>
+                    <g:item>Бухгалтерия</g:item>
+                    <g:item>Прочие</g:item>
+                </g:ListBox>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Должность</g:Label>
+                <g:ListBox ui:field="appointmentListBox" visibleItemCount="1" styleName="{res.style.inputs}">
+                    <g:item></g:item>
+                    <g:item>Рабочий</g:item>
+                    <g:item>Начальник</g:item>
+                    <g:item>Прочие</g:item>
+                </g:ListBox>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Логин</g:Label>
+                <g:TextBox ui:field="loginTextBox" styleName="{res.style.inputs}"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Label styleName="{res.style.labels}">Пароль</g:Label>
+                <g:PasswordTextBox ui:field="passwordTextBox" styleName="{res.style.inputs}"/>
+            </g:HorizontalPanel>
+            <g:HorizontalPanel styleName="{res.style.marpadding}">
+                <g:Button ui:field="okButton" styleName="{res.style.marpadding}">Сохранить</g:Button>
+                <g:Button ui:field="clearButton" styleName="{res.style.marpadding}">Очистить</g:Button>
+                <g:Button ui:field="cancelButton" styleName="{res.style.marpadding}">Отмена</g:Button>
+            </g:HorizontalPanel>
+        </g:VerticalPanel>
+    </g:DialogBox>
+</ui:UiBinder>

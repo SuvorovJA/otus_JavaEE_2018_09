@@ -18,9 +18,11 @@ public class Navigator extends Composite implements ClickHandler {
     final private DataGrid<EmployesListFeeder.EmployeEntry> dataGrid;
     final private Login loginWidget;
     final private VerticalPanel gridPanel;
+    final private EditForm editFormWidget;
 
     public Navigator(DeckPanel deckPanel,
                      Login loginWidget,
+                     EditForm editFormWidget,
                      Label loginLabel,
                      Label loginLabelOnGridPanel,
                      DataGrid<EmployesListFeeder.EmployeEntry> dataGrid,
@@ -32,6 +34,7 @@ public class Navigator extends Composite implements ClickHandler {
         this.loginLabelOnGridPanel = loginLabelOnGridPanel;
         this.loginWidget = loginWidget;
         this.gridPanel = gridPanel;
+        this.editFormWidget = editFormWidget;
 
         aboutButton.addClickHandler(this::onClick);
         employesButton.addClickHandler(this::onClick);
@@ -77,8 +80,10 @@ public class Navigator extends Composite implements ClickHandler {
             if (loginWidget.isLoggedIn()) {
                 gridPanel.remove(loginLabelOnGridPanel);
                 gridPanel.add(dataGrid);
+                gridPanel.add(editFormWidget.getThreePanel());
                 dataGrid.onResize();
             } else {
+                gridPanel.remove(editFormWidget.getThreePanel());
                 gridPanel.remove(dataGrid);
                 gridPanel.add(loginLabelOnGridPanel);
             }

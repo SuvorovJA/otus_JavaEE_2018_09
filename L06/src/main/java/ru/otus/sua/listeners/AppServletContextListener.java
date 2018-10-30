@@ -21,6 +21,7 @@ public class AppServletContextListener implements ServletContextListener {
     // -------------------------------------------------------
     // ServletContextListener implementation
     // -------------------------------------------------------
+    @Override
     public void contextInitialized(ServletContextEvent sce) {
       /* This method is called when the servlet context is
          initialized(when the Web application is deployed).
@@ -29,12 +30,20 @@ public class AppServletContextListener implements ServletContextListener {
         log.info("Create admin account on startup application.");
         JpaHelper6.saveEmploye(
                 EntytiesHelper6.createEmployeEntity(
-                        "ADMIN", "TOMSK", 1L,
+                        "ADMIN", "TOMSK", 2000L,
                         "admin", "admin",
                         EntytiesHelper6.createAppointmentEntity("SysAdmin"),
                         EntytiesHelper6.createDepartmentEntity("IT Dept.")));
+        log.info("Create user account on startup application.");
+        JpaHelper6.saveEmploye(
+                EntytiesHelper6.createEmployeEntity(
+                        "USER", "TOMSK", 1000L,
+                        "user", "user",
+                        EntytiesHelper6.createAppointmentEntity("User"),
+                        EntytiesHelper6.createDepartmentEntity("Users")));
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent sce) {
       /* This method is invoked when the Servlet Context
          (the Web application) is undeployed or

@@ -1,0 +1,43 @@
+
+.buttonLinkReleased {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    margin: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.buttonLinkPressed {
+    background-color: #50e254; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    margin: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.labels {
+    color: #777777;
+    /*margin-right: 20px;*/
+    width: 10em;
+}
+
+.inputs {
+    color: #3399DD;
+    width: 10em;
+}
+
+.errors {
+    color: red;
+}
+
+.marpadding {
+    margin: 7px;
+}

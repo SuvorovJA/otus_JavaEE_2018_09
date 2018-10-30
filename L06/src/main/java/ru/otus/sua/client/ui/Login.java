@@ -67,8 +67,8 @@ public class Login extends Composite {
 
     @UiHandler("loginBox")
     void handleLoginChange(ValueChangeEvent<String> event) {
-        if (event.getValue().length() < 5) {
-            completionLabel1.setText("Логин короток (нужно больше 5 символов)");
+        if (event.getValue().length() < 4) {
+            completionLabel1.setText("Логин короток (нужно больше 4 символов)");
             tooShort = true;
         } else {
             tooShort = false;
@@ -78,9 +78,9 @@ public class Login extends Composite {
 
     @UiHandler("passwordBox")
     void handlePasswordChange(ValueChangeEvent<String> event) {
-        if (event.getValue().length() < 5) {
+        if (event.getValue().length() < 4) {
             tooShort = true;
-            completionLabel2.setText("Пароль короток (нужно больше 5 символов)");
+            completionLabel2.setText("Пароль короток (нужно больше 4 символов)");
         } else {
             tooShort = false;
             completionLabel2.setText("");

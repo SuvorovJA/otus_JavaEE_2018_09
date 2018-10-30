@@ -39,16 +39,12 @@ public class FieldVerifier {
         if (name == null) {
             return false;
         }
-        return name.length() >= 5;
+        return name.length() >= 4;
     }
 
     public static boolean isValidCredentials(MyPair<String, String> credentials) {
-
         //TODO stub
-
-        if (credentials == null) {
-            return false;
-        }
+        if (credentials == null) return false;
         return true;
     }
 

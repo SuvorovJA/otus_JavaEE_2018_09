@@ -21,12 +21,22 @@ public class EmployesListFeeder {
     private final VerticalPanel panel;
     private final DataGrid<EmployeEntry> grid;
     private ArrayList<EmployeEntry> data;
+    private EmployeEntry selectedEmploye;
+    private boolean isSelected;
 
     public EmployesListFeeder(VerticalPanel panel, DataGrid<EmployeEntry> grid, MainResources res) {
         this.res = res;
         this.panel = panel;
         this.grid = grid;
         this.data = new ArrayList<>();
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public EmployeEntry getSelectedEmploye() {
+        return selectedEmploye;
     }
 
     public void FillEmployeePanel() {
@@ -42,12 +52,6 @@ public class EmployesListFeeder {
                 for (int i = 0; i < entries.length(); i++) {
                     EmployeEntry entry = entries.get(i);
                     data.add(entry);
-//                    data.add(entry);
-//                    data.add(entry);
-//                    Label label = new Label(entry.getFullName() + " " + entry.getDepartment());
-//                    SimplePanel wrap = new SimplePanel(label);
-//                    wrap.setStyleName(res.style().marpadding());
-//                    employesPanel.add(wrap);
                 }
                 deferredInitDataGrid();
             }
@@ -66,6 +70,41 @@ public class EmployesListFeeder {
             }
         };
         grid.addColumn(fullNameColumn, "Полное Имя");
+        TextColumn<EmployeEntry> departmentColumn = new TextColumn<EmployeEntry>() {
+            @Override
+            public String getValue(EmployeEntry entry) {
+                return entry.getDepartment();
+            }
+        };
+        grid.addColumn(departmentColumn, "Отдел");
+        TextColumn<EmployeEntry> appointmentColumn = new TextColumn<EmployeEntry>() {
+            @Override
+            public String getValue(EmployeEntry entry) {
+                return entry.getAppointment();
+            }
+        };
+        grid.addColumn(appointmentColumn, "Должность");
+        TextColumn<EmployeEntry> salaryColumn = new TextColumn<EmployeEntry>() {
+            @Override
+            public String getValue(EmployeEntry entry) {
+                return entry.getSalary();
+            }
+        };
+        grid.addColumn(salaryColumn, "Зарплата");
+        TextColumn<EmployeEntry> cityColumn = new TextColumn<EmployeEntry>() {
+            @Override
+            public String getValue(EmployeEntry entry) {
+                return entry.getCity();
+            }
+        };
+        grid.addColumn(cityColumn, "Город");
+        TextColumn<EmployeEntry> loginColumn = new TextColumn<EmployeEntry>() {
+            @Override
+            public String getValue(EmployeEntry entry) {
+                return entry.getLogin();
+            }
+        };
+        grid.addColumn(loginColumn, "Логин");
 
         final SingleSelectionModel<EmployeEntry> selectionModel = new SingleSelectionModel<>();
         grid.setSelectionModel(selectionModel);
@@ -75,7 +114,10 @@ public class EmployesListFeeder {
             public void onSelectionChange(SelectionChangeEvent event) {
                 EmployeEntry selected = selectionModel.getSelectedObject();
                 if (selected != null) {
-
+                    isSelected = true;
+                    selectedEmploye = selected;
+                } else {
+                    isSelected = false;
                 }
             }
         });
@@ -107,7 +149,7 @@ public class EmployesListFeeder {
         }-*/;
 
         public final native String getSalary() /*-{
-            return this.salary;
+            return this.salary.toString();
         }-*/;
 
         public final native String getCity() /*-{

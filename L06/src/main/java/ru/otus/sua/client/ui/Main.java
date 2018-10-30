@@ -16,6 +16,7 @@ public class Main extends Composite {
     private final Navigator navigator;
     private final Label loginLabelOnNavigator = new Label();
     private final Login loginWidget;
+    private final EditForm editFormWidget;
     private final NewsFeeder newsFeeder;
     private final CurrencyFeeder currencyFeeder;
     private final EmployesListFeeder employesListFeeder;
@@ -45,10 +46,7 @@ public class Main extends Composite {
 
         dataGrid.setStyleName(res.style().backgroundGrid());
 
-        loginLabelOnEmployesGridPanel.setText("Нужно произвести вход.");
-        employesGridPanel.add(loginLabelOnEmployesGridPanel);
-
-        HTML label1 = new HTML("Это главная страница. <br> Первый пользователь ADMIN admin/admin <br> <br>Тут новости компании. ");
+        HTML label1 = new HTML("Это главная страница. <br> Первый пользователь ADMIN admin/admin <br> Второй пользователь USER user/user <br><br>Тут новости компании. ");
         Label label2 = new Label("Страница про компанию");
         Label label3 = new Label("Страница логина");
         deckPanel.add(label1);
@@ -57,21 +55,25 @@ public class Main extends Composite {
         deckPanel.add(label3); // need 4 widgets in deckpanel
 
         loginWidget = new Login(loginLabelOnNavigator);
-
-        navigator = new Navigator(deckPanel,
-                                    loginWidget,
-                                    loginLabelOnNavigator,
-                                    loginLabelOnEmployesGridPanel,
-                                    dataGrid,
-                                    employesGridPanel);
-        navigationPanel.add(navigator);
-
         deckPanel.remove(label3);
         deckPanel.add(loginWidget);
 
         employesListFeeder = new EmployesListFeeder(employesGridPanel, dataGrid, res);
         currencyFeeder = new CurrencyFeeder(currencyPanel, res);
         newsFeeder = new NewsFeeder(newsPanel, res);
+
+        editFormWidget = new EditForm(dataGrid, employesListFeeder);
+
+        loginLabelOnEmployesGridPanel.setText("Нужно произвести вход.");
+
+        navigator = new Navigator(deckPanel,
+                loginWidget,
+                editFormWidget,
+                loginLabelOnNavigator,
+                loginLabelOnEmployesGridPanel,
+                dataGrid,
+                employesGridPanel);
+        navigationPanel.add(navigator);
 
         currencyFeeder.FillCurrencyPanel();
         newsFeeder.FillNewsPanel();
