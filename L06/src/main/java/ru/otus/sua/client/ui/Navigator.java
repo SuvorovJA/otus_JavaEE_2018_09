@@ -2,6 +2,7 @@ package ru.otus.sua.client.ui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.*;
 
 public class Navigator extends Composite implements ClickHandler {
@@ -12,12 +13,25 @@ public class Navigator extends Composite implements ClickHandler {
     final private Button loginButton = new Button();
     final private HorizontalPanel panel = new HorizontalPanel();
     final private Label loginLabel;
+    final private Label loginLabelOnGridPanel;
     final private DeckPanel deckPanel;
+    final private DataGrid<EmployesListFeeder.EmployeEntry> dataGrid;
+    final private Login loginWidget;
+    final private VerticalPanel gridPanel;
 
-    public Navigator(DeckPanel deckPanel, Label loginLabel) {
+    public Navigator(DeckPanel deckPanel,
+                     Login loginWidget,
+                     Label loginLabel,
+                     Label loginLabelOnGridPanel,
+                     DataGrid<EmployesListFeeder.EmployeEntry> dataGrid,
+                     VerticalPanel gridPanel) {
 
         this.deckPanel = deckPanel;
         this.loginLabel = loginLabel;
+        this.dataGrid = dataGrid;
+        this.loginLabelOnGridPanel = loginLabelOnGridPanel;
+        this.loginWidget = loginWidget;
+        this.gridPanel = gridPanel;
 
         aboutButton.addClickHandler(this::onClick);
         employesButton.addClickHandler(this::onClick);
@@ -60,6 +74,14 @@ public class Navigator extends Composite implements ClickHandler {
         } else if (sender == employesButton) {
             employesButton.setStyleName("buttonLink3");
             deckPanel.showWidget(1);
+            if (loginWidget.isLoggedIn()) {
+                gridPanel.remove(loginLabelOnGridPanel);
+                gridPanel.add(dataGrid);
+                dataGrid.onResize();
+            } else {
+                gridPanel.remove(dataGrid);
+                gridPanel.add(loginLabelOnGridPanel);
+            }
         } else if (sender == loginButton) {
             loginButton.setStyleName("buttonLink3");
             deckPanel.showWidget(3);

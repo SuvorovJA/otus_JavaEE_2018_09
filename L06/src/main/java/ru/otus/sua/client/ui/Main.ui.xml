@@ -15,7 +15,7 @@
                     <g:HorizontalPanel ui:field="navigationPanel"/>
                 </g:HorizontalPanel>
             </g:cell>
-            <g:HorizontalSplitPanel splitPosition="80%" styleName="{res.style.backgroundSubsubmain}">
+            <g:HorizontalSplitPanel splitPosition="79%" styleName="{res.style.backgroundSubsubmain}">
                 <g:DeckPanel ui:field="deckPanel" styleName="{res.style.backgroundDeck}"/>
                 <g:VerticalPanel styleName="{res.style.backgroundAside}">
                     <g:cell height="33%">
@@ -29,7 +29,7 @@
                 </g:VerticalPanel>
             </g:HorizontalSplitPanel>
             <g:cell height="1%">
-                <g:HorizontalPanel></g:HorizontalPanel>
+                <g:HorizontalPanel/>
             </g:cell>
         </g:VerticalPanel>
         <!--</g:ResizeLayoutPanel>-->

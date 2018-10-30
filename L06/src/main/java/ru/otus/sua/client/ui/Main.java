@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.*;
 
 
@@ -18,7 +19,9 @@ public class Main extends Composite {
     private final NewsFeeder newsFeeder;
     private final CurrencyFeeder currencyFeeder;
     private final EmployesListFeeder employesListFeeder;
-    private final VerticalPanel verticalPanelForEmployesDeck;
+    private final VerticalPanel employesGridPanel = new VerticalPanel();
+    private final DataGrid<EmployesListFeeder.EmployeEntry> dataGrid = new DataGrid<>();
+    private final Label loginLabelOnEmployesGridPanel = new Label();
     @UiField
     HTML footerPanel;
     @UiField
@@ -40,27 +43,36 @@ public class Main extends Composite {
         footerPanel.setHTML(FooterHtmlResource.INSTANCE.getHtml().getText());
         headerPanel.setHTML(HeaderHtmlResource.INSTANCE.getHtml().getText());
 
-        verticalPanelForEmployesDeck = new VerticalPanel();
-        verticalPanelForEmployesDeck.setStyleName(res.style().backgroundGrid());
-        loginWidget = new Login(loginLabelOnNavigator);
+        dataGrid.setStyleName(res.style().backgroundGrid());
+
+        loginLabelOnEmployesGridPanel.setText("Нужно произвести вход.");
+        employesGridPanel.add(loginLabelOnEmployesGridPanel);
 
         HTML label1 = new HTML("Это главная страница. <br> Первый пользователь ADMIN admin/admin <br> <br>Тут новости компании. ");
-        Label label3 = new Label("Страница про компанию");
-        Label label4 = new Label("Страница логина");
+        Label label2 = new Label("Страница про компанию");
+        Label label3 = new Label("Страница логина");
         deckPanel.add(label1);
-        deckPanel.add(verticalPanelForEmployesDeck);
-        deckPanel.add(label3);
-        deckPanel.add(label4); // need 4 widgets in deckpanel
+        deckPanel.add(employesGridPanel);
+        deckPanel.add(label2);
+        deckPanel.add(label3); // need 4 widgets in deckpanel
 
-        navigator = new Navigator(deckPanel, loginLabelOnNavigator);
+        loginWidget = new Login(loginLabelOnNavigator);
+
+        navigator = new Navigator(deckPanel,
+                                    loginWidget,
+                                    loginLabelOnNavigator,
+                                    loginLabelOnEmployesGridPanel,
+                                    dataGrid,
+                                    employesGridPanel);
         navigationPanel.add(navigator);
 
-        deckPanel.remove(label4);
+        deckPanel.remove(label3);
         deckPanel.add(loginWidget);
 
-        employesListFeeder = new EmployesListFeeder(verticalPanelForEmployesDeck, res);
+        employesListFeeder = new EmployesListFeeder(employesGridPanel, dataGrid, res);
         currencyFeeder = new CurrencyFeeder(currencyPanel, res);
         newsFeeder = new NewsFeeder(newsPanel, res);
+
         currencyFeeder.FillCurrencyPanel();
         newsFeeder.FillNewsPanel();
         employesListFeeder.FillEmployeePanel();

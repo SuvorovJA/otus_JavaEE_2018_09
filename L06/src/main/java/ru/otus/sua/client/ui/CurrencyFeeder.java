@@ -133,74 +133,74 @@ public class CurrencyFeeder {
         }
     }
 
+    private class Valute {
+        private String valuteId;
+        private String charCode;
+        private String value;
+        private String name;
+        private String numCode;
+        private String nominal;
 
-}
+        public Valute() {
+        }
 
-class Valute {
-    private String valuteId;
-    private String charCode;
-    private String value;
-    private String name;
-    private String numCode;
-    private String nominal;
+        public Valute(String valuteId, String charCode, String value, String name, String numCode, String nominal) {
+            this.valuteId = valuteId;
+            this.charCode = charCode;
+            this.value = value;
+            this.name = name;
+            this.numCode = numCode;
+            this.nominal = nominal;
+        }
 
-    public Valute() {
-    }
+        public String getValuteId() {
+            return valuteId;
+        }
 
-    public Valute(String valuteId, String charCode, String value, String name, String numCode, String nominal) {
-        this.valuteId = valuteId;
-        this.charCode = charCode;
-        this.value = value;
-        this.name = name;
-        this.numCode = numCode;
-        this.nominal = nominal;
-    }
+        public void setValuteId(String valuteId) {
+            this.valuteId = valuteId;
+        }
 
-    public String getValuteId() {
-        return valuteId;
-    }
+        public String getCharCode() {
+            return charCode;
+        }
 
-    public void setValuteId(String valuteId) {
-        this.valuteId = valuteId;
-    }
+        public void setCharCode(String charCode) {
+            this.charCode = charCode;
+        }
 
-    public String getCharCode() {
-        return charCode;
-    }
+        public String getValue() {
+            return value;
+        }
 
-    public void setCharCode(String charCode) {
-        this.charCode = charCode;
-    }
+        public void setValue(String value) {
+            this.value = value;
+        }
 
-    public String getValue() {
-        return value;
-    }
+        public String getName() {
+            return name;
+        }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public String getNumCode() {
+            return numCode;
+        }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        public void setNumCode(String numCode) {
+            this.numCode = numCode;
+        }
 
-    public String getNumCode() {
-        return numCode;
-    }
+        public String getNominal() {
+            return nominal;
+        }
 
-    public void setNumCode(String numCode) {
-        this.numCode = numCode;
-    }
-
-    public String getNominal() {
-        return nominal;
-    }
-
-    public void setNominal(String nominal) {
-        this.nominal = nominal;
+        public void setNominal(String nominal) {
+            this.nominal = nominal;
+        }
     }
 }
+
+

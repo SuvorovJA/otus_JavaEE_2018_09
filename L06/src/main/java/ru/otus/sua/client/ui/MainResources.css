@@ -110,13 +110,13 @@
 }
 
 .backgroundGrid {
-    background-color: beige;
-    border: 1px none transparent;
+    /*background-color: beige;*/
+    border: 1px solid blue;
     color: black;
-    font-size: 11px;
-    margin: 5px;
-    padding: 6px;
-    width: 96%;
+    /*font-size: 11px;*/
+    /*margin: 5px;*/
+    /*padding: 6px;*/
+    /*width: 96%;*/
 }
 
 .backgroundCurrency {
