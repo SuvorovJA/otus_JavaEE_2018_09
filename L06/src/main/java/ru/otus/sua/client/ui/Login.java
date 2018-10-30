@@ -26,7 +26,8 @@ public class Login extends Composite {
     @UiField(provided = true)
     final LoginResources res;
     private final LoginServiceAsync loginService = GWT.create(LoginService.class);
-    private  final Label loginLabelOnNavigator;
+    private final Label loginLabelOnNavigator;
+
     @UiField
     TextBox loginBox;
     @UiField
@@ -36,12 +37,22 @@ public class Login extends Composite {
     @UiField
     Label completionLabel2;
     private Boolean tooShort = false;
+    private boolean isLoggedIn = false;
+    private String loggedAs = "";
 
     public Login(Label label) {
         this.loginLabelOnNavigator = label;
         this.res = GWT.create(LoginResources.class);
         res.style().ensureInjected();
         initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public String getLoggedAs() {
+        return loggedAs;
     }
 
     //      Method name is not relevant, the binding is done according to the class of the parameter.
@@ -93,8 +104,10 @@ public class Login extends Composite {
             public void onSuccess(String result) {
                 if (result == null) {
                     loginLabelOnNavigator.setText("Не найдено...");
-                }else{
+                } else {
                     loginLabelOnNavigator.setText("Вы вошли как: " + result);
+                    isLoggedIn = true;
+                    loggedAs = result;
                 }
             }
         });

@@ -25,10 +25,7 @@
     <!--<inherits name="com.google.gwt.logging.Logging"/>-->
 
     <!-- Specify the app entry point class.                         -->
-    <!--<entry-point class='ru.otus.sua.client.L06'/>-->
-    <!--<entry-point class='ru.otus.sua.client.L06_deckpanel'/>-->
-    <entry-point class='ru.otus.sua.client.L06_uibinderEntryPoint'/>
-    <!--<entry-point class='ru.otus.sua.client.L06_sample'/>-->
+    <entry-point class='ru.otus.sua.client.UibinderEntryPoint'/>
 
     <!-- Specify the paths for translatable code                    -->
     <source path='client'/>

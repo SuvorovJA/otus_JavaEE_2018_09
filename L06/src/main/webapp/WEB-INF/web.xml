@@ -7,18 +7,9 @@
 
     <!-- Servlets -->
     <servlet>
-        <servlet-name>greetServlet</servlet-name>
-        <servlet-class>ru.otus.sua.server.GreetingServiceImpl</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ru.otus.sua.L06 LoginService</servlet-name>
         <servlet-class>ru.otus.sua.server.LoginServiceImpl</servlet-class>
     </servlet>
-
-    <servlet-mapping>
-        <servlet-name>greetServlet</servlet-name>
-        <url-pattern>/l06/greet</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ru.otus.sua.L06 LoginService</servlet-name>
         <url-pattern>/l06/login</url-pattern>
