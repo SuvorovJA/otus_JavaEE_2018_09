@@ -87,7 +87,7 @@ public class JpaHelper6 {
     }
 
     public static Employes readAllEmployes() throws SQLException {
-        Employes list = null;
+        Employes list = new Employes();
         try {
             em.getTransaction().begin();
             Query q = em.createQuery("select e from EmployeEntity e order by e.id asc");

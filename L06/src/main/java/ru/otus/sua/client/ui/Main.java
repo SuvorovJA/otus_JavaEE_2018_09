@@ -17,6 +17,8 @@ public class Main extends Composite {
     private final Login loginWidget;
     private final NewsFeeder newsFeeder;
     private final CurrencyFeeder currencyFeeder;
+    private final EmployesListFeeder employesListFeeder;
+    private final VerticalPanel verticalPanelForEmployesDeck;
     @UiField
     HTML footerPanel;
     @UiField
@@ -38,28 +40,30 @@ public class Main extends Composite {
         footerPanel.setHTML(FooterHtmlResource.INSTANCE.getHtml().getText());
         headerPanel.setHTML(HeaderHtmlResource.INSTANCE.getHtml().getText());
 
+        verticalPanelForEmployesDeck = new VerticalPanel();
+        verticalPanelForEmployesDeck.setStyleName(res.style().backgroundGrid());
+        loginWidget = new Login(loginLabelOnNavigator);
+
         HTML label1 = new HTML("Это главная страница. <br> Первый пользователь ADMIN admin/admin <br> <br>Тут новости компании. ");
-        Label label2 = new Label("Страница про работников");
         Label label3 = new Label("Страница про компанию");
         Label label4 = new Label("Страница логина");
         deckPanel.add(label1);
-        deckPanel.add(label2);
+        deckPanel.add(verticalPanelForEmployesDeck);
         deckPanel.add(label3);
         deckPanel.add(label4); // need 4 widgets in deckpanel
 
         navigator = new Navigator(deckPanel, loginLabelOnNavigator);
         navigationPanel.add(navigator);
 
-        loginWidget = new Login(loginLabelOnNavigator);
-
         deckPanel.remove(label4);
         deckPanel.add(loginWidget);
 
-        currencyFeeder = new CurrencyFeeder(currencyPanel,res);
-        currencyFeeder.FillCurrencyPanel();
-
+        employesListFeeder = new EmployesListFeeder(verticalPanelForEmployesDeck, res);
+        currencyFeeder = new CurrencyFeeder(currencyPanel, res);
         newsFeeder = new NewsFeeder(newsPanel, res);
+        currencyFeeder.FillCurrencyPanel();
         newsFeeder.FillNewsPanel();
+        employesListFeeder.FillEmployeePanel();
 
     }
 

@@ -109,6 +109,16 @@
     width: 96%;
 }
 
+.backgroundGrid {
+    background-color: beige;
+    border: 1px none transparent;
+    color: black;
+    font-size: 11px;
+    margin: 5px;
+    padding: 6px;
+    width: 96%;
+}
+
 .backgroundCurrency {
     background-color: honeydew;
     border: 1px none transparent;

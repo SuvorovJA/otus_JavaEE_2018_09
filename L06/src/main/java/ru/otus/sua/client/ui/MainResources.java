@@ -37,6 +37,8 @@ public interface MainResources extends ClientBundle {
 
         String backgroundFooter();
 
+        String backgroundGrid();
+
         String footerText();
 
         String headerText();
