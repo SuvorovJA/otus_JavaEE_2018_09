@@ -1,7 +1,6 @@
 package ru.otus.sua.entityes;
 
 import lombok.Data;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,12 +29,12 @@ public class EmployeEntity implements Serializable {
 //    @XmlElement(required = true)
     private long salary;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "depart_id", referencedColumnName = "depart_id")
 //    @XmlElement(required = true)
     private DepartmentEntity department;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "appointment_id", referencedColumnName = "appointment_id")
 //    @XmlElement(required = true)
     private AppointmentEntity appointment;
@@ -56,5 +55,11 @@ public class EmployeEntity implements Serializable {
                 "; appointment:" + appointment.toString() +
                 "; credentials:" + credentials.toString() +
                 "}";
+    }
+
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

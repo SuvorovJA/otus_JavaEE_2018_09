@@ -13,10 +13,28 @@ import javax.persistence.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static ru.otus.sua.helpers.EntityManagerClass.getEM;
+import static ru.otus.sua.helpers.EntityManagerHolder.getEM;
 
 /**
  * only CRUD ops.
+ * <p>
+ * <p>
+ * ABOUT .merge in Appointment AND Department (detached objects)
+ * <p>
+ * When we receive an updated version of an existing simple entity
+ * (an entity with no references to other entities) from outside
+ * of our application and want to save the new state, we invoke
+ * EntityManager.merge to copy that state into the persistence
+ * context. Because of the way merging works, we can also do this
+ * if we are unsure whether the object has been already persisted.
+ * <p>
+ * <p>
+ * <p>
+ * ABOUT .refresh detached aggregated object (em.refresh(em.merge(entity)); - no work)
+ * <p>
+ * When we need more control over the merging process, we use the "DIY merge pattern."
+ * Simple Find obj by id and directly modify it.
+ * https://xebia.com/blog/jpa-implementation-patterns-saving-detached-entities/
  */
 
 // TODO [WARNING] JpaHelper6.java uses unchecked or unsafe operations. Recompile with -Xlint:unchecked for details.
@@ -26,60 +44,69 @@ public class JpaHelper6 {
     private static final Logger log = LoggerFactory.getLogger(JpaHelper6.class);
     private static final EntityManager em = getEM();
 
-    public static boolean saveEmploye(EmployeEntity entity) {
+    public static boolean saveEmployeEntity(EmployeEntity entity) {
         try {
             em.getTransaction().begin();
             em.persist(entity);
             em.getTransaction().commit();
+            log.info("Created in DB {}.hash={}",entity,entity.hashCode());
         } catch (EntityExistsException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when saveEmploye, call update method: {}", e.getMessage());
-            updateEmploye(entity);
+            log.error("Rollback when saveEmployeEntity, call update method: {}", e.getMessage());
+            updateEmployeEntity(entity);
             return false;
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateEmploye: {}", e.getMessage());
+            log.error("Rollback when updateEmployeEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
 
-    public static boolean updateEmploye(EmployeEntity entity) {
+    public static boolean updateEmployeEntity(EmployeEntity entity) {
         try {
+            log.info("Refreshing in DB {}.hash={}",entity,entity.hashCode());
             em.getTransaction().begin();
-            em.refresh(entity);
+//            em.refresh(entity); // WTF that not work ??
+            em.merge(entity);
+            em.flush();
             em.getTransaction().commit();
+            log.info("Refreshed in DB {}.hash={}",entity,entity.hashCode());
         } catch (EntityNotFoundException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateEmploye, call saving method: {}", e.getMessage());
-            saveEmploye(entity);
+            log.error("Rollback when updateEmployeEntity, call saving method: {}", e.getMessage());
+            saveEmployeEntity(entity);
             return false;
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateEmploye: {}", e.getMessage());
+            log.error("Rollback when updateEmployeEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
 
-    public static boolean deleteEmploye(EmployeEntity entity) {
+    public static boolean deleteEmployeEntity(EmployeEntity entity) {
         try {
             em.getTransaction().begin();
-            em.remove(entity);
+            // without merge occur "Removing a detached instance"
+            // on deleting allow use merge
+            em.remove(em.merge(entity));
             em.getTransaction().commit();
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when deleteEmploye: {}", e.getMessage());
+            log.error("Rollback when deleteEmployeEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
 
     public static EmployeEntity readEmployeById(long id) {
-        Query q = em.createQuery("select e from EmployeEntity e where e.id=id");
+        Query q = em.createQuery("select e from EmployeEntity e where e.id=:id");
+        q.setParameter("id", id);
         EmployeEntity result = null;
         try {
             result = (EmployeEntity) q.getSingleResult();
+            log.info("readEmployeById({}): {}", id, (result == null) ? "null" : result.toString());
         } catch (PersistenceException e) {
             log.error("Err when readById: {}", e.getMessage());
         }
@@ -125,81 +152,178 @@ public class JpaHelper6 {
         return entity;
     }
 
+
+    // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
     @SuppressWarnings("Duplicates")
-    public static boolean saveAppointment(AppointmentEntity entity) {
+    public static boolean saveAppointmentEntity(AppointmentEntity entity) {
         try {
             em.getTransaction().begin();
             em.persist(entity);
             em.getTransaction().commit();
         } catch (EntityExistsException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when saveAppointment, call update method: {}", e.getMessage());
-            updateAppointment(entity);
+            log.error("Rollback when saveAppointmentEntity, call update method: {}", e.getMessage());
+            updateAppointmentEntity(entity);
             return false;
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when saveAppointment: {}", e.getMessage());
+            log.error("Rollback when saveAppointmentEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
 
     @SuppressWarnings("Duplicates")
-    public static boolean updateAppointment(AppointmentEntity entity) {
+    public static boolean updateAppointmentEntity(AppointmentEntity entity) {
         try {
             em.getTransaction().begin();
-            em.refresh(entity);
+            em.refresh(em.merge(entity));
             em.getTransaction().commit();
         } catch (EntityNotFoundException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateAppointment, call saving method: {}", e.getMessage());
-            saveAppointment(entity);
+            log.error("Rollback when updateAppointmentEntity, call saving method: {}", e.getMessage());
+            saveAppointmentEntity(entity);
             return false;
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateAppointment: {}", e.getMessage());
+            log.error("Rollback when updateAppointmentEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
 
+    public static boolean containsAppointmentEntity(AppointmentEntity entity) {
+        boolean result;
+        try {
+            em.getTransaction().begin();
+            result = em.contains(entity);
+            em.getTransaction().commit();
+        } catch (PersistenceException | IllegalArgumentException e) {
+            em.getTransaction().rollback();
+            log.error("Rollback when containsAppointmentEntity: {}", e.getMessage());
+            result = false;
+        }
+        return result;
+    }
+
+    public static boolean containsAppointmentEntityByName(String name) {
+        boolean result = true;
+        Query q = em.createQuery("select a from AppointmentEntity a where a.name=:name");
+        q.setParameter("name", name);
+        try {
+            q.getSingleResult();
+        } catch (NoResultException e) {
+            log.info("No result \"{}\" in containsAppointmentEntityByName", name);
+            result = false;
+        } catch (PersistenceException | IllegalArgumentException e) {
+            log.error("Err when containsAppointmentEntityByName: {}", e.getMessage());
+            result = false;
+        }
+        return result;
+    }
+
+    public static AppointmentEntity readAppointmentEntityByName(String name) {
+        AppointmentEntity result = null;
+        Query q = em.createQuery("select a from AppointmentEntity a where a.name=:name");
+        q.setParameter("name", name);
+        try {
+            result = (AppointmentEntity) q.getSingleResult();
+        } catch (NoResultException e) {
+            log.info("No result in readAppointmentEntityByName");
+        } catch (PersistenceException | IllegalArgumentException e) {
+            log.error("Err when readAppointmentEntityByName: {}", e.getMessage());
+        }
+        return result;
+    }
+
+    // DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+
+
     @SuppressWarnings("Duplicates")
-    public static boolean saveDepartment(DepartmentEntity entity) {
+    public static boolean saveDepartmentEntity(DepartmentEntity entity) {
         try {
             em.getTransaction().begin();
             em.persist(entity);
             em.getTransaction().commit();
         } catch (EntityExistsException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when saveDepartment, call update method: {}", e.getMessage());
-            updateDepartment(entity);
+            log.error("Rollback when saveDepartmentEntity, call update method: {}", e.getMessage());
+            updateDepartmentEntity(entity);
             return false;
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when saveDepartment: {}", e.getMessage());
+            log.error("Rollback when saveDepartmentEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
 
     @SuppressWarnings("Duplicates")
-    public static boolean updateDepartment(DepartmentEntity entity) {
+    public static boolean updateDepartmentEntity(DepartmentEntity entity) {
         try {
             em.getTransaction().begin();
-            em.refresh(entity);
+            em.refresh(em.merge(entity));
             em.getTransaction().commit();
         } catch (EntityNotFoundException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateDepartment, call saving method: {}", e.getMessage());
-            saveDepartment(entity);
+            log.error("Rollback when updateDepartmentEntity, call saving method: {}", e.getMessage());
+            saveDepartmentEntity(entity);
             return false;
         } catch (PersistenceException | IllegalArgumentException e) {
             em.getTransaction().rollback();
-            log.error("Rollback when updateDepartment: {}", e.getMessage());
+            log.error("Rollback when updateDepartmentEntity: {}", e.getMessage());
             return false;
         }
         return true;
     }
+
+    public static boolean containsDepartmentEntity(DepartmentEntity entity) {
+        boolean result;
+        try {
+            em.getTransaction().begin();
+            result = em.contains(entity);
+            em.getTransaction().commit();
+        } catch (PersistenceException | IllegalArgumentException e) {
+            em.getTransaction().rollback();
+            log.error("Rollback when containsDepartmentEntity: {}", e.getMessage());
+            result = false;
+        }
+        return result;
+    }
+
+    public static boolean containsDepartmentEntityByName(String name) {
+        boolean result = true;
+        Query q = em.createQuery("select d from DepartmentEntity d where d.name=:name");
+        q.setParameter("name", name);
+        try {
+            q.getSingleResult();
+        } catch (NoResultException e) {
+            log.info("No result \"{}\" in containsDepartmentEntityByName", name);
+            result = false;
+        } catch (PersistenceException | IllegalArgumentException e) {
+            log.error("Err when containsDepartmentEntityByName: {}", e.getMessage());
+            result = false;
+        }
+        return result;
+    }
+
+    public static DepartmentEntity readDepartmentEntityByName(String name) {
+        DepartmentEntity result = null;
+        Query q = em.createQuery("select d from DepartmentEntity d where d.name=:name");
+        q.setParameter("name", name);
+        try {
+            result = (DepartmentEntity) q.getSingleResult();
+        } catch (NoResultException e) {
+            log.info("No result in readDepartmentEntityByName");
+        } catch (PersistenceException | IllegalArgumentException e) {
+            log.error("Err when readDepartmentEntityByName: {}", e.getMessage());
+        }
+        return result;
+    }
+
+
+    // OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
     /**
      * взять объект из базы по содержимому(@param value) не-id поля.

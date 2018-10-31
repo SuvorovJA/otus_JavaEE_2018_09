@@ -7,12 +7,21 @@
 
     <!-- Servlets -->
     <servlet>
-        <servlet-name>ru.otus.sua.L06 LoginService</servlet-name>
+        <servlet-name>LoginService</servlet-name>
         <servlet-class>ru.otus.sua.server.LoginServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ru.otus.sua.L06 LoginService</servlet-name>
+        <servlet-name>LoginService</servlet-name>
         <url-pattern>/l06/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CrudService</servlet-name>
+        <servlet-class>ru.otus.sua.server.CrudServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CrudService</servlet-name>
+        <url-pattern>/l06/crud</url-pattern>
     </servlet-mapping>
 
     <!-- Default page to serve -->

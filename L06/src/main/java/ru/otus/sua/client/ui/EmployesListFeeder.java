@@ -22,7 +22,8 @@ public class EmployesListFeeder {
     private final DataGrid<EmployeEntry> grid;
     private ArrayList<EmployeEntry> data;
     private EmployeEntry selectedEmploye;
-    private boolean isSelected;
+    private boolean isSelected = false;
+    private boolean isInitialized = false;
 
     public EmployesListFeeder(VerticalPanel panel, DataGrid<EmployeEntry> grid, MainResources res) {
         this.res = res;
@@ -48,87 +49,100 @@ public class EmployesListFeeder {
             }
 
             public void onSuccess(Feed feed) {
-                JsArray<EmployeEntry> entries = feed.getEntries();
-                for (int i = 0; i < entries.length(); i++) {
-                    EmployeEntry entry = entries.get(i);
-                    data.add(entry);
-                }
+                data.clear();
+                reloadData(feed);
                 deferredInitDataGrid();
             }
         };
+
+        data.clear();
+        refreshGrid();
         jsonp.requestObject(url, asyncCallback);
+    }
+
+    private void reloadData(Feed feed) {
+        JsArray<EmployeEntry> entries = feed.getEntries();
+        for (int i = 0; i < entries.length(); i++) {
+            EmployeEntry entry = entries.get(i);
+            data.add(entry);
+        }
     }
 
 
     private void deferredInitDataGrid() {
-        grid.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.ENABLED);
-
-        TextColumn<EmployeEntry> fullNameColumn = new TextColumn<EmployeEntry>() {
-            @Override
-            public String getValue(EmployeEntry entry) {
-                return entry.getFullName();
-            }
-        };
-        grid.addColumn(fullNameColumn, "Полное Имя");
-        TextColumn<EmployeEntry> departmentColumn = new TextColumn<EmployeEntry>() {
-            @Override
-            public String getValue(EmployeEntry entry) {
-                return entry.getDepartment();
-            }
-        };
-        grid.addColumn(departmentColumn, "Отдел");
-        TextColumn<EmployeEntry> appointmentColumn = new TextColumn<EmployeEntry>() {
-            @Override
-            public String getValue(EmployeEntry entry) {
-                return entry.getAppointment();
-            }
-        };
-        grid.addColumn(appointmentColumn, "Должность");
-        TextColumn<EmployeEntry> salaryColumn = new TextColumn<EmployeEntry>() {
-            @Override
-            public String getValue(EmployeEntry entry) {
-                return entry.getSalary();
-            }
-        };
-        grid.addColumn(salaryColumn, "Зарплата");
-        TextColumn<EmployeEntry> cityColumn = new TextColumn<EmployeEntry>() {
-            @Override
-            public String getValue(EmployeEntry entry) {
-                return entry.getCity();
-            }
-        };
-        grid.addColumn(cityColumn, "Город");
-        TextColumn<EmployeEntry> loginColumn = new TextColumn<EmployeEntry>() {
-            @Override
-            public String getValue(EmployeEntry entry) {
-                return entry.getLogin();
-            }
-        };
-        grid.addColumn(loginColumn, "Логин");
-
-        final SingleSelectionModel<EmployeEntry> selectionModel = new SingleSelectionModel<>();
-        grid.setSelectionModel(selectionModel);
-        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-
-            @Override
-            public void onSelectionChange(SelectionChangeEvent event) {
-                EmployeEntry selected = selectionModel.getSelectedObject();
-                if (selected != null) {
-                    isSelected = true;
-                    selectedEmploye = selected;
-                } else {
-                    isSelected = false;
+        if (!isInitialized) {
+            grid.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.ENABLED);
+            TextColumn<EmployeEntry> fullNameColumn = new TextColumn<EmployeEntry>() {
+                @Override
+                public String getValue(EmployeEntry entry) {
+                    return entry.getFullName();
                 }
-            }
-        });
+            };
+            grid.addColumn(fullNameColumn, "Полное Имя");
+            TextColumn<EmployeEntry> departmentColumn = new TextColumn<EmployeEntry>() {
+                @Override
+                public String getValue(EmployeEntry entry) {
+                    return entry.getDepartment();
+                }
+            };
+            grid.addColumn(departmentColumn, "Отдел");
+            TextColumn<EmployeEntry> appointmentColumn = new TextColumn<EmployeEntry>() {
+                @Override
+                public String getValue(EmployeEntry entry) {
+                    return entry.getAppointment();
+                }
+            };
+            grid.addColumn(appointmentColumn, "Должность");
+            TextColumn<EmployeEntry> salaryColumn = new TextColumn<EmployeEntry>() {
+                @Override
+                public String getValue(EmployeEntry entry) {
+                    return entry.getSalary();
+                }
+            };
+            grid.addColumn(salaryColumn, "Зарплата");
+            TextColumn<EmployeEntry> cityColumn = new TextColumn<EmployeEntry>() {
+                @Override
+                public String getValue(EmployeEntry entry) {
+                    return entry.getCity();
+                }
+            };
+            grid.addColumn(cityColumn, "Город");
+            TextColumn<EmployeEntry> loginColumn = new TextColumn<EmployeEntry>() {
+                @Override
+                public String getValue(EmployeEntry entry) {
+                    return entry.getLogin();
+                }
+            };
+            grid.addColumn(loginColumn, "Логин");
 
-        grid.setRowCount(data.size(), true);
-        grid.setRowData(0, data);
-        grid.setWidth("100%");
-        grid.setHeight("400px");
-        grid.onResize();
+            final SingleSelectionModel<EmployeEntry> selectionModel = new SingleSelectionModel<>();
+            grid.setSelectionModel(selectionModel);
+            selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+                @Override
+                public void onSelectionChange(SelectionChangeEvent event) {
+                    EmployeEntry selected = selectionModel.getSelectedObject();
+                    if (selected != null) {
+                        isSelected = true;
+                        selectedEmploye = selected;
+                    } else {
+                        isSelected = false;
+                    }
+                }
+            });
+
+            grid.setWidth("100%");
+            grid.setHeight("400px");
+            isInitialized = true;
+        }
+        refreshGrid();
     }
 
+    private void refreshGrid() {
+        grid.setRowCount(data.size(), true);
+        grid.setRowData(0, data);
+        grid.onResize();
+        grid.redraw();
+    }
 
     static class Feed extends JavaScriptObject {
         protected Feed() {

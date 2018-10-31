@@ -31,4 +31,8 @@ public class AppointmentEntity implements Serializable {
         return "{ id:" + id + "; name:" + name + "}";
     }
 
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

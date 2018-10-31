@@ -6,19 +6,19 @@
         <g:VerticalPanel>
             <g:HorizontalPanel styleName="{res.style.marpadding}">
                 <g:Label styleName="{res.style.labels}">ID</g:Label>
-                <g:Label styleName="{res.style.labels}" ui:field="employeIdLabel"/>
+                <g:TextBox ui:field="employeIdLabel" styleName="{res.style.inputs}" enabled="false"/>
             </g:HorizontalPanel>
             <g:HorizontalPanel styleName="{res.style.marpadding}">
                 <g:Label styleName="{res.style.labels}">DepID</g:Label>
-                <g:Label styleName="{res.style.labels}" ui:field="departmentIdLabel"/>
+                <g:TextBox ui:field="departmentIdLabel" styleName="{res.style.inputs}" enabled="false"/>
             </g:HorizontalPanel>
             <g:HorizontalPanel styleName="{res.style.marpadding}">
                 <g:Label styleName="{res.style.labels}">AppID</g:Label>
-                <g:Label styleName="{res.style.labels}" ui:field="appointmentIdLabel"/>
+                <g:TextBox ui:field="appointmentIdLabel" styleName="{res.style.inputs}" enabled="false"/>
             </g:HorizontalPanel>
             <g:HorizontalPanel styleName="{res.style.marpadding}">
                 <g:Label styleName="{res.style.labels}">CredID</g:Label>
-                <g:Label styleName="{res.style.labels}" ui:field="credentialsIdLabel"/>
+                <g:TextBox ui:field="credentialsIdLabel" styleName="{res.style.inputs}" enabled="false"/>
             </g:HorizontalPanel>
             <g:HorizontalPanel styleName="{res.style.marpadding}">
                 <g:Label styleName="{res.style.labels}">Err</g:Label>

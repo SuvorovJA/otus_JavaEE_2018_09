@@ -29,4 +29,9 @@ public class DepartmentEntity implements Serializable {
     public String toString() {
         return "{ id:" + id + "; name:" + name + "}";
     }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

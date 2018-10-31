@@ -28,14 +28,14 @@ public class AppServletContextListener implements ServletContextListener {
          You can initialize servlet context related data here.
       */
         log.info("Create admin account on startup application.");
-        JpaHelper6.saveEmploye(
+        JpaHelper6.saveEmployeEntity(
                 EntytiesHelper6.createEmployeEntity(
                         "ADMIN", "TOMSK", 2000L,
                         "admin", "admin",
                         EntytiesHelper6.createAppointmentEntity("SysAdmin"),
                         EntytiesHelper6.createDepartmentEntity("IT Dept.")));
         log.info("Create user account on startup application.");
-        JpaHelper6.saveEmploye(
+        JpaHelper6.saveEmployeEntity(
                 EntytiesHelper6.createEmployeEntity(
                         "USER", "TOMSK", 1000L,
                         "user", "user",
