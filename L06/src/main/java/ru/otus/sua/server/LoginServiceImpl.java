@@ -2,8 +2,8 @@ package ru.otus.sua.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import ru.otus.sua.client.LoginService;
-import ru.otus.sua.entityes.EmployeEntity;
-import ru.otus.sua.helpers.JpaHelper6;
+import ru.otus.sua.entities.EmployeEntity;
+import ru.otus.sua.helpers.JpaDTO;
 import ru.otus.sua.shared.FieldVerifier;
 import ru.otus.sua.shared.entities.MyPair;
 
@@ -29,7 +29,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
         //  userAgent = escapeHtml(userAgent);
         EmployeEntity entity = null;
         try {
-            entity = JpaHelper6.findByCredentials(credentials);
+            entity = JpaDTO.findByCredentials(credentials);
         } catch (SQLException e) {
             return e.getSQLState();
         }

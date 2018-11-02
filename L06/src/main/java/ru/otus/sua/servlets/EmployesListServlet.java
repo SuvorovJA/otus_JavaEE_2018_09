@@ -1,11 +1,10 @@
 package ru.otus.sua.servlets;
 
-import ru.otus.sua.entityes.EmployeEntity;
-import ru.otus.sua.entityes.Employes;
-import ru.otus.sua.helpers.JpaHelper6;
+import ru.otus.sua.entities.EmployeEntity;
+import ru.otus.sua.entities.Employes;
+import ru.otus.sua.helpers.JpaDTO;
 
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 @WebServlet(name = "EmployesListServlet", urlPatterns = "/allemployes")
 public class EmployesListServlet extends HttpServlet {
@@ -23,7 +20,7 @@ public class EmployesListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Employes employes = JpaHelper6.readAllEmployes();
+            Employes employes = JpaDTO.readAllEmployes();
             // without jackson
             JsonArrayBuilder aBuilder = Json.createArrayBuilder();
             for (EmployeEntity e : employes.getEmployes()){

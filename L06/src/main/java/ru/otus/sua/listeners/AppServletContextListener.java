@@ -2,8 +2,8 @@ package ru.otus.sua.listeners;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.otus.sua.helpers.EntytiesHelper6;
-import ru.otus.sua.helpers.JpaHelper6;
+import ru.otus.sua.helpers.EntitiesHelper;
+import ru.otus.sua.helpers.JpaDTO;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -28,19 +28,19 @@ public class AppServletContextListener implements ServletContextListener {
          You can initialize servlet context related data here.
       */
         log.info("Create admin account on startup application.");
-        JpaHelper6.saveEmployeEntity(
-                EntytiesHelper6.createEmployeEntity(
+        JpaDTO.saveEmployeEntity(
+                EntitiesHelper.createEmployeEntity(
                         "ADMIN", "TOMSK", 2000L,
                         "admin", "admin",
-                        EntytiesHelper6.createAppointmentEntity("SysAdmin"),
-                        EntytiesHelper6.createDepartmentEntity("IT Dept.")));
+                        EntitiesHelper.createAppointmentEntity("SysAdmin"),
+                        EntitiesHelper.createDepartmentEntity("IT Dept.")));
         log.info("Create user account on startup application.");
-        JpaHelper6.saveEmployeEntity(
-                EntytiesHelper6.createEmployeEntity(
+        JpaDTO.saveEmployeEntity(
+                EntitiesHelper.createEmployeEntity(
                         "USER", "TOMSK", 1000L,
                         "user", "user",
-                        EntytiesHelper6.createAppointmentEntity("User"),
-                        EntytiesHelper6.createDepartmentEntity("Users")));
+                        EntitiesHelper.createAppointmentEntity("User"),
+                        EntitiesHelper.createDepartmentEntity("Users")));
     }
 
     @Override

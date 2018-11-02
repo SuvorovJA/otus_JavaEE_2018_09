@@ -2,10 +2,10 @@ package ru.otus.sua.helpers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.otus.sua.entityes.AppointmentEntity;
-import ru.otus.sua.entityes.CredentialEntity;
-import ru.otus.sua.entityes.DepartmentEntity;
-import ru.otus.sua.entityes.EmployeEntity;
+import ru.otus.sua.entities.AppointmentEntity;
+import ru.otus.sua.entities.CredentialEntity;
+import ru.otus.sua.entities.DepartmentEntity;
+import ru.otus.sua.entities.EmployeEntity;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -13,11 +13,11 @@ import javax.json.JsonReader;
 import java.io.StringReader;
 
 import static java.lang.Long.parseLong;
-import static ru.otus.sua.helpers.JpaHelper6.*;
+import static ru.otus.sua.helpers.JpaDTO.*;
 
-public class EntytiesHelper6 {
+public class EntitiesHelper {
 
-    private static Logger log = LoggerFactory.getLogger(EntytiesHelper6.class);
+    private static Logger log = LoggerFactory.getLogger(EntitiesHelper.class);
 
     public static AppointmentEntity createAppointmentEntity(String appointment) {
         AppointmentEntity entity = new AppointmentEntity();

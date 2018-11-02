@@ -4,11 +4,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.client.CrudService;
-import ru.otus.sua.entityes.EmployeEntity;
+import ru.otus.sua.entities.EmployeEntity;
 
-import static ru.otus.sua.helpers.EntytiesHelper6.cloneEmployeEntity;
-import static ru.otus.sua.helpers.EntytiesHelper6.createEmployeEntityFromJsonWithIds;
-import static ru.otus.sua.helpers.JpaHelper6.*;
+import static ru.otus.sua.helpers.EntitiesHelper.cloneEmployeEntity;
+import static ru.otus.sua.helpers.EntitiesHelper.createEmployeEntityFromJsonWithIds;
+import static ru.otus.sua.helpers.JpaDTO.*;
 
 public class CrudServiceImpl extends RemoteServiceServlet implements CrudService {
 

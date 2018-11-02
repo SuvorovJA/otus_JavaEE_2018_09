@@ -3,10 +3,10 @@ package ru.otus.sua.helpers;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.otus.sua.entityes.AppointmentEntity;
-import ru.otus.sua.entityes.DepartmentEntity;
-import ru.otus.sua.entityes.EmployeEntity;
-import ru.otus.sua.entityes.Employes;
+import ru.otus.sua.entities.AppointmentEntity;
+import ru.otus.sua.entities.DepartmentEntity;
+import ru.otus.sua.entities.EmployeEntity;
+import ru.otus.sua.entities.Employes;
 import ru.otus.sua.shared.entities.MyPair;
 
 import javax.persistence.*;
@@ -37,11 +37,11 @@ import static ru.otus.sua.helpers.EntityManagerHolder.getEM;
  * https://xebia.com/blog/jpa-implementation-patterns-saving-detached-entities/
  */
 
-// TODO [WARNING] JpaHelper6.java uses unchecked or unsafe operations. Recompile with -Xlint:unchecked for details.
+// TODO [WARNING] JpaDTO.java uses unchecked or unsafe operations. Recompile with -Xlint:unchecked for details.
 
-public class JpaHelper6 {
+public class JpaDTO {
 
-    private static final Logger log = LoggerFactory.getLogger(JpaHelper6.class);
+    private static final Logger log = LoggerFactory.getLogger(JpaDTO.class);
     private static final EntityManager em = getEM();
 
     public static boolean saveEmployeEntity(EmployeEntity entity) {
@@ -67,7 +67,6 @@ public class JpaHelper6 {
         try {
             log.info("Refreshing in DB {}.hash={}",entity,entity.hashCode());
             em.getTransaction().begin();
-//            em.refresh(entity); // WTF that not work ??
             em.merge(entity);
             em.flush();
             em.getTransaction().commit();

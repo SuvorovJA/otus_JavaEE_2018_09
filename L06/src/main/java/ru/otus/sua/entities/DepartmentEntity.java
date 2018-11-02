@@ -1,4 +1,4 @@
-package ru.otus.sua.entityes;
+package ru.otus.sua.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
@@ -6,17 +6,16 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Data
 @Entity
-@Table(name = "appointments")
-//@XmlRootElement(name = "appointment")
+@Table(name = "departs")
+//@XmlRootElement(name = "departament")
 //@XmlAccessorType(XmlAccessType.FIELD)
-public class AppointmentEntity implements Serializable {
+public class DepartmentEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "appointment_id")
+    @Column(name = "depart_id")
 //    @XmlAttribute(required = true)
     private long id;
 

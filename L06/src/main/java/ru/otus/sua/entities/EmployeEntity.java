@@ -1,4 +1,4 @@
-package ru.otus.sua.entityes;
+package ru.otus.sua.entities;
 
 import lombok.Data;
 

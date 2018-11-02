@@ -6,10 +6,10 @@
     <persistence-unit name="JPAPersistenceUnit6" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--<exclude-unlisted-classes>false</exclude-unlisted-classes>-->
-        <class>ru.otus.sua.entityes.EmployeEntity</class>
-        <class>ru.otus.sua.entityes.DepartmentEntity</class>
-        <class>ru.otus.sua.entityes.AppointmentEntity</class>
-        <class>ru.otus.sua.entityes.CredentialEntity</class>
+        <class>ru.otus.sua.entities.EmployeEntity</class>
+        <class>ru.otus.sua.entities.DepartmentEntity</class>
+        <class>ru.otus.sua.entities.AppointmentEntity</class>
+        <class>ru.otus.sua.entities.CredentialEntity</class>
         <properties>
             <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/PostgresDS"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
