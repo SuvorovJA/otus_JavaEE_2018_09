@@ -24,7 +24,7 @@ public class ExecuteServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         User user = (User) request.getSession().getAttribute("user");
         if (user == null || !(user.getLogin().equals("123") && user.getLogin().equals("123"))) {
-            out.println("FORBIDDEN JS EXECUTE");
+            out.println("FORBIDDEN JS EXECUTE user must be 123 pass 123");
         } else {
             out.println("GRANTED JS EXECUTE");
             try {

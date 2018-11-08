@@ -1,5 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
+
 <div>
-    <form action="/L07/execute" method="post">
+    <form action="${pageContext.request.contextPath}/execute" method="post">
         <div class="scriptform">
             <label for="jsscript">Serverside JS Script</label>
             <textarea rows="10" cols="60" id="jsscript" name="jsscript">

@@ -8,7 +8,7 @@ function getNews() {
             var news = JSON.parse(this.responseText);
             var arr = news.news;
             var html = "";
-            var maxIndex = Math.min(arr.length, 10);
+            var maxIndex = Math.min(arr.length, 7);
             for (var i = 0; i < maxIndex; i++) {
                 html += "<div class = \"newstopic\"><a href = " + arr[i].href + ">" + arr[i].text + "</a></div>" ;
             }
