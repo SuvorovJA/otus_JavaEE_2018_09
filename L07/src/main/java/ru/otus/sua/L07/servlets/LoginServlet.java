@@ -1,6 +1,6 @@
 package ru.otus.sua.L07.servlets;
 
-import ru.otus.sua.L07.validation.User;
+import ru.otus.sua.L07.entities.validation.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

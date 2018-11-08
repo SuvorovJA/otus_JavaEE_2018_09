@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "NewsServlet",urlPatterns = "/news")
+@WebServlet(name = "NewsServlet", urlPatterns = "/news")
 public class NewsServlet extends HttpServlet {
 
     @Override
