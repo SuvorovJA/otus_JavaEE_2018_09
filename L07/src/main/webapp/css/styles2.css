@@ -1,0 +1,116 @@
+.center {
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div {
+    border: 1px solid lightskyblue;
+    margin: 1px;
+}
+
+header {
+    height: 100px;
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+.search {
+    float: right;
+}
+
+.contacts {
+    float: left;
+}
+
+.navbaritem {
+    display: inline-block;
+    padding: 4px;
+    text-decoration: none;
+}
+
+.navbaritem:hover {
+    background-color: #3d82ff;
+}
+
+nav {
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: lightsteelblue;
+}
+
+nav a {
+  display: inline-block;
+  margin-right: 24px;
+}
+
+a, a:link, a:visited, a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+main {
+    margin-top: 10px;
+    display: inline-block;
+    width: 790px;
+    min-height: 400px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+h4, h3, h2 {
+    color: cornflowerblue;
+}
+
+aside {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    min-height: 400px;
+}
+
+.right-header {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    background-color: paleturquoise;
+}
+
+.currency {
+    display: table;
+}
+
+.currency-name {
+    width: 140px;
+    display: table-cell;
+}
+
+.currency-value {
+    display: table-cell;
+}
+
+footer {
+    position: relative;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-text {
+    text-align: center;
+}
+
+.footer-text a {
+  margin-right: 24px;
+}
+
+.loginform {
+ 	margin-top: 5px;
+    display: inline-block;
+    width: 100px;
+}
+
+.newstopic {
+    margin-top: 5px;
+    font-weight: bold;
+}
