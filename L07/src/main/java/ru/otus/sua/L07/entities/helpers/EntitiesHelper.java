@@ -11,6 +11,9 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static java.lang.Long.parseLong;
 
@@ -48,6 +51,7 @@ public class EntitiesHelper {
     @SuppressWarnings("Duplicates")
     public static EmployeEntity createEmployeEntity(
             String fullName,
+            Date dateOfBirth,
             String city,
             long salary,
             String login,
@@ -61,6 +65,7 @@ public class EntitiesHelper {
 
         EmployeEntity employeEntity = new EmployeEntity();
         employeEntity.setFullname(fullName);
+        employeEntity.setDateOfBirth(dateOfBirth);
         employeEntity.setCity(city);
         employeEntity.setSalary(salary);
         employeEntity.setDepartment(departmentEntity);
@@ -82,6 +87,7 @@ public class EntitiesHelper {
     // "department":"Users",    "appointment":"User",
     // "salary":"1000",         "login":"user",
     // "passhash":"user"}
+    // TODO replace Date Stub
     public static EmployeEntity createEmployeEntityFromJsonWithIds(String json) {
         JsonReader jsonReader = Json.createReader(new StringReader(json));
         JsonObject jsonObject = jsonReader.readObject();
@@ -93,15 +99,23 @@ public class EntitiesHelper {
         credentialEntity.setLogin(jsonObject.getString("login"));
         credentialEntity.setPasshash(jsonObject.getString("passhash"));
 
-        EmployeEntity employeEntity = createEmployeEntity(
-                jsonObject.getString("fullName"),
-                jsonObject.getString("city"),
-                parseLong(jsonObject.getString("salary")),
-                jsonObject.getString("login"),
-                jsonObject.getString("passhash"),
-                createAppointmentEntity(jsonObject.getString("appointment")),
-                createDepartmentEntity(jsonObject.getString("department"))
-        );
+        EmployeEntity employeEntity = null;
+
+        try {
+            employeEntity = createEmployeEntity(
+                    jsonObject.getString("fullName"),
+                    new SimpleDateFormat("dd.MM.yyyy").parse("01.01.0001"),
+                    jsonObject.getString("city"),
+                    parseLong(jsonObject.getString("salary")),
+                    jsonObject.getString("login"),
+                    jsonObject.getString("passhash"),
+                    createAppointmentEntity(jsonObject.getString("appointment")),
+                    createDepartmentEntity(jsonObject.getString("department"))
+            );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         if (!jsonObject.getString("employeId").equals("")) {
             employeEntity.setId(parseLong(jsonObject.getString("employeId")));
         }
@@ -123,6 +137,7 @@ public class EntitiesHelper {
         entityPersisted.setDepartment(entityExternal.getDepartment());
         entityPersisted.setCity(entityExternal.getCity());
         entityPersisted.setFullname(entityExternal.getFullname());
+        entityPersisted.setDateOfBirth(entityExternal.getDateOfBirth());
         entityPersisted.setSalary(entityExternal.getSalary());
 
         log.info("After Copy obj state {}.hash={}",

@@ -13,7 +13,7 @@
         <properties>
             <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/PostgresDS"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/><!--manual dropping DB-->
         </properties>
     </persistence-unit>
 </persistence>

@@ -18,7 +18,7 @@
         <jsp:include page="_navigationbar.html"></jsp:include>
     </nav>
     <main>
-        <jsp:include page="__employees.html"></jsp:include>
+        <jsp:include page="__employees.jsp"></jsp:include>
     </main>
     <aside>
         <jsp:include page="__currency.html"></jsp:include>

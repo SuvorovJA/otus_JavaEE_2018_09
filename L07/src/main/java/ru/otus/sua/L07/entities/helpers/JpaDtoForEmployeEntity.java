@@ -1,5 +1,6 @@
 package ru.otus.sua.L07.entities.helpers;
 
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
@@ -11,8 +12,10 @@ import java.util.ArrayList;
 
 import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getEM;
 
+@NoArgsConstructor
 @SuppressWarnings("Duplicates")
 public class JpaDtoForEmployeEntity {
+
     private static final Logger log = LoggerFactory.getLogger(JpaDtoForEmployeEntity.class);
     private static final EntityManager em = getEM();
 
@@ -96,5 +99,9 @@ public class JpaDtoForEmployeEntity {
             log.error("Rollback when getAllEmployes: {}", e.getMessage());
         }
         return list;
+    }
+
+    public Employes instanceReadAllEmployesForJSP() throws SQLException {
+        return readAllEmployes();
     }
 }

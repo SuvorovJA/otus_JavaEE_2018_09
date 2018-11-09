@@ -4,16 +4,15 @@ import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
 
 @Data
 @Entity
 @Table(name = "appointments")
-//@XmlRootElement(name = "appointment")
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "appointment")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AppointmentEntity implements Serializable {
 
     @Id

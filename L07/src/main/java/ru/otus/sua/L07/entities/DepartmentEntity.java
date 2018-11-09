@@ -4,9 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
 @Data
@@ -19,13 +17,13 @@ public class DepartmentEntity implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "depart_id")
-//    @XmlAttribute(required = true)
+    @XmlAttribute(required = true)
     private long id;
 
     @Basic
     @Column(nullable = false, unique = true)
     @NaturalId
-//    @XmlElement(required = true)
+    @XmlElement(required = true)
     private String name;
 
     @Override
