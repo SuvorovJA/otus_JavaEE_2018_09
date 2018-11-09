@@ -13,11 +13,20 @@
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
             <td><input type="text" style="width:98%;" name="search_fullName" value="${search_fullName}"/></td>
-            <td><input type="text" style="width:98%;" name="search_age" value="${search_age}"/></td>
+            <td>
+                <%--<div>--%>
+                <input type="text" style="float:left;display: inline;width:46%;"
+                       placeholder="min"
+                       name="search_age_min" value="${search_age_min}"/>
+                <input type="text" style="float:right;display: inline;width:46%;"
+                       placeholder="max"
+                       name="search_age_max" value="${search_age_max}"/>
+                <%--</div>--%>
+            </td>
             <td><input type="text" style="width:98%;" name="search_city" value="${search_city}"/></td>
             <td><input type="text" style="width:98%;" name="search_departament" value="${search_departament}"/></td>
             <td><input type="text" style="width:98%;" name="search_appointment" value="${search_appointment}"/></td>
-            <td><input type="text" style="width:98%;" name="search_salary" value="${search_salary}"/></td>
+            <td><%--<input type="text" style="width:98%;" name="search_salary" value="${search_salary}"/>--%></td>
             <td><input type="text" style="width:98%;" name="search_login" value="${search_login}"/></td>
             <td>
                 <button type="submit">Поиск</button>
