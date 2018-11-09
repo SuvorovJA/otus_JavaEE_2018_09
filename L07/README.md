@@ -31,9 +31,14 @@
 - [x] На странице отображения информации о сотрудниках - сделать вывод RO-таблицы с ALL-сотрудниками
 - [ ] восстановить функционал авторизации пользователя
 - [ ] восстановить функционал доступа к странице отображения информации о сотрудниках после авторизации
+- [ ] решить все TODO
 
 #### Решение
     
 #### Материалы
 
-- [Deleting Objects with Hibernate](https://www.baeldung.com/delete-with-hibernate)    
+- [Deleting Objects with Hibernate](https://www.baeldung.com/delete-with-hibernate)
+
+- [Introduction to Hibernate Search](https://www.baeldung.com/hibernate-search)
+
+- [Hibernate Search 5.10.4.Final: Reference Guide](http://docs.jboss.org/hibernate/search/5.10/reference/en-US/html_single/#_searching)    

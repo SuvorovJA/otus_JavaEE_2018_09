@@ -2,6 +2,7 @@ package ru.otus.sua.L07.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "departs")
 @XmlRootElement(name = "departament")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DepartmentEntity implements Serializable {
+public class DepartamentEntity implements Serializable {
 
     @Id
     @GeneratedValue
@@ -24,6 +25,7 @@ public class DepartmentEntity implements Serializable {
     @Column(nullable = false, unique = true)
     @NaturalId
     @XmlElement(required = true)
+    @Field
     private String name;
 
     @Override

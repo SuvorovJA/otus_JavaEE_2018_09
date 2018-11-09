@@ -12,6 +12,6 @@ public class Employes {
 
     @XmlElementWrapper(name = "employes-list")
     @XmlElement(name = "employee")
-    private ArrayList<EmployeEntity> employes;
+    private ArrayList<EmployeEntity> employes; // TODO refactor to List<>
 }
 

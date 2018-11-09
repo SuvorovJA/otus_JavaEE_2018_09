@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.AppointmentEntity;
 import ru.otus.sua.L07.entities.CredentialEntity;
-import ru.otus.sua.L07.entities.DepartmentEntity;
+import ru.otus.sua.L07.entities.DepartamentEntity;
 import ru.otus.sua.L07.entities.EmployeEntity;
 
 import javax.json.Json;
@@ -35,15 +35,15 @@ public class EntitiesHelper {
         return entity;
     }
 
-    public static DepartmentEntity createDepartmentEntity(String department) {
-        DepartmentEntity entity = new DepartmentEntity();
+    public static DepartamentEntity createDepartmentEntity(String department) {
+        DepartamentEntity entity = new DepartamentEntity();
         entity.setName(department);
-        if (JpaDtoForDepartmentEntity.containsDepartmentEntityByName(entity.getName())) {
-            log.info("Reuse DepartmentEntity: {}", entity.toString());
-            entity = JpaDtoForDepartmentEntity.readDepartmentEntityByName(entity.getName());
+        if (JpaDtoForDepartamentEntity.containsDepartmentEntityByName(entity.getName())) {
+            log.info("Reuse DepartamentEntity: {}", entity.toString());
+            entity = JpaDtoForDepartamentEntity.readDepartmentEntityByName(entity.getName());
         } else {
-            log.info("Create DepartmentEntity: {}", entity.toString());
-            JpaDtoForDepartmentEntity.saveDepartmentEntity(entity);
+            log.info("Create DepartamentEntity: {}", entity.toString());
+            JpaDtoForDepartamentEntity.saveDepartmentEntity(entity);
         }
         return entity;
     }
@@ -57,18 +57,18 @@ public class EntitiesHelper {
             String login,
             String passhash,
             AppointmentEntity appointmentEntity,
-            DepartmentEntity departmentEntity) {
+            DepartamentEntity departamentEntity) {
 
         CredentialEntity credentialEntity = new CredentialEntity();
         credentialEntity.setLogin(login);
         credentialEntity.setPasshash(passhash);
 
         EmployeEntity employeEntity = new EmployeEntity();
-        employeEntity.setFullname(fullName);
+        employeEntity.setFullName(fullName);
         employeEntity.setDateOfBirth(dateOfBirth);
         employeEntity.setCity(city);
         employeEntity.setSalary(salary);
-        employeEntity.setDepartment(departmentEntity);
+        employeEntity.setDepartament(departamentEntity);
         employeEntity.setAppointment(appointmentEntity);
         employeEntity.setCredentials(credentialEntity);
 
@@ -134,9 +134,9 @@ public class EntitiesHelper {
 
         entityPersisted.setCredentials(entityExternal.getCredentials());
         entityPersisted.setAppointment(entityExternal.getAppointment());
-        entityPersisted.setDepartment(entityExternal.getDepartment());
+        entityPersisted.setDepartament(entityExternal.getDepartament());
         entityPersisted.setCity(entityExternal.getCity());
-        entityPersisted.setFullname(entityExternal.getFullname());
+        entityPersisted.setFullName(entityExternal.getFullName());
         entityPersisted.setDateOfBirth(entityExternal.getDateOfBirth());
         entityPersisted.setSalary(entityExternal.getSalary());
 

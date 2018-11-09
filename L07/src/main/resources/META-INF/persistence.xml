@@ -7,13 +7,15 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--<exclude-unlisted-classes>false</exclude-unlisted-classes>-->
         <class>ru.otus.sua.L07.entities.EmployeEntity</class>
-        <class>ru.otus.sua.L07.entities.DepartmentEntity</class>
+        <class>ru.otus.sua.L07.entities.DepartamentEntity</class>
         <class>ru.otus.sua.L07.entities.AppointmentEntity</class>
         <class>ru.otus.sua.L07.entities.CredentialEntity</class>
         <properties>
             <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/PostgresDS"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/><!--manual dropping DB-->
+            <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+            <property name="hibernate.search.default.indexBase" value="/tmp/data/index/default"/>
         </properties>
     </persistence-unit>
 </persistence>

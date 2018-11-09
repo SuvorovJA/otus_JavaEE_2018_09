@@ -1,6 +1,10 @@
 package ru.otus.sua.L07.entities.helpers;
 
 import lombok.NoArgsConstructor;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
@@ -9,8 +13,10 @@ import ru.otus.sua.L07.entities.Employes;
 import javax.persistence.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getEM;
+import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getFTEM;
 
 @NoArgsConstructor
 @SuppressWarnings("Duplicates")
@@ -18,6 +24,7 @@ public class JpaDtoForEmployeEntity {
 
     private static final Logger log = LoggerFactory.getLogger(JpaDtoForEmployeEntity.class);
     private static final EntityManager em = getEM();
+    private static final FullTextEntityManager ftem = getFTEM();
 
     public static boolean saveEmployeEntity(EmployeEntity entity) {
         try {
@@ -101,7 +108,61 @@ public class JpaDtoForEmployeEntity {
         return list;
     }
 
+    // TODO Wildcard search dont work. why?
+    public static Employes queryEmployes(String searchFullName,
+                                         String searchCity,
+                                         String searchDepartament,
+                                         String searchAppointment,
+                                         String searchLogin) {
+
+        log.info("SearchStrings: " +
+                "searchFullName=\'" + searchFullName + "\';" +
+                "searchCity=\'" + searchCity + "\';" +
+                "searchDepartament=\'" + searchDepartament + "\';" +
+                "searchAppointment=\'" + searchAppointment + "\';" +
+                "searchLogin=\'" + searchLogin + "\';"
+        );
+
+        QueryBuilder queryBuilder =
+                ftem.getSearchFactory()
+                        .buildQueryBuilder()
+                        .forEntity(EmployeEntity.class)
+                        .get();
+
+        BooleanQuery query = new BooleanQuery();
+        addQuery("fullName", searchFullName, queryBuilder, query);
+        addQuery("city", searchCity, queryBuilder, query);
+        addQuery("departament", searchDepartament, queryBuilder, query);
+        addQuery("appointment", searchAppointment, queryBuilder, query);
+        addQuery("login", searchLogin, queryBuilder, query);
+
+        log.info("Query: " + query.toString());
+
+        org.hibernate.search.jpa.FullTextQuery jpaQuery =
+                ftem.createFullTextQuery(query, EmployeEntity.class);
+
+        List<EmployeEntity> resultList = jpaQuery.getResultList();
+        ArrayList<EmployeEntity> entityArrayList = new ArrayList<>(resultList);
+        Employes employes = new Employes();
+        employes.setEmployes(entityArrayList);
+        return employes;
+    }
+
+    private static void addQuery(String field,
+                                 String search,
+                                 QueryBuilder queryBuilder,
+                                 BooleanQuery query) {
+        if (search != null && !search.trim().isEmpty()) {
+            query.add(queryBuilder
+                    .keyword()
+                    .onField(field)
+                    .matching(search.trim())
+                    .createQuery(), BooleanClause.Occur.SHOULD);
+        }
+    }
+
     public Employes instanceReadAllEmployesForJSP() throws SQLException {
         return readAllEmployes();
     }
+
 }

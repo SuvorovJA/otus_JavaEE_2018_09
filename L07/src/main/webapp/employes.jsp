@@ -12,19 +12,19 @@
 <body onload="getCurrency();getNews();">
 <div class="center">
     <header>
-        <jsp:include page="_header.html"></jsp:include>
+        <jsp:include page="_header.html"/>
     </header>
     <nav>
-        <jsp:include page="_navigationbar.html"></jsp:include>
+        <jsp:include page="_navigationbar.html"/>
     </nav>
     <main>
-        <jsp:include page="__employees.jsp"></jsp:include>
+        <jsp:include page="__employes.jsp"/>
     </main>
     <aside>
-        <jsp:include page="__currency.html"></jsp:include>
+        <jsp:include page="__currency.html"/>
     </aside>
     <footer>
-        <jsp:include page="_footer.html"></jsp:include>
+        <jsp:include page="_footer.html"/>
     </footer>
 </div>
 </body>

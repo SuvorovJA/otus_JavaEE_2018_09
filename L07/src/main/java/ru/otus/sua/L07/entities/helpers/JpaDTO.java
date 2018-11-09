@@ -40,7 +40,7 @@ public class JpaDTO {
         if (entity == null) {
             throw new SQLException("Не найдено"); // TODO why not wrk?
         }
-        if (entity.getFullname() == null) {
+        if (entity.getFullName() == null) {
             throw new SQLException("Не найдено.");// TODO why not wrk?
         }
         return entity;

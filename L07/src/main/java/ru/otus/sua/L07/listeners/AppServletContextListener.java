@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
+import ru.otus.sua.L07.entities.helpers.EntityManagerHolder;
+import ru.otus.sua.L07.entities.helpers.JpaDTO;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -42,8 +44,17 @@ public class AppServletContextListener implements ServletContextListener {
                             "admin", "admin",
                             EntitiesHelper.createAppointmentEntity("SysAdmin"),
                             EntitiesHelper.createDepartmentEntity("IT Dept.")));
+            log.info("Create user account on startup application.");
+            saveEmployeEntity(
+                    EntitiesHelper.createEmployeEntity(
+                            "U. USER",
+                            new SimpleDateFormat("dd.MM.yyyy").parse("25.05.1985"),
+                            "NSK", 1000L,
+                            "user", "user",
+                            EntitiesHelper.createAppointmentEntity("User"),
+                            EntitiesHelper.createDepartmentEntity("Users")));
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
     }
@@ -55,7 +66,7 @@ public class AppServletContextListener implements ServletContextListener {
          Application Server shuts down.
       */
 
-      // TODO logger not work on shutdown tomcat
+        // TODO logger not work on shutdown tomcat
         log.info("Erase database content on App Shutdown.");
         System.out.println("Console> Erase database content on App Shutdown.");
         try {
@@ -65,6 +76,11 @@ public class AppServletContextListener implements ServletContextListener {
         } catch (SQLException e) {
             log.error("Err on DB erase in contextDestroyed.");
         }
+
+        log.info("Shutdown lucene indexer.");
+        System.out.println("Console> Shutdown lucene indexer.");
+        EntityManagerHolder.shutdownIndexer();
+
     }
 
 }
