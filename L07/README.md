@@ -22,7 +22,7 @@
     - [x] При отправке формы, необходимо направить запрос на сервлет (при желании асинхронный), который сохранит поисковый запрос и полученную информацию в атрибуте запроса и вызовет JSP- страницу, отображающую результирующий список.    
     - [x] При этом для общности с другими страницами, шапку и подвал следует подключить как внешние файлы .
     
-- [ ] Добавить слушателей добавления/изменения атрибутов запроса, в котором производится кэширование производимых запросов и соответствующих результатов на уровне контекста приложения. Последующие однотипные поисковые запросы извлекать из данного кэша.
+- [x] Добавить ~слушателей~ добавления/изменения атрибутов запроса, в котором производится кэширование производимых запросов и соответствующих результатов на уровне контекста приложения. Последующие однотипные поисковые запросы извлекать из данного кэша.
 
 - - - 
 
@@ -31,8 +31,8 @@
 - [x] На странице отображения информации о сотрудниках - сделать вывод RO-таблицы с ALL-сотрудниками
 - [x] восстановить функционал авторизации пользователя
 - [x] восстановить функционал доступа к странице отображения информации о сотрудниках после авторизации
-- [ ] решить все TODO
-- [ ] функционал CRUD из интерфейса
+- [ ] ~решить все TODO~
+- [ ] ~функционал CRUD из интерфейса~
 
 #### Решение
 
@@ -104,6 +104,31 @@ OnShutdownApplication> Shutdown lucene indexer.
 18:18:37.688  INFO  r.o.s.L.e.helpers.EntitiesHelper - Create DepartamentEntity: { id:0; name:Производство}
 18:18:37.708  INFO  r.o.s.L.e.helpers.EntitiesHelper - Create EmployeEntity obj: { id:0; fullname:Г. Новиков-вано; birthdate:04.04.1986; city:Иваново; salary:1500; departament:{ id:16; name:Производство}; appointment:{ id:15; name:Рабочий}; credentials:{ id:0; login:novikov; passhash:*}}
 18:18:37.862  INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Created in DB { id:17; fullname:Г. Новиков-вано; birthdate:04.04.1986; city:Иваново; salary:1500; departament:{ id:16; name:Производство}; appointment:{ id:15; name:Рабочий}; credentials:{ id:18; login:novikov; passhash:*}}.hash=-520637244
+```
+
+Кэширование запросов
+``` 
+20:18:50.835 [http-nio-8080-exec-9] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName='Smith'; ageMaxStr=''; ageMax=0; ageMinStr=''; ageMin=0; city=''; departament=''; appointment=''; login=''; 
+20:18:50.836 [http-nio-8080-exec-9] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - New query build. Cache miss.
+20:18:50.861 [http-nio-8080-exec-9] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: fullName:smith
+20:18:50.967 [http-nio-8080-exec-9] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: 
+ { id:9; fullname:J. Smith; birthdate:19.10.2001; city:MSK; salary:1500; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:10; login:user2; passhash:*}};
+ { id:11; fullname:G. Smith; birthdate:11.01.2002; city:MSK; salary:1500; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:12; login:user3; passhash:*}}
+
+
+20:19:01.937 [http-nio-8080-exec-6] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr=''; ageMax=0; ageMinStr=''; ageMin=0; city=''; departament=''; appointment='SysAdmin'; login=''; 
+20:19:01.937 [http-nio-8080-exec-6] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - New query build. Cache miss.
+20:19:01.938 [http-nio-8080-exec-6] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: appointment:sysadmin
+20:19:01.948 [http-nio-8080-exec-6] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: 
+ { id:3; fullname:A. xml DMINSKY; birthdate:15.05.1975; city:TOMSK; salary:2000; departament:{ id:2; name:IT Dept.}; appointment:{ id:1; name:SysAdmin}; credentials:{ id:4; login:admin; passhash:*}};
+ { id:13; fullname:И. Кузнецов; birthdate:01.03.1951; city:TOMSK; salary:1500; departament:{ id:2; name:IT Dept.}; appointment:{ id:1; name:SysAdmin}; credentials:{ id:14; login:user4; passhash:*}}
+
+
+20:19:10.490 [http-nio-8080-exec-2] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName='Smith'; ageMaxStr=''; ageMax=0; ageMinStr=''; ageMin=0; city=''; departament=''; appointment=''; login=''; 
+20:19:10.490 [http-nio-8080-exec-2] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Skip query build. Cache hit.
+20:19:10.500 [http-nio-8080-exec-2] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: 
+ { id:9; fullname:J. Smith; birthdate:19.10.2001; city:MSK; salary:1500; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:10; login:user2; passhash:*}};
+ { id:11; fullname:G. Smith; birthdate:11.01.2002; city:MSK; salary:1500; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:12; login:user3; passhash:*}}
 ```
     
 #### Материалы

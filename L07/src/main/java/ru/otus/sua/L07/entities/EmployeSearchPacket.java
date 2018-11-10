@@ -1,11 +1,13 @@
 package ru.otus.sua.L07.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import ru.otus.sua.L07.entities.exceptions.InvalidSearchException;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Getter
+@EqualsAndHashCode
 public class EmployeSearchPacket {
 
     private String fullName = "";

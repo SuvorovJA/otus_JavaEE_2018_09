@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,7 @@ import ru.otus.sua.L07.entities.Employes;
 
 import javax.persistence.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getEM;
@@ -29,6 +27,8 @@ public class JpaDtoForEmployeEntity {
     private static final Logger log = LoggerFactory.getLogger(JpaDtoForEmployeEntity.class);
     private static final EntityManager em = getEM();
     private static final FullTextEntityManager ftem = getFTEM();
+
+    private static Map<EmployeSearchPacket, FullTextQuery> cache = new HashMap<>();
 
     public static boolean saveEmployeEntity(EmployeEntity entity) {
         try {
@@ -117,41 +117,53 @@ public class JpaDtoForEmployeEntity {
 
         log.info(searchPacket.toString());
 
-        String searchFullName = searchPacket.getFullName();
-        String searchCity = searchPacket.getCity();
-        String searchDepartament = searchPacket.getDepartament();
-        String searchAppointment = searchPacket.getAppointment();
-        String searchLogin = searchPacket.getLogin();
-        int ageMin = searchPacket.getAgeMin();
-        int ageMax = searchPacket.getAgeMax();
 
-        QueryBuilder queryBuilder =
-                ftem.getSearchFactory()
-                        .buildQueryBuilder()
-                        .forEntity(EmployeEntity.class)
-                        .get();
+        FullTextQuery jpaQuery;
+        if (cache.containsKey(searchPacket)) {
 
+            log.info("Skip query build. Cache hit.");
+            jpaQuery = cache.get(searchPacket);
 
-        BooleanQuery query = new BooleanQuery();
-        addQuery("fullName", searchFullName, queryBuilder, query);
-        addQuery("city", searchCity, queryBuilder, query);
-        addQuery("departament", searchDepartament, queryBuilder, query);
-        addQuery("appointment", searchAppointment, queryBuilder, query);
-        addQuery("login", searchLogin, queryBuilder, query);
-        addDateRangeQuery("dateOfBirth", calcDateToPast(ageMax), calcDateToPast(ageMin), queryBuilder, query);
+        } else {
 
+            log.info("New query build. Cache miss.");
 
-        log.info("Builded Query: " + query.toString());
+            String searchFullName = searchPacket.getFullName();
+            String searchCity = searchPacket.getCity();
+            String searchDepartament = searchPacket.getDepartament();
+            String searchAppointment = searchPacket.getAppointment();
+            String searchLogin = searchPacket.getLogin();
+            int ageMin = searchPacket.getAgeMin();
+            int ageMax = searchPacket.getAgeMax();
 
-        org.hibernate.search.jpa.FullTextQuery jpaQuery =
-                ftem.createFullTextQuery(query, EmployeEntity.class);
+            QueryBuilder queryBuilder =
+                    ftem.getSearchFactory()
+                            .buildQueryBuilder()
+                            .forEntity(EmployeEntity.class)
+                            .get();
+
+            BooleanQuery query = new BooleanQuery();
+            addQuery("fullName", searchFullName, queryBuilder, query);
+            addQuery("city", searchCity, queryBuilder, query);
+            addQuery("departament", searchDepartament, queryBuilder, query);
+            addQuery("appointment", searchAppointment, queryBuilder, query);
+            addQuery("login", searchLogin, queryBuilder, query);
+            addDateRangeQuery("dateOfBirth", calcDateToPast(ageMax), calcDateToPast(ageMin), queryBuilder, query);
+
+            log.info("Builded Query: " + query.toString());
+
+            jpaQuery = ftem.createFullTextQuery(query, EmployeEntity.class);
+
+            cache.put(searchPacket, jpaQuery);
+
+        }
 
         List<EmployeEntity> resultList = jpaQuery.getResultList();
         ArrayList<EmployeEntity> entityArrayList = new ArrayList<>(resultList);
         Employes employes = new Employes();
         employes.setEmployes(entityArrayList);
 
-        log.info("Query result: " + entityArrayList.stream().map(EmployeEntity::toString).collect(Collectors.joining(";\n")) );
+        log.info("Query result: " + entityArrayList.stream().map(EmployeEntity::toString).collect(Collectors.joining(";\n")));
 
         return employes;
     }

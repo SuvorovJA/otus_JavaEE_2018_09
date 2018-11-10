@@ -3,7 +3,9 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div>Работники</div>
+<div>
+    Работники. Логин по умолчанию admin admin.
+</div>
 
 <jsp:include page="employes"/>
 
