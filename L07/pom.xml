@@ -133,6 +133,15 @@
             <version>1.2.5</version>
         </dependency>
 
+
+        <!--USER AGENT DETECT-->
+        <!-- https://mvnrepository.com/artifact/net.sf.uadetector/uadetector-resources -->
+        <dependency>
+            <groupId>net.sf.uadetector</groupId>
+            <artifactId>uadetector-resources</artifactId>
+            <version>2014.10</version>
+        </dependency>
+
     </dependencies>
 
     <build>
