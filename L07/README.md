@@ -29,8 +29,8 @@
 - [x] за основу взять L05 задание
 - [x] сделать бэкпорт JPA части из L06
 - [x] На странице отображения информации о сотрудниках - сделать вывод RO-таблицы с ALL-сотрудниками
-- [ ] восстановить функционал авторизации пользователя
-- [ ] восстановить функционал доступа к странице отображения информации о сотрудниках после авторизации
+- [x] восстановить функционал авторизации пользователя
+- [x] восстановить функционал доступа к странице отображения информации о сотрудниках после авторизации
 - [ ] решить все TODO
 
 #### Решение
@@ -39,10 +39,10 @@
 ```
 14:04:13.740 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='40'; ageMax=40; ageMinStr='20'; ageMin=20; city=''; departament=''; appointment=''; login=''; 
 14:04:13.740 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: dateOfBirth:[279529453740 TO 910681453740]
-14:04:13.765 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:7; fullname:U. USER; birthdate:09.11.1998; city:NSK; salary:1000; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:8; login:user; passhash:*}}
+14:04:13.765 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:7; fullname:U. USER; birthdate:09.11.1998; city:NSK; salary:1000; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:8; login:siteUser; passhash:*}}
 14:04:46.035 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='40'; ageMax=40; ageMinStr='20'; ageMin=20; city=''; departament='Users'; appointment='User'; login=''; 
-14:04:46.054 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: departament:users appointment:user dateOfBirth:[279529486054 TO 910681486054]
-14:04:46.066 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:7; fullname:U. USER; birthdate:09.11.1998; city:NSK; salary:1000; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:8; login:user; passhash:*}}
+14:04:46.054 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: departament:users appointment:siteUser dateOfBirth:[279529486054 TO 910681486054]
+14:04:46.066 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:7; fullname:U. USER; birthdate:09.11.1998; city:NSK; salary:1000; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:8; login:siteUser; passhash:*}}
 14:05:46.763 [);122] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='50'; ageMax=50; ageMinStr='40'; ageMin=40; city=''; departament=''; appointment=''; login=''; 
 14:05:46.764 [);122] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: dateOfBirth:[-36003253236 TO 279529546764]
 14:05:46.767 [);122] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:3; fullname:A. DMINSKY; birthdate:15.05.1975; city:TOMSK; salary:2000; departament:{ id:2; name:IT Dept.}; appointment:{ id:1; name:SysAdmin}; credentials:{ id:4; login:admin; passhash:*}}

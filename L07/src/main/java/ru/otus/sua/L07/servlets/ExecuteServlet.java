@@ -1,6 +1,6 @@
 package ru.otus.sua.L07.servlets;
 
-import ru.otus.sua.L07.entities.validation.User;
+import ru.otus.sua.L07.entities.validation.SiteUser;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -11,28 +11,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "ExecuteServlet", urlPatterns = "/execute")
 public class ExecuteServlet extends HttpServlet {
 
     @Override
-    @SuppressWarnings("Duplicates")
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ScriptEngineManager engineManager = new ScriptEngineManager();
-        ScriptEngine engine = engineManager.getEngineByName("nashorn");
-        PrintWriter out = response.getWriter();
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null || !(user.getLogin().equals("123") && user.getLogin().equals("123"))) {
-            out.println("FORBIDDEN JS EXECUTE user must be 123 pass 123");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
+        if (siteUser != null) {
+            request.removeAttribute("errorString");
         } else {
-            out.println("GRANTED JS EXECUTE");
+            request.setAttribute("errorString", "Не произведен вход, исполнение не разрешено ");
+        }
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
+        if (siteUser != null) {
+            ScriptEngineManager engineManager = new ScriptEngineManager();
+            ScriptEngine engine = engineManager.getEngineByName("nashorn");
             try {
-                out.println(engine.eval(request.getParameter("jsscript")));
+                engine.eval(request.getParameter("jsscript"));
             } catch (ScriptException e) {
                 e.printStackTrace();
             }
         }
-    }
 
+        response.sendRedirect(request.getContextPath() + "/scripts.jsp");
+
+    }
 }
+

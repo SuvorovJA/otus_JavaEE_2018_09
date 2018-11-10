@@ -8,13 +8,11 @@ import lombok.experimental.FieldNameConstants;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-// TODO refacto to replace this by CredentialEntity
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldNameConstants(prefix = "")
-public class User {
+public class SiteUser {
 
     @NotNull
     @Size(max = 8, min = 3)

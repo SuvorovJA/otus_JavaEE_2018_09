@@ -4,6 +4,7 @@ import ru.otus.sua.L07.entities.EmployeSearchPacket;
 import ru.otus.sua.L07.entities.Employes;
 import ru.otus.sua.L07.entities.exceptions.InvalidSearchException;
 import ru.otus.sua.L07.entities.helpers.JpaDtoForEmployeEntity;
+import ru.otus.sua.L07.entities.validation.SiteUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,45 +14,48 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "EmployeServlet", urlPatterns = "/employeServlet")
-public class EmployeServlet extends HttpServlet {
+@WebServlet(name = "EmployesServlet", urlPatterns = "/employes")
+public class EmployesServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
-
     }
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //  TODO  here will login check and redirect to login page
+        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
 
+        if (siteUser != null) {
 
-        String errorString = "";
-        Employes employes = null;
-        EmployeSearchPacket searchPacket = new EmployeSearchPacket();
-        try {
-            searchPacket.setFromRequest(request);
-        } catch (InvalidSearchException e) {
-            errorString += e.getMessage() + "; ";
-        }
-
-        try {
-            if (searchPacket.isSearchable()) {
-                employes = JpaDtoForEmployeEntity.queryEmployes(searchPacket);
-            } else {
-                employes = JpaDtoForEmployeEntity.readAllEmployes();
+            String errorString = "";
+            Employes employes = null;
+            EmployeSearchPacket searchPacket = new EmployeSearchPacket();
+            try {
+                searchPacket.setFromRequest(request);
+            } catch (InvalidSearchException e) {
+                errorString += e.getMessage() + "; ";
             }
-        } catch (SQLException e) {
-            errorString += e.getMessage() + "; ";
+
+            try {
+                if (searchPacket.isSearchable()) {
+                    employes = JpaDtoForEmployeEntity.queryEmployes(searchPacket);
+                } else {
+                    employes = JpaDtoForEmployeEntity.readAllEmployes();
+                }
+            } catch (SQLException e) {
+                errorString += e.getMessage() + "; ";
+            }
+
+            if (!errorString.isEmpty()) request.setAttribute("errorString", errorString);
+
+            request.setAttribute("employes", employes.getEmployes());
+
+            replaySearchFields(request);
+
+        } else {
+            request.setAttribute("errorString", "Не произведен вход, исполнение не разрешено ");
         }
-
-        if (!errorString.isEmpty()) request.setAttribute("errorString", errorString);
-
-        request.setAttribute("employes", employes.getEmployes());
-
-        replaySearchFields(request);
     }
 
 

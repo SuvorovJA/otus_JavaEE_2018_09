@@ -5,7 +5,7 @@
 
 <div>Работники</div>
 
-<jsp:include page="employeServlet"/>
+<jsp:include page="employes"/>
 
 <p style="color: red;">${errorString}</p>
 

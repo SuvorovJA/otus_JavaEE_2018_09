@@ -163,7 +163,6 @@ public class JpaDtoForEmployeEntity {
         return cal.getTime();
     }
 
-    @Deprecated
     private static void addQuery(String field,
                                  String search,
                                  QueryBuilder queryBuilder,
@@ -177,7 +176,6 @@ public class JpaDtoForEmployeEntity {
         }
     }
 
-    @Deprecated
     private static void addDateRangeQuery(String field,
                                           Date dateMin,
                                           Date dateMax,

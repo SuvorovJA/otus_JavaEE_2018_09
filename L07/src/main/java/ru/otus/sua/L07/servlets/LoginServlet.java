@@ -1,17 +1,22 @@
 package ru.otus.sua.L07.servlets;
 
-import ru.otus.sua.L07.entities.validation.User;
+import ru.otus.sua.L07.entities.EmployeEntity;
+import ru.otus.sua.L07.entities.helpers.JpaDTO;
+import ru.otus.sua.L07.entities.validation.SiteUser;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Set;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
@@ -20,28 +25,38 @@ public class LoginServlet extends HttpServlet {
     private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Override
-    @SuppressWarnings("Duplicates")
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        PrintWriter out = response.getWriter();
-        out.println("login:" + login);
-        out.println("password:" + password);
-        User user = new User(login, password);
-        Set<ConstraintViolation<User>> violationSet = validator.validate(user);
-        if (violationSet.isEmpty()) {
-            out.println("VALID");
-            request.getSession().setAttribute("user", user);
-        } else {
-            // http://download.oracle.com/otn-pub/jcp/bean_validation-1.0-fr-oth-JSpec/bean_validation-1_0-final-spec.pdf
-            // message interpolation
-            // https://www.programcreek.com/java-api-examples/javax.validation.ConstraintViolation
-            // tons of examples
-            out.println("-----");
-            ConstraintViolation<User> violation = violationSet.iterator().hasNext() ? violationSet.iterator().next() : null;
-            String message = (violation != null) ? (violation.getPropertyPath() + ": " + violation.getMessage()) : "0_o?";
-            out.println(message);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
+        if (siteUser != null) {
+            request.setAttribute("infoString", "Произведен вход: " + siteUser.getLogin());
+            request.getSession().removeAttribute("errorString");
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String errorString = "";
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        SiteUser siteUser = new SiteUser(login, password);
+        Set<ConstraintViolation<SiteUser>> violationSet = validator.validate(siteUser);
+        if (violationSet.isEmpty()) {
+            EmployeEntity entity = null;
+            try {
+                entity = JpaDTO.findByCredentials(siteUser);
+            } catch (SQLException e) {
+                errorString += "такая комбинация логина и пароля не обнаружена";
+            }
+            if (entity != null) {
+                request.getSession().setAttribute("AuthenticatedUser", siteUser);
+            }
+        } else {
+            ConstraintViolation<SiteUser> violation = violationSet.iterator().hasNext() ? violationSet.iterator().next() : null;
+            errorString += (violation != null) ? (violation.getPropertyPath() + ": " + violation.getMessage()) : "0_o?";
+        }
+        if (!errorString.isEmpty()) request.getSession().setAttribute("errorString", errorString);
+
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+
+    }
 }

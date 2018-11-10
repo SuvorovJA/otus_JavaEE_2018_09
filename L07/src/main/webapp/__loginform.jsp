@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+
+<jsp:include page="login"/>
+
+<p style="color: red;">${errorString}</p>
+<p style="color: green;">${infoString}</p>
+
 <div>
     <form method="POST" action="${pageContext.request.contextPath}/login">
         <label class="loginform">Логин

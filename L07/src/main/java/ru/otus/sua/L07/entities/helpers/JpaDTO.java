@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
-import ru.otus.sua.L07.entities.validation.MyPair;
+import ru.otus.sua.L07.entities.validation.SiteUser;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -22,15 +22,15 @@ public class JpaDTO {
     private static final Logger log = LoggerFactory.getLogger(JpaDTO.class);
     private static final EntityManager em = getEM();
 
-    public static EmployeEntity findByCredentials(MyPair<String, String> cred) throws SQLException {
+    public static EmployeEntity findByCredentials(SiteUser cred) throws SQLException {
         // TODO pass as passhash -> to real hash
 
         EmployeEntity entity;
         try {
             em.getTransaction().begin();
             Query q = em.createQuery("select c.employe from CredentialEntity c where c.login = :logi and c.passhash = :pass");
-            q.setParameter("logi", cred.getLeft());
-            q.setParameter("pass", cred.getRight());
+            q.setParameter("logi", cred.getLogin());
+            q.setParameter("pass", cred.getPassword());
             entity = (EmployeEntity) q.getSingleResult();
             em.getTransaction().commit();
         } catch (PersistenceException e) {
