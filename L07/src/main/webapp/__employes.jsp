@@ -14,14 +14,12 @@
         <tr>
             <td><input type="text" style="width:98%;" name="search_fullName" value="${search_fullName}"/></td>
             <td>
-                <%--<div>--%>
-                <input type="text" style="float:left;display: inline;width:46%;"
+                <input type="text" style="float:left;display: inline;width:44%;"
                        placeholder="min age"
                        name="search_age_min" value="${search_age_min}"/>
-                <input type="text" style="float:right;display: inline;width:46%;"
+                <input type="text" style="float:right;display: inline;width:44%;"
                        placeholder="max age"
                        name="search_age_max" value="${search_age_max}"/>
-                <%--</div>--%>
             </td>
             <td><input type="text" style="width:98%;" name="search_city" value="${search_city}"/></td>
             <td><input type="text" style="width:98%;" name="search_departament" value="${search_departament}"/></td>

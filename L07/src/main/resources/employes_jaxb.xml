@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<employes>
+    <employes-list>
+        <employee id="3">
+            <fullName>A. xml DMINSKY</fullName>
+            <dateOfBirth>1975-05-15T00:00:00+07:00</dateOfBirth>
+            <city>TOMSK</city>
+            <salary>2000</salary>
+            <departament id="2">
+                <name>IT Dept.</name>
+            </departament>
+            <appointment id="1">
+                <name>SysAdmin</name>
+            </appointment>
+            <credentials id="4">
+                <login>admin</login>
+                <passhash>admin</passhash>
+            </credentials>
+        </employee>
+        <employee id="7">
+            <fullName>U. xml USER</fullName>
+            <dateOfBirth>1998-11-09T00:00:00+07:00</dateOfBirth>
+            <city>NSK</city>
+            <salary>1000</salary>
+            <departament id="6">
+                <name>Users</name>
+            </departament>
+            <appointment id="5">
+                <name>User</name>
+            </appointment>
+            <credentials id="8">
+                <login>user</login>
+                <passhash>user</passhash>
+            </credentials>
+        </employee>
+        <employee id="9">
+            <fullName>J. Smith</fullName>
+            <dateOfBirth>2001-10-19T01:00:00+08:00</dateOfBirth>
+            <city>MSK</city>
+            <salary>1500</salary>
+            <departament id="6">
+                <name>Users</name>
+            </departament>
+            <appointment id="5">
+                <name>User</name>
+            </appointment>
+            <credentials id="10">
+                <login>user2</login>
+                <passhash>user2</passhash>
+            </credentials>
+        </employee>
+        <!--WITHOUT IDs -->
+        <employee>
+            <fullName>G. Smith</fullName>
+            <dateOfBirth>2002-01-11T01:00:00+08:00</dateOfBirth>
+            <city>MSK</city>
+            <salary>1500</salary>
+            <departament>
+                <name>Users</name>
+            </departament>
+            <appointment>
+                <name>User</name>
+            </appointment>
+            <credentials>
+                <login>user3</login>
+                <passhash>user3</passhash>
+            </credentials>
+        </employee>
+        <employee>
+            <fullName>И. Кузнецов</fullName>
+            <dateOfBirth>1951-03-01T01:00:00+08:00</dateOfBirth>
+            <city>TOMSK</city>
+            <salary>1500</salary>
+            <departament>
+                <name>IT Dept.</name>
+            </departament>
+            <appointment>
+                <name>SysAdmin</name>
+            </appointment>
+            <credentials>
+                <login>user4</login>
+                <passhash>user4</passhash>
+            </credentials>
+        </employee>
+        <employee>
+            <fullName>Г. Новиков-вано</fullName>
+            <dateOfBirth>1986-04-04T01:00:00+08:00</dateOfBirth>
+            <city>Иваново</city>
+            <salary>1500</salary>
+            <departament>
+                <name>Производство</name>
+            </departament>
+            <appointment>
+                <name>Рабочий</name>
+            </appointment>
+            <credentials>
+                <login>novikov</login>
+                <passhash>novikov</passhash>
+            </credentials>
+        </employee>
+    </employes-list>
+</employes>
