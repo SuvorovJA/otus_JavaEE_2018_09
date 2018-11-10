@@ -1,7 +1,8 @@
-package ru.otus.sua.L07.entities.helpers;
+package ru.otus.sua.L07.entities.validation;
 
 import java.io.Serializable;
 
+// TODO refactor to remove this
 
 public class MyPair<L, R> implements Serializable {
 

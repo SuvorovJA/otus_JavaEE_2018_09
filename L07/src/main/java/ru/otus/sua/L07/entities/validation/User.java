@@ -8,6 +8,8 @@ import lombok.experimental.FieldNameConstants;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+// TODO refacto to replace this by CredentialEntity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

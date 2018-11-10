@@ -8,12 +8,16 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
+import ru.otus.sua.L07.entities.EmployeSearchPacket;
 import ru.otus.sua.L07.entities.Employes;
 
 import javax.persistence.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getEM;
 import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getFTEM;
@@ -109,19 +113,17 @@ public class JpaDtoForEmployeEntity {
     }
 
     // TODO Wildcard search dont work. why?
-    public static Employes queryEmployes(String searchFullName,
-                                         String searchCity,
-                                         String searchDepartament,
-                                         String searchAppointment,
-                                         String searchLogin) {
+    public static Employes queryEmployes(EmployeSearchPacket searchPacket) {
 
-        log.info("SearchStrings: " +
-                "searchFullName=\'" + searchFullName + "\';" +
-                "searchCity=\'" + searchCity + "\';" +
-                "searchDepartament=\'" + searchDepartament + "\';" +
-                "searchAppointment=\'" + searchAppointment + "\';" +
-                "searchLogin=\'" + searchLogin + "\';"
-        );
+        log.info(searchPacket.toString());
+
+        String searchFullName = searchPacket.getFullName();
+        String searchCity = searchPacket.getCity();
+        String searchDepartament = searchPacket.getDepartament();
+        String searchAppointment = searchPacket.getAppointment();
+        String searchLogin = searchPacket.getLogin();
+        int ageMin = searchPacket.getAgeMin();
+        int ageMax = searchPacket.getAgeMax();
 
         QueryBuilder queryBuilder =
                 ftem.getSearchFactory()
@@ -129,14 +131,17 @@ public class JpaDtoForEmployeEntity {
                         .forEntity(EmployeEntity.class)
                         .get();
 
+
         BooleanQuery query = new BooleanQuery();
         addQuery("fullName", searchFullName, queryBuilder, query);
         addQuery("city", searchCity, queryBuilder, query);
         addQuery("departament", searchDepartament, queryBuilder, query);
         addQuery("appointment", searchAppointment, queryBuilder, query);
         addQuery("login", searchLogin, queryBuilder, query);
+        addDateRangeQuery("dateOfBirth", calcDateToPast(ageMax), calcDateToPast(ageMin), queryBuilder, query);
 
-        log.info("Query: " + query.toString());
+
+        log.info("Builded Query: " + query.toString());
 
         org.hibernate.search.jpa.FullTextQuery jpaQuery =
                 ftem.createFullTextQuery(query, EmployeEntity.class);
@@ -145,18 +150,45 @@ public class JpaDtoForEmployeEntity {
         ArrayList<EmployeEntity> entityArrayList = new ArrayList<>(resultList);
         Employes employes = new Employes();
         employes.setEmployes(entityArrayList);
+
+        log.info("Query result: " + entityArrayList.stream().map(EmployeEntity::toString).collect(Collectors.joining(";\n")) );
+
         return employes;
     }
 
+    private static Date calcDateToPast(int year) {
+        Calendar cal = Calendar.getInstance();
+        if (year == 0) return cal.getTime();
+        cal.add(Calendar.YEAR, -year);
+        return cal.getTime();
+    }
+
+    @Deprecated
     private static void addQuery(String field,
                                  String search,
                                  QueryBuilder queryBuilder,
                                  BooleanQuery query) {
-        if (search != null && !search.trim().isEmpty()) {
+        if (search != null && !search.isEmpty()) {
             query.add(queryBuilder
                     .keyword()
                     .onField(field)
-                    .matching(search.trim())
+                    .matching(search)
+                    .createQuery(), BooleanClause.Occur.SHOULD);
+        }
+    }
+
+    @Deprecated
+    private static void addDateRangeQuery(String field,
+                                          Date dateMin,
+                                          Date dateMax,
+                                          QueryBuilder queryBuilder,
+                                          BooleanQuery query) {
+        if ((dateMin != null && dateMax != null) && (dateMin.before(dateMax))) {
+            query.add(queryBuilder
+                    .range()
+                    .onField(field)
+                    .from(dateMin)
+                    .to(dateMax)
                     .createQuery(), BooleanClause.Occur.SHOULD);
         }
     }

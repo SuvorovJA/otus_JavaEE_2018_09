@@ -48,7 +48,7 @@ public class AppServletContextListener implements ServletContextListener {
             saveEmployeEntity(
                     EntitiesHelper.createEmployeEntity(
                             "U. USER",
-                            new SimpleDateFormat("dd.MM.yyyy").parse("25.05.1985"),
+                            new SimpleDateFormat("dd.MM.yyyy").parse("09.11.1998"),
                             "NSK", 1000L,
                             "user", "user",
                             EntitiesHelper.createAppointmentEntity("User"),

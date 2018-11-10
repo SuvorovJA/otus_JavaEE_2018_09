@@ -16,10 +16,10 @@
             <td>
                 <%--<div>--%>
                 <input type="text" style="float:left;display: inline;width:46%;"
-                       placeholder="min"
+                       placeholder="min age"
                        name="search_age_min" value="${search_age_min}"/>
                 <input type="text" style="float:right;display: inline;width:46%;"
-                       placeholder="max"
+                       placeholder="max age"
                        name="search_age_max" value="${search_age_max}"/>
                 <%--</div>--%>
             </td>

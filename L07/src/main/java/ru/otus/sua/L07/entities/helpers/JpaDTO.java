@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
+import ru.otus.sua.L07.entities.validation.MyPair;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;

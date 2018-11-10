@@ -17,7 +17,7 @@
 - [x] Также имеющуюся хост-страницу следует разбить на блоки: шапку, подвал и основную часть, с возможностью их подключения средствами технологии JSP.
     
 - [x] На странице отображения информации о сотрудниках добавить поисковую форму с полями поиска по вхождению символов логина или ФИО, по должности и городу, в котором работает сотрудник, 
-    - [ ] а также диапазону возраста сотрудника. 
+    - [x] а также диапазону возраста сотрудника. 
     - [x] Если указанных атрибутов у сотрудника нет, то следует их добавить и в случае необходимости завести ~отдельный справочник(должность и город)~ поле д.р. ~и связь с таблицей~ в Employee. 
     - [x] При отправке формы, необходимо направить запрос на сервлет (при желании асинхронный), который сохранит поисковый запрос и полученную информацию в атрибуте запроса и вызовет JSP- страницу, отображающую результирующий список.    
     - [x] При этом для общности с другими страницами, шапку и подвал следует подключить как внешние файлы .
@@ -34,6 +34,23 @@
 - [ ] решить все TODO
 
 #### Решение
+
+Поиск
+```
+14:04:13.740 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='40'; ageMax=40; ageMinStr='20'; ageMin=20; city=''; departament=''; appointment=''; login=''; 
+14:04:13.740 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: dateOfBirth:[279529453740 TO 910681453740]
+14:04:13.765 [);110] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:7; fullname:U. USER; birthdate:09.11.1998; city:NSK; salary:1000; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:8; login:user; passhash:*}}
+14:04:46.035 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='40'; ageMax=40; ageMinStr='20'; ageMin=20; city=''; departament='Users'; appointment='User'; login=''; 
+14:04:46.054 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: departament:users appointment:user dateOfBirth:[279529486054 TO 910681486054]
+14:04:46.066 [);111] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:7; fullname:U. USER; birthdate:09.11.1998; city:NSK; salary:1000; departament:{ id:6; name:Users}; appointment:{ id:5; name:User}; credentials:{ id:8; login:user; passhash:*}}
+14:05:46.763 [);122] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='50'; ageMax=50; ageMinStr='40'; ageMin=40; city=''; departament=''; appointment=''; login=''; 
+14:05:46.764 [);122] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: dateOfBirth:[-36003253236 TO 279529546764]
+14:05:46.767 [);122] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:3; fullname:A. DMINSKY; birthdate:15.05.1975; city:TOMSK; salary:2000; departament:{ id:2; name:IT Dept.}; appointment:{ id:1; name:SysAdmin}; credentials:{ id:4; login:admin; passhash:*}}
+14:05:53.531 [);120] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Search Strings: fullName=''; ageMaxStr='50'; ageMax=50; ageMinStr='40'; ageMin=40; city='TOMSK'; departament=''; appointment=''; login=''; 
+14:05:53.532 [);120] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Builded Query: city:tomsk dateOfBirth:[-36003246469 TO 279529553532]
+14:05:53.537 [);120] INFO  r.o.s.L.e.h.JpaDtoForEmployeEntity - Query result: { id:3; fullname:A. DMINSKY; birthdate:15.05.1975; city:TOMSK; salary:2000; departament:{ id:2; name:IT Dept.}; appointment:{ id:1; name:SysAdmin}; credentials:{ id:4; login:admin; passhash:*}}
+```
+
     
 #### Материалы
 
