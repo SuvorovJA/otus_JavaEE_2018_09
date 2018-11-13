@@ -30,9 +30,9 @@ import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getEM;
  * https://xebia.com/blog/jpa-implementation-patterns-saving-detached-entities/
  */
 @SuppressWarnings("Duplicates")
-public class JpaDtoForAppointmentEntity {
+public class AppointmentEntityDAO {
 
-    private static final Logger log = LoggerFactory.getLogger(JpaDtoForAppointmentEntity.class);
+    private static final Logger log = LoggerFactory.getLogger(AppointmentEntityDAO.class);
     private static final EntityManager em = getEM();
 
     public static boolean saveAppointmentEntity(AppointmentEntity entity) {

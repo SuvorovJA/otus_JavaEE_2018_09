@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.EmployeSearchPacket;
 import ru.otus.sua.L07.entities.Employes;
+import ru.otus.sua.L07.entities.validation.SiteUser;
 
 import javax.persistence.*;
 import java.sql.SQLException;
@@ -22,9 +23,9 @@ import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getFTEM;
 
 @NoArgsConstructor
 @SuppressWarnings("Duplicates")
-public class JpaDtoForEmployeEntity {
+public class EmployeEntityDAO {
 
-    private static final Logger log = LoggerFactory.getLogger(JpaDtoForEmployeEntity.class);
+    private static final Logger log = LoggerFactory.getLogger(EmployeEntityDAO.class);
     private static final EntityManager em = getEM();
     private static final FullTextEntityManager ftem = getFTEM();
 
@@ -91,7 +92,7 @@ public class JpaDtoForEmployeEntity {
         EmployeEntity result = null;
         try {
             result = (EmployeEntity) q.getSingleResult();
-            log.info("readEmployeById({}): {}", id, (result == null) ? "null" : result.toString());
+            log.info("readEmployeById({}): {}", id, Objects.toString(result, "null"));
         } catch (PersistenceException e) {
             log.error("Err when readById: {}", e.getMessage());
         }
@@ -201,6 +202,25 @@ public class JpaDtoForEmployeEntity {
                     .to(dateMax)
                     .createQuery(), BooleanClause.Occur.SHOULD);
         }
+    }
+
+    public static EmployeEntity findByCredentials(SiteUser cred) throws SQLException {
+        // TODO pass as passhash -> to real hash
+        EmployeEntity entity;
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("select c.employe from CredentialEntity c where c.login = :logi and c.passhash = :pass");
+            q.setParameter("logi", cred.getLogin());
+            q.setParameter("pass", cred.getPassword());
+            entity = (EmployeEntity) q.getSingleResult();
+            em.getTransaction().commit();
+        } catch (PersistenceException e) {
+            em.getTransaction().rollback();
+            log.error("Rollback when findByCredentials: {}", e.getMessage());
+            throw new SQLException(e.getMessage());
+        }
+        if (entity == null) throw new SQLException("Не найдено");
+        return entity;
     }
 
     public Employes instanceReadAllEmployesForJSP() throws SQLException {

@@ -48,8 +48,7 @@
         </tr>
 
         <%--FOR HOWTO--%>
-        <%--<jsp:useBean id="jpa" class="ru.otus.sua.L07.entities.helpers.JpaDtoForEmployeEntity"--%>
-        <%--scope="page"></jsp:useBean>--%>
+        <%--<jsp:useBean id="jpa" class="ru.otus.sua.L07.entities.helpers.EmployeEntityDAO        <%--scope="page"></jsp:useBean>--%>
         <%--<c:forEach items="${jpa.instanceReadAllEmployesForJSP().employes}" var="e">--%>
 
         <c:forEach items="${employes}" var="e">

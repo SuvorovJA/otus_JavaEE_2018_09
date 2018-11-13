@@ -5,6 +5,7 @@ import lombok.Getter;
 import ru.otus.sua.L07.entities.exceptions.InvalidSearchException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Getter
 @EqualsAndHashCode
@@ -21,7 +22,7 @@ public class EmployeSearchPacket {
     private int ageMin = 0;
 
     private static String getRequestParameterIfDefined(HttpServletRequest request, String paramName) {
-        return request.getParameter(paramName) == null ? "" : request.getParameter(paramName).trim();
+        return Objects.toString(request.getParameter(paramName),"").trim();
     }
 
     public void setFromRequest(HttpServletRequest request) throws InvalidSearchException {

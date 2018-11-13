@@ -3,8 +3,8 @@ package ru.otus.sua.L07.servlets;
 import ru.otus.sua.L07.entities.EmployeSearchPacket;
 import ru.otus.sua.L07.entities.Employes;
 import ru.otus.sua.L07.entities.exceptions.InvalidSearchException;
-import ru.otus.sua.L07.entities.helpers.JpaDtoForEmployeEntity;
-import ru.otus.sua.L07.entities.validation.SiteUser;
+import ru.otus.sua.L07.entities.validation.AuthHelper;
+import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,9 +24,7 @@ public class EmployesServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
-
-        if (siteUser != null) {
+        if (AuthHelper.isAuthenticated(request)) {
 
             String errorString = "";
             Employes employes = null;
@@ -39,9 +37,9 @@ public class EmployesServlet extends HttpServlet {
 
             try {
                 if (searchPacket.isSearchable()) {
-                    employes = JpaDtoForEmployeEntity.queryEmployes(searchPacket);
+                    employes = EmployeEntityDAO.queryEmployes(searchPacket);
                 } else {
-                    employes = JpaDtoForEmployeEntity.readAllEmployes();
+                    employes = EmployeEntityDAO.readAllEmployes();
                 }
             } catch (SQLException e) {
                 errorString += e.getMessage() + "; ";
@@ -53,8 +51,6 @@ public class EmployesServlet extends HttpServlet {
 
             replaySearchFields(request);
 
-        } else {
-            request.setAttribute("errorString", "Не произведен вход, исполнение не разрешено ");
         }
     }
 

@@ -1,16 +1,14 @@
 package ru.otus.sua.L07.servlets;
 
 import ru.otus.sua.L07.entities.EmployeEntity;
-import ru.otus.sua.L07.entities.helpers.JpaDTO;
+import ru.otus.sua.L07.entities.validation.AuthHelper;
+import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 import ru.otus.sua.L07.entities.validation.SiteUser;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -19,6 +17,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Set;
 
+import static java.util.Optional.ofNullable;
+
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
@@ -26,11 +26,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
-        if (siteUser != null) {
-            request.setAttribute("infoString", "Произведен вход: " + siteUser.getLogin());
-            request.getSession().removeAttribute("errorString");
-        }
+        AuthHelper.isAuthenticatedWithInfo(request);
     }
 
     @Override
@@ -39,20 +35,19 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         SiteUser siteUser = new SiteUser(login, password);
+
         Set<ConstraintViolation<SiteUser>> violationSet = validator.validate(siteUser);
         if (violationSet.isEmpty()) {
             EmployeEntity entity = null;
             try {
-                entity = JpaDTO.findByCredentials(siteUser);
+                entity = EmployeEntityDAO.findByCredentials(siteUser);
             } catch (SQLException e) {
                 errorString += "такая комбинация логина и пароля не обнаружена";
             }
-            if (entity != null) {
-                request.getSession().setAttribute("AuthenticatedUser", siteUser);
-            }
+            if (entity != null) request.getSession().setAttribute("AuthenticatedUser", siteUser);
         } else {
             ConstraintViolation<SiteUser> violation = violationSet.iterator().hasNext() ? violationSet.iterator().next() : null;
-            errorString += (violation != null) ? (violation.getPropertyPath() + ": " + violation.getMessage()) : "0_o?";
+            errorString += ofNullable(violation).map(v -> (v.getPropertyPath() + ": " + v.getMessage())).orElse("0_o?");
         }
         if (!errorString.isEmpty()) request.getSession().setAttribute("errorString", errorString);
 

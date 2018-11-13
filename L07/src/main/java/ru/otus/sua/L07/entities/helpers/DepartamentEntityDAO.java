@@ -30,8 +30,8 @@ import static ru.otus.sua.L07.entities.helpers.EntityManagerHolder.getEM;
  * https://xebia.com/blog/jpa-implementation-patterns-saving-detached-entities/
  */
 @SuppressWarnings("Duplicates")
-public class JpaDtoForDepartamentEntity {
-    private static final Logger log = LoggerFactory.getLogger(JpaDtoForDepartamentEntity.class);
+public class DepartamentEntityDAO {
+    private static final Logger log = LoggerFactory.getLogger(DepartamentEntityDAO.class);
     private static final EntityManager em = getEM();
 
     public static boolean saveDepartmentEntity(DepartamentEntity entity) {

@@ -25,12 +25,12 @@ public class EntitiesHelper {
     public static AppointmentEntity createAppointmentEntity(String appointment) {
         AppointmentEntity entity = new AppointmentEntity();
         entity.setName(appointment);
-        if (JpaDtoForAppointmentEntity.containsAppointmentEntityByName(entity.getName())) {
+        if (AppointmentEntityDAO.containsAppointmentEntityByName(entity.getName())) {
             log.info("Reuse AppointmentEntity: {}", entity.toString());
-            entity = JpaDtoForAppointmentEntity.readAppointmentEntityByName(entity.getName());
+            entity = AppointmentEntityDAO.readAppointmentEntityByName(entity.getName());
         } else {
             log.info("Create AppointmentEntity: {}", entity.toString());
-            JpaDtoForAppointmentEntity.saveAppointmentEntity(entity);
+            AppointmentEntityDAO.saveAppointmentEntity(entity);
         }
         return entity;
     }
@@ -38,12 +38,12 @@ public class EntitiesHelper {
     public static DepartamentEntity createDepartmentEntity(String department) {
         DepartamentEntity entity = new DepartamentEntity();
         entity.setName(department);
-        if (JpaDtoForDepartamentEntity.containsDepartmentEntityByName(entity.getName())) {
+        if (DepartamentEntityDAO.containsDepartmentEntityByName(entity.getName())) {
             log.info("Reuse DepartamentEntity: {}", entity.toString());
-            entity = JpaDtoForDepartamentEntity.readDepartmentEntityByName(entity.getName());
+            entity = DepartamentEntityDAO.readDepartmentEntityByName(entity.getName());
         } else {
             log.info("Create DepartamentEntity: {}", entity.toString());
-            JpaDtoForDepartamentEntity.saveDepartmentEntity(entity);
+            DepartamentEntityDAO.saveDepartmentEntity(entity);
         }
         return entity;
     }

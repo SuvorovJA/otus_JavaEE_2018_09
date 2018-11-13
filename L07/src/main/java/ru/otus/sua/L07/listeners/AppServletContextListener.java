@@ -6,7 +6,7 @@ import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.Employes;
 import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
 import ru.otus.sua.L07.entities.helpers.EntityManagerHolder;
-import ru.otus.sua.L07.entities.helpers.JpaDtoForEmployeEntity;
+import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import static ru.otus.sua.L07.entities.helpers.JpaDtoForEmployeEntity.*;
+import static ru.otus.sua.L07.entities.helpers.EmployeEntityDAO.*;
 
 @WebListener()
 public class AppServletContextListener implements ServletContextListener {
@@ -151,7 +151,7 @@ public class AppServletContextListener implements ServletContextListener {
     }
 
     private void marshalingDB(File outputFile) throws SQLException, JAXBException {
-        Employes allEmployes = JpaDtoForEmployeEntity.readAllEmployes();
+        Employes allEmployes = EmployeEntityDAO.readAllEmployes();
         JAXBContext context = JAXBContext.newInstance(Employes.class, EmployeEntity.class);
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

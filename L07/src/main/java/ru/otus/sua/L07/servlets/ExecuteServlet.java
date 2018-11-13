@@ -1,6 +1,6 @@
 package ru.otus.sua.L07.servlets;
 
-import ru.otus.sua.L07.entities.validation.SiteUser;
+import ru.otus.sua.L07.entities.validation.AuthHelper;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -17,20 +17,13 @@ public class ExecuteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
-        if (siteUser != null) {
-            request.removeAttribute("errorString");
-        } else {
-            request.setAttribute("errorString", "Не произведен вход, исполнение не разрешено ");
-        }
+        AuthHelper.isAuthenticated(request);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        SiteUser siteUser = (SiteUser) request.getSession().getAttribute("AuthenticatedUser");
-        if (siteUser != null) {
+        if (AuthHelper.isAuthenticated(request)) {
             ScriptEngineManager engineManager = new ScriptEngineManager();
             ScriptEngine engine = engineManager.getEngineByName("nashorn");
             try {
