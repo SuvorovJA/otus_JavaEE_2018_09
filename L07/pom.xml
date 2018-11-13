@@ -9,7 +9,7 @@
     <version>2018-09</version>
     <packaging>war</packaging>
 
-    <name>L07. Servlet и JSP</name>
+    <name>L08. Custom tags; L07. Servlet и JSP;</name>
     <!-- FIXME change it to the project's website -->
     <url>http://localhost:8080/L07</url>
     <properties>
