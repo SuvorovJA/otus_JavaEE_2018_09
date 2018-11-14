@@ -10,7 +10,7 @@
         <class>ru.otus.sua.L07.entities.DepartamentEntity</class>
         <class>ru.otus.sua.L07.entities.AppointmentEntity</class>
         <class>ru.otus.sua.L07.entities.CredentialEntity</class>
-        <class>ru.otus.sua.L07.statisticSubsystem.StatisticEntity</class>
+        <class>ru.otus.sua.statistic.StatisticEntity</class>
         <properties>
             <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/PostgresDS"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>

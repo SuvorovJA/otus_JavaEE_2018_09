@@ -1,6 +1,6 @@
 function getCurrency() {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/L07/currency', true);
+    xhr.open('POST', '/L08/currency', true);
     xhr.onreadystatechange = function () {
         if (this.readyState != 4) return;
         var USD = document.getElementById("USD");

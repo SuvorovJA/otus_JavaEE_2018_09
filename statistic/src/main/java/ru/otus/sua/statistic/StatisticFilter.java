@@ -1,4 +1,4 @@
-package ru.otus.sua.L07.statisticSubsystem;
+package ru.otus.sua.statistic;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

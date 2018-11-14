@@ -1,5 +1,6 @@
-package ru.otus.sua.L07.statisticSubsystem;
+package ru.otus.sua.statistic;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +13,12 @@ public class StatServiceServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    doGet(request,response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/statisticView.jsp");
+        dispatcher.forward(request,response);
     }
 }

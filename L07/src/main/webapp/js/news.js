@@ -1,6 +1,6 @@
 function getNews() {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/L07/news', true);
+    xhr.open('POST', '/L08/news', true);
     xhr.onreadystatechange = function() {
         if (this.readyState != 4) return;
         var container = document.getElementById("news-id");

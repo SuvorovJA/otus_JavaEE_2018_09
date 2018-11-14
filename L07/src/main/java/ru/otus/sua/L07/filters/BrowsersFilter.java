@@ -47,7 +47,7 @@ public class BrowsersFilter implements Filter {
         UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
         ReadableUserAgent agent = parser.parse(request.getHeader("User-Agent"));
         String agentName = agent.getName();
-        int agentVersion = Integer.parseInt(agent.getVersionNumber().getMajor());
+        int agentVersion = Integer.parseInt(agent.getVersionNumber().getMajor()); // TODO NumberFormatException: For input string: ""
 
         log.info(agentName + " " + agentVersion);
 
