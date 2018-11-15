@@ -44,3 +44,13 @@
 - [ ] двуязычная интернационализация сообщений и сайта
 
 #### Решение
+
+#### Материалы
+
+[JPA Pagination](https://www.baeldung.com/jpa-pagination)
+
+[web-fragment.xml](https://blogs.oracle.com/swchan/servlet-30-web-fragmentxml)
+
+[Implementing the Tag Handler](https://docs.oracle.com/cd/E13222_01/wls/docs100/taglib/handler.html)
+
+

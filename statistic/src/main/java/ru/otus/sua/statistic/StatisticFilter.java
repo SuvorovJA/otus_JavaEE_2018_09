@@ -7,6 +7,8 @@ import java.io.IOException;
 @WebFilter(filterName = "StatisticFilter", urlPatterns = "/*")
 public class StatisticFilter implements Filter {
 
+    // TODO stat filter unacted
+
     @Override
     public void destroy() {
     }

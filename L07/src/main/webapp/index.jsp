@@ -1,3 +1,4 @@
+<%@ taglib prefix = "doit" uri = "/stattags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@
     <script src="${pageContext.request.contextPath}/js/currency.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/js/news.js" type="text/javascript"></script>
 </head>
-<body onload="getCurrency();getNews();">
+<body onload="getCurrency();getNews();"> <doit:statistic/>
 <div class="center">
 
     <header>
