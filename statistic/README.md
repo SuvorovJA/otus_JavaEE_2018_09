@@ -1,13 +1,15 @@
 ### site usage statictic
 
-предполагается сбор статистики через custom tag на каждой jsp-странице, 
+предполагается сбор статистики через 
+custom tag на каждой jsp-странице, 
 либо через сервлет-фильтр для произвольных url.
-второй функционал не реализован, используются заглушки.
+сервлет-фильтр функционал не реализован.
 
 1) опубликовать библиотеку в виде jar в maven repo
 
     через maven 'install' goal, или настройкой run configuration в idea 
 
+- - -
 
 Подключение к приложению
 
@@ -23,10 +25,12 @@
 ```
 
 3) добавить сервлет в web.xml,  
+
     по умолчанию сервлет подключается аннотациями, 
     `@WebServlet(name = "StatServiceServlet", urlPatterns = "/statistic")`
     добавление в web.xml нужно только для применения параметров.
     по умолчанию сбор статистики _включен_ и применяется _custom tag_ вариант интеграции.
+    
 ``` 
     <servlet>
         <servlet-name>StatServiceServlet</servlet-name>
@@ -41,6 +45,10 @@
             <param-value>CUSTOMTAG</param-value>
             <!--<param-value>FILTER</param-value>-->
         </init-param>
+        <init-param>
+            <param-name>ru.otus.sua.statistic.MARKER_NAME</param-name>
+            <param-value>SomeMarker</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -50,7 +58,9 @@
 ```
 
 4) добавить фильтр в web.xml если используется. 
-    подключить можно, но фильтр не реализован
+
+    _подключить можно, но функциональность фильтра не реализована_
+    
 ``` 
     <filter>
         <filter-name>StatisticFilter</filter-name>
@@ -62,26 +72,23 @@
     </filter-mapping>
 ```
 
-5) добавить класс в persistens.xml
-```
-    <persistence-unit name="JPAPersistenceUnit7" transaction-type="RESOURCE_LOCAL">
-        ...
-        <class>ru.otus.sua.statistic.StatisticEntity</class>
-        ...
-    </persistence-unit>
-```    
+5) обеспечить datasource `"java:comp/env/jdbc/PostgresDS"`
 
 6) custom tag, применение на jsp страницах
     
     `<%@ taglib prefix = "doit" uri = "/stattags"%>`
 
-    `<doit:statistic/>`
+    где-нибудь в body `<doit:statistic/>`
 
-7) report statisticView.jsp page
-
-    `jar integrated. access by forward from StatServiceServlet`
+7) страница с просмотром отчета
+  
+    открыть url get-запросом: `<YouContext>/statistic`
 
 8) servlet response: json
 
-` `
+    в ответ на каждый Тэг отправляется id stat-записи `{"statisticId":1}`
+
+9) приладить костыль на останов контейнера сервлетов
+
+    `ru.otus.sua.statistic.EntityManagerHolder.shutdownIndexer();` 
 

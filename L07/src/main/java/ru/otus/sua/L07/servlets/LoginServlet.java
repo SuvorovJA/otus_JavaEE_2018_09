@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             } catch (SQLException e) {
                 errorString += "такая комбинация логина и пароля не обнаружена";
             }
-            if (entity != null) request.getSession().setAttribute("AuthenticatedUser", siteUser);
+            if (entity != null) request.getSession().setAttribute("AuthenticatedUser", siteUser.getLogin());
         } else {
             ConstraintViolation<SiteUser> violation = violationSet.iterator().hasNext() ? violationSet.iterator().next() : null;
             errorString += ofNullable(violation).map(v -> (v.getPropertyPath() + ": " + v.getMessage())).orElse("0_o?");

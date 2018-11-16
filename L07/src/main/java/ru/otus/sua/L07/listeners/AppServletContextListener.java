@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.Employes;
 import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
-import ru.otus.sua.L07.entities.helpers.EntityManagerHolder;
+
 import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 
 import javax.servlet.ServletContext;
@@ -133,7 +133,9 @@ public class AppServletContextListener implements ServletContextListener {
 
 
         loggerOnShutdown("Shutdown lucene indexer.");
-        EntityManagerHolder.shutdownIndexer();
+        ru.otus.sua.L07.entities.helpers.EntityManagerHolder.shutdownIndexer();
+        ru.otus.sua.statistic.EntityManagerHolder.shutdownIndexer();
+
 
     }
 

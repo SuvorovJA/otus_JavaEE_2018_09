@@ -19,6 +19,10 @@
             <param-value>CUSTOMTAG</param-value>
             <!--<param-value>FILTER</param-value>-->
         </init-param>
+        <init-param>
+            <param-name>ru.otus.sua.statistic.MARKER_NAME</param-name>
+            <param-value>SomeMarker</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

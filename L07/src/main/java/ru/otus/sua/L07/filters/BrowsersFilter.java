@@ -47,7 +47,12 @@ public class BrowsersFilter implements Filter {
         UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
         ReadableUserAgent agent = parser.parse(request.getHeader("User-Agent"));
         String agentName = agent.getName();
-        int agentVersion = Integer.parseInt(agent.getVersionNumber().getMajor()); // TODO NumberFormatException: For input string: ""
+        int agentVersion = 0;
+        try {
+            agentVersion = Integer.parseInt(agent.getVersionNumber().getMajor());
+        } catch (NumberFormatException e) {
+            log.info("Not found browser version, set 0.");
+        }
 
         log.info(agentName + " " + agentVersion);
 
@@ -55,6 +60,7 @@ public class BrowsersFilter implements Filter {
                 (agentName.equalsIgnoreCase("OPERA") && agentVersion >= 38) ||
                         (agentName.equalsIgnoreCase("FIREFOX") && agentVersion >= 45) ||
                         (agentName.equalsIgnoreCase("CHROME") && agentVersion >= 50) ||
+                        (agentName.equalsIgnoreCase("YANDEX.BROWSER") && agentVersion >= 17) ||
                         (agentName.equalsIgnoreCase("IE") && agentVersion >= 10);
 
         if (result) response.addCookie(new Cookie("GoodBrowser", "OK"));
