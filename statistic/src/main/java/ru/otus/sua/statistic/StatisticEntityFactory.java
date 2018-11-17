@@ -15,6 +15,7 @@ import java.util.Objects;
 public class StatisticEntityFactory {
 
     private final StatisticEntity entity;
+    private final String UNDEF = "*undef*";
 
     public StatisticEntityFactory(HttpServletRequest request) {
 
@@ -42,14 +43,14 @@ public class StatisticEntityFactory {
     }
 
     private String getMarker(HttpServletRequest request) {
-        return Objects.toString(request.getServletContext().getAttribute("ru.otus.sua.statistic.MARKER_NAME"),
+        return Objects.toString(request.getServletContext().getAttribute("ru_otus_sua_statistic_MARKER_NAME"),
                 "DEFAULT");
     }
 
     private String getLogin(HttpServletRequest request) {
         String remoteUser = request.getRemoteUser();
         String siteUser = (String) request.getSession().getAttribute("AuthenticatedUser");
-        return Objects.toString(remoteUser, Objects.toString(siteUser, "<undef>"));
+        return Objects.toString(remoteUser, Objects.toString(siteUser, UNDEF));
     }
 
     private long parze2long(String input) {
@@ -72,17 +73,17 @@ public class StatisticEntityFactory {
 
     private String getAddress(HttpServletRequest request) {
         String ipAddress = request.getHeader("X-FORWARDED-FOR");
-        return Objects.toString(ipAddress, Objects.toString(request.getRemoteAddr(), "<undef>"));
+        return Objects.toString(ipAddress, Objects.toString(request.getRemoteAddr(), UNDEF));
     }
 
     private String getSession(HttpServletRequest request) {
-        return Objects.toString(request.getSession(false).getId(), "<undef>");
+        return Objects.toString(request.getSession(false).getId(), UNDEF);
     }
 
     private String getUrl(HttpServletRequest request) {
         String referer = request.getHeader("referer");
         Object forward = request.getAttribute("javax.servlet.forward.request_uri");
         Object myservlet = request.getRequestURL();
-        return Objects.toString(referer, Objects.toString(forward, Objects.toString(myservlet, "<undef>")));
+        return Objects.toString(referer, Objects.toString(forward, Objects.toString(myservlet, UNDEF)));
     }
 }

@@ -15,12 +15,15 @@ public class StatTagHandler extends SimpleTagSupport {
         PageContext pageContext = (PageContext) getJspContext();
         ServletContext servletContext = pageContext.getServletContext();
         String contextPath = servletContext.getContextPath();
+
         out.print("<form action='" + contextPath + "/statistic' method='post' id='theTimeForm' target='dummyframe'>" +
                 "<input type='hidden' name='clientDateTimeValue' id='clientDateTimeValue'>" +
                 "<input type='hidden' name='clientTimeZoneValue' id='clientTimeZoneValue'>" +
                 "<input type='button' value='Submit' style='display: none;'></form >");
+
         // hide json response:
         out.print("<iframe width='0' height='0' border='0' name='dummyframe' id='dummyframe' style='display: none;'></iframe>");
+
         out.print("<script src='timeStamp.js' type='text/javascript' onload='timeStamp();'></script>");
     }
 

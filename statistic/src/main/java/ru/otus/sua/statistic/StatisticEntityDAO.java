@@ -4,6 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import java.util.List;
 
 import static ru.otus.sua.statistic.EntityManagerHolder.getEM;
 
@@ -12,6 +17,7 @@ public class StatisticEntityDAO {
 
     private static final Logger log = LoggerFactory.getLogger(StatisticEntityDAO.class);
     private static final EntityManager em = getEM();
+    private static final CriteriaBuilder cb = em.getCriteriaBuilder();
 
     public static boolean saveStatisticEntity(StatisticEntity entity) {
         try {
@@ -93,6 +99,29 @@ public class StatisticEntityDAO {
             log.error("Err when readStatisticEntityById: {}", e.getMessage());
         }
         return result;
+    }
+
+
+    public static List<StatisticEntity> getNext(int start, int amount) {
+
+        CriteriaQuery<StatisticEntity> criteriaQuery = cb.createQuery(StatisticEntity.class);
+        Root<StatisticEntity> from = criteriaQuery.from(StatisticEntity.class);
+        CriteriaQuery<StatisticEntity> select = criteriaQuery.select(from);
+        TypedQuery<StatisticEntity> typedQuery = em.createQuery(select);
+
+        typedQuery.setFirstResult(start);
+        typedQuery.setMaxResults(amount);
+        return typedQuery.getResultList();
+
+    }
+
+    public static long getTotalRecords() {
+
+        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
+        countQuery.select(cb.count(countQuery.from(StatisticEntity.class)));
+        Long count = em.createQuery(countQuery).getSingleResult();
+
+        return count;
     }
 
 }

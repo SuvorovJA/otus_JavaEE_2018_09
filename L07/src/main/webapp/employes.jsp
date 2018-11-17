@@ -17,7 +17,7 @@
         <jsp:include page="_header.html"/>
     </header>
     <nav>
-        <jsp:include page="_navigationbar.html"/>
+        <jsp:include page="_navigationbar.jsp"/>
     </nav>
     <main>
         <jsp:include page="__employes.jsp"/>

@@ -36,17 +36,17 @@ custom tag на каждой jsp-странице,
         <servlet-name>StatServiceServlet</servlet-name>
         <servlet-class>ru.otus.sua.statistic.StatServiceServlet</servlet-class>
         <init-param>
-            <param-name>ru.otus.sua.statistic.GATHERING</param-name>
+            <param-name>ru_otus_sua_statistic_GATHERING</param-name>
             <param-value>ENABLED</param-value>
             <!--<param-value>DISABLED</param-value>-->
         </init-param>
         <init-param>
-            <param-name>ru.otus.sua.statistic.INTEGRATION_TYPE</param-name>
+            <param-name>ru_otus_sua_statistic_INTEGRATION_TYPE</param-name>
             <param-value>CUSTOMTAG</param-value>
             <!--<param-value>FILTER</param-value>-->
         </init-param>
         <init-param>
-            <param-name>ru.otus.sua.statistic.MARKER_NAME</param-name>
+            <param-name>ru_otus_sua_statistic_MARKER_NAME</param-name>
             <param-value>SomeMarker</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
@@ -78,11 +78,13 @@ custom tag на каждой jsp-странице,
     
     `<%@ taglib prefix = "doit" uri = "/stattags"%>`
 
-    где-нибудь в body `<doit:statistic/>`
+    где-нибудь в body разместить `<doit:statistic/>`
 
 7) страница с просмотром отчета
   
     открыть url get-запросом: `<YouContext>/statistic`
+
+    поиск\фильтрация не реализован\а.
 
 8) servlet response: json
 
