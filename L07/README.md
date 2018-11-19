@@ -20,6 +20,14 @@
 
 - - - 
 
+- [x] migrate to Glassfish5 
+    - DB config in admin console (db pool, jdbc resource with jndi name), 
+    - DB driver jar download to domain lib dir, 
+    - Idea Run config, 
+    - [JNDI issue](http://mjremijan.blogspot.com/2015/11/payaraglassfish-datasource-reference.html))
+    - [glassfish-web.xml example](https://javaee.github.io/glassfish/doc/5.0/application-deployment-guide.pdf)
+    - set `<res-auth>` to  `Container` in web.xml
+    - [ ] `Transaction already active at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:75) at ru.otus.sua.statistic.StatisticEntityDAO.saveStatisticEntityWithIdReturn(StatisticEntityDAO.java:42)`
 - [x] заменить TagHandler в статистике на AJAX/XMLHttpRequest
 - [ ] заметь statisticView.jsp на шаблонизаторную страницу
 - [ ] фильтрация на statisticView.jsp
