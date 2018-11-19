@@ -20,14 +20,15 @@
 
 - - - 
 
-- [x] migrate to Glassfish5 
-    - DB config in admin console (db pool, jdbc resource with jndi name), 
-    - DB driver jar download to domain lib dir, 
-    - Idea Run config, 
-    - [JNDI issue](http://mjremijan.blogspot.com/2015/11/payaraglassfish-datasource-reference.html))
-    - [glassfish-web.xml example](https://javaee.github.io/glassfish/doc/5.0/application-deployment-guide.pdf)
-    - set `<res-auth>` to  `Container` in web.xml
-    - [ ] `Transaction already active at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:75) at ru.otus.sua.statistic.StatisticEntityDAO.saveStatisticEntityWithIdReturn(StatisticEntityDAO.java:42)`
+- [ ] attempt migrate to Glassfish5 
+    - [x] DB config in admin console (db pool, jdbc resource with jndi name), 
+    - [x] DB driver jar download to domain lib dir, 
+    - [x] Idea Run config, 
+    - [x] [JNDI issue](http://mjremijan.blogspot.com/2015/11/payaraglassfish-datasource-reference.html))
+    - [x] [glassfish-web.xml example](https://javaee.github.io/glassfish/doc/5.0/application-deployment-guide.pdf)
+    - [x] set `<res-auth>` to  `Container` in web.xml
+    - [ ] `[glassfish 5.0] [WARNING] [] [javax.enterprise.web] [tid: _ThreadID=31 _ThreadName=http-listener-1(4)] [timeMillis: 1542637467483] [levelValue: 900] [[ StandardWrapperValve[StatServiceServlet]: Servlet.service() for servlet StatServiceServlet threw exception java.lang.IllegalStateException: Transaction already active at ru.otus.sua.statistic.StatisticEntityDAO.saveStatisticEntityWithIdReturn(StatisticEntityDAO.java:42)`
+    - [ ] сломался импорт из xml `.AppServletContextListener - Create hardcoded admin account on startup application.`
 - [x] заменить TagHandler в статистике на AJAX/XMLHttpRequest
 - [ ] заметь statisticView.jsp на шаблонизаторную страницу
 - [ ] фильтрация на statisticView.jsp
