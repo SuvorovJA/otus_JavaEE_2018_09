@@ -14,17 +14,13 @@ public class StatTagHandler extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
         PageContext pageContext = (PageContext) getJspContext();
         ServletContext servletContext = pageContext.getServletContext();
-        String contextPath = servletContext.getContextPath();
+        String contextPath = servletContext.getContextPath() + "/statistic";
 
-        out.print("<form action='" + contextPath + "/statistic' method='post' id='theTimeForm' target='dummyframe'>" +
-                "<input type='hidden' name='clientDateTimeValue' id='clientDateTimeValue'>" +
-                "<input type='hidden' name='clientTimeZoneValue' id='clientTimeZoneValue'>" +
-                "<input type='button' value='Submit' style='display: none;'></form >");
-
-        // hide json response:
-        out.print("<iframe width='0' height='0' border='0' name='dummyframe' id='dummyframe' style='display: none;'></iframe>");
-
-        out.print("<script src='timeStamp.js' type='text/javascript' onload='timeStamp();'></script>");
+        out.print("<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>");
+        out.print("<script type='text/javascript'>" +
+                "var stamp = {'clientDateTimeValue': Date.now(),'clientTimeZoneValue': (new Date()).getTimezoneOffset()};" +
+                "$.ajax({url:'" + contextPath + "',type:'POST',data:stamp});" +
+                "</script>");
     }
 
 }
