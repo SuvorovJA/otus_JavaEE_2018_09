@@ -4,10 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.Employes;
-import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
-
 import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
+import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
+import ru.otus.sua.L07.infosystem.CheckerCurrency;
+import ru.otus.sua.L07.infosystem.CheckerNews;
+import ru.otus.sua.L07.infosystem.WSInfoServlet;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -30,6 +34,15 @@ public class AppServletContextListener implements ServletContextListener {
 
     private static Logger log = LoggerFactory.getLogger(AppServletContextListener.class);
 
+    @Inject
+    private CheckerCurrency checkerCurrency;
+
+    @Inject
+    private CheckerNews checkerNews;
+
+    @Inject
+    private WSInfoServlet wsInfoServlet;
+
     // Public constructor is required by servlet spec
     public AppServletContextListener() {
     }
@@ -43,11 +56,25 @@ public class AppServletContextListener implements ServletContextListener {
          initialized(when the Web application is deployed).
          You can initialize servlet context related data here.
       */
-        URL resourceUrl = null;
+
+        // becouse Tomcat not support @Startup annotation
+        checkerCurrency.sheduledCheck();
+        checkerNews.sheduledCheck();
+        wsInfoServlet.start();
+
+        if (createXmled(sce)) return;
+        createHardcoded();
+    }
+
+
+    private boolean createXmled(ServletContextEvent sce) {
+        URL resourceUrl;
+
         try {
             resourceUrl = sce.getServletContext().getResource("/WEB-INF/classes/employes_jaxb.xml");
         } catch (MalformedURLException e) {
             log.info("Cant check xml template for DB. " + e.getMessage());
+            return false;
         }
 
         if (resourceUrl != null) {
@@ -72,14 +99,15 @@ public class AppServletContextListener implements ServletContextListener {
                     }
                 } catch (SQLException | JAXBException e) {
                     log.error("Cant import xml template for DB. ");
+                    return false;
                 }
-
-                return;
-
+                return true;
             }
         }
+        return false;
+    }
 
-
+    private void createHardcoded() {
         log.info("Create hardcoded admin account on startup application.");
         try {
             saveEmployeEntity(
@@ -102,7 +130,6 @@ public class AppServletContextListener implements ServletContextListener {
         } catch (ParseException e) {
             log.error(e.getMessage());
         }
-
     }
 
     @Override
@@ -163,7 +190,6 @@ public class AppServletContextListener implements ServletContextListener {
     private Employes unmarshalingDB(File inputFile) throws SQLException, JAXBException {
         JAXBContext context = JAXBContext.newInstance(Employes.class, EmployeEntity.class);
         Unmarshaller m = context.createUnmarshaller();
-        Employes allEmployes = (Employes) m.unmarshal(inputFile);
-        return allEmployes;
+        return (Employes) m.unmarshal(inputFile);
     }
 }

@@ -144,6 +144,16 @@
             <type>jar</type>
         </dependency>
 
+
+        <!--CDI-->
+        <!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet-core -->
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-core</artifactId>
+            <version>3.0.5.Final</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

@@ -1,10 +1,12 @@
 package ru.otus.sua.L07.servlets;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -16,12 +18,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@ApplicationScoped
 @WebServlet(name = "NewsServlet", urlPatterns = "/news")
+@Slf4j
 public class NewsServlet extends HttpServlet {
 
     @Override
-    @SuppressWarnings("Duplicates")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String json = getNews();
+        response.setHeader("Content-Type", "application/json;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        log.info(json);
+        response.getWriter().write(json);
+    }
+
+    public String getNews() throws IOException {
         Document site = Jsoup.connect("http://www.tomsk.ru/news/").get();
         Elements newsAll = site.getElementsByClass("title");
         JsonArrayBuilder jsonArray = Json.createArrayBuilder();
@@ -34,11 +45,7 @@ public class NewsServlet extends HttpServlet {
                 jsonArray.add(newsOne.build());
             }
         }
-        JsonObject root = Json.createObjectBuilder().add("news", jsonArray.build()).build();
-        response.setHeader("Content-Type", "application/json;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        getServletContext().log(root.toString());
-        response.getWriter().write(root.toString());
+        return Json.createObjectBuilder().add("news", jsonArray.build()).build().toString();
     }
 
 }
