@@ -16,7 +16,7 @@
 
     <context-param>
         <param-name>extResourcesPollPeriodInSeconds</param-name>
-        <param-value>6</param-value>
+        <param-value>300</param-value>
     </context-param>
 
 

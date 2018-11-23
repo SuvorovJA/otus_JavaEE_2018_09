@@ -44,7 +44,7 @@
 #### Решение
 
 
-Функционал обновления dashboard сессий
+Функционал обновления dashboard сессий.
 ``` 
 22:44:35.457 [http-nio-8080-exec-2] INFO  r.o.s.L.l.SessionsCounterListener - ADD SESSION
 22:44:35.457 [http-nio-8080-exec-2] INFO  r.o.s.L.l.SessionsCounterListener - UPDATE CHANNELS WITH: InfoItemSessions(json={"sessions":4})
@@ -76,10 +76,11 @@
 
 
 
-Функционал курса и новостей
-параметр установленный в true в `@EqualsAndHashCode(callSuper = true) class InfoItemNews` вызывает поведение когда каждый опрос сервиса новостей вызывает обновление, потому что к сравнению версий добавляется таймштамп опроса.
-соответсвенно параметр установленный в false, вводит нормальный режим - сравнение только по контенту.
-период опроса стоит в extResourcesPollPeriodInSeconds=6
+Функционал курса и новостей.
+
+Параметр установленный в true `@EqualsAndHashCode(callSuper = true) class InfoItemNews`, вызывает поведение, когда каждый опрос сервиса новостей генерирует обновление, т.к. к сравнению версий добавляется таймштамп опроса.
+Соответсвенно, параметр установленный в false, вводит нормальный режим - сравнение только по контенту.
+Период опроса здесь стоит в extResourcesPollPeriodInSeconds=6.
 ``` 
 21:30:18.562 [RMI TCP Connection(2)-127.0.0.1] INFO  o.j.w.environment.servletWeldServlet - WELD-ENV-001008: Initialize Weld using ServletContainerInitializer
 21:30:18.582 [RMI TCP Connection(2)-127.0.0.1] INFO  org.jboss.weld.Version - WELD-000900: 3.0.5 (Final)
