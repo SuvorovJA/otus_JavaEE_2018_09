@@ -1,7 +1,6 @@
 package ru.otus.sua.L07.infosystem;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.otus.sua.L07.servlets.CurrencyServlet;
 import ru.otus.sua.L07.servlets.NewsServlet;
 
 import javax.annotation.PostConstruct;
@@ -25,14 +24,17 @@ public class CheckerNews implements Checker {
     @Inject
     private NewsServlet newsServlet;
 
+    @Inject
+    private Parameters param;
+
     @PostConstruct()
     private void init() {
         service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(this, 1, 5, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(this, 1, param.getPeriod(), TimeUnit.SECONDS);
     }
 
     @PreDestroy
-    private void stop(){
+    private void stop() {
         service.shutdown();
     }
 

@@ -25,10 +25,14 @@ public class CheckerCurrency implements Checker {
     @Inject
     private CurrencyServlet currencyServlet;
 
+    @Inject
+    private Parameters param;
+
     @PostConstruct()
     private void init() {
         service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(this, 1, 5, TimeUnit.SECONDS);
+
+        service.scheduleAtFixedRate(this, 5, param.getPeriod(), TimeUnit.SECONDS);
     }
 
     @PreDestroy
@@ -44,5 +48,6 @@ public class CheckerCurrency implements Checker {
             log.error(e.getMessage());
         }
     }
+
 
 }

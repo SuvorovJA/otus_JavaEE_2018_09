@@ -8,10 +8,9 @@ import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
 import ru.otus.sua.L07.infosystem.CheckerCurrency;
 import ru.otus.sua.L07.infosystem.CheckerNews;
-import ru.otus.sua.L07.infosystem.WSInfoServlet;
+import ru.otus.sua.L07.infosystem.WSInfoEndpoint;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -41,7 +40,7 @@ public class AppServletContextListener implements ServletContextListener {
     private CheckerNews checkerNews;
 
     @Inject
-    private WSInfoServlet wsInfoServlet;
+    private WSInfoEndpoint wsInfoEndpoint;
 
     // Public constructor is required by servlet spec
     public AppServletContextListener() {
@@ -60,7 +59,7 @@ public class AppServletContextListener implements ServletContextListener {
         // becouse Tomcat not support @Startup annotation
         checkerCurrency.sheduledCheck();
         checkerNews.sheduledCheck();
-        wsInfoServlet.start();
+        wsInfoEndpoint.start();
 
         if (createXmled(sce)) return;
         createHardcoded();

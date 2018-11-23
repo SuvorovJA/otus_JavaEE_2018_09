@@ -42,8 +42,7 @@ public class Differencer {
 
     private Integer sheduledDiffCurrency() {
         InfoItemCurrency itemCurrency = storageCurrency.take();
-        if (storageCurrency.isEmptyLast() || !storageCurrency.asLast(itemCurrency)) {
-            storageCurrency.setLast(itemCurrency);
+        if (storageCurrency.isNew(itemCurrency)) {
             updateAgency.sendUpdate(itemCurrency);
         }
         return 0;
@@ -51,8 +50,7 @@ public class Differencer {
 
     private Integer sheduledDiffNews() {
         InfoItemNews itemNews = storageNews.take();
-        if (storageNews.isEmptyLast() || !storageNews.asLast(itemNews)) {
-            storageNews.setLast(itemNews);
+        if (storageNews.isNew(itemNews)) {
             updateAgency.sendUpdate(itemNews);
         }
         return 0;
