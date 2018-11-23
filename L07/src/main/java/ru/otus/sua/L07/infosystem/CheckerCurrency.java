@@ -32,7 +32,7 @@ public class CheckerCurrency implements Checker {
     private void init() {
         service = Executors.newSingleThreadScheduledExecutor();
 
-        service.scheduleAtFixedRate(this, 5, param.getPeriod(), TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(this, 10, param.getPeriod(), TimeUnit.SECONDS);
     }
 
     @PreDestroy

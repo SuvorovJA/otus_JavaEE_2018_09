@@ -30,7 +30,7 @@ public class CheckerNews implements Checker {
     @PostConstruct()
     private void init() {
         service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(this, 1, param.getPeriod(), TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(this, 10, param.getPeriod(), TimeUnit.SECONDS);
     }
 
     @PreDestroy

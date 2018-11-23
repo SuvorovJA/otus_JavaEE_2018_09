@@ -6,9 +6,7 @@ import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.Employes;
 import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
-import ru.otus.sua.L07.infosystem.CheckerCurrency;
-import ru.otus.sua.L07.infosystem.CheckerNews;
-import ru.otus.sua.L07.infosystem.WSInfoEndpoint;
+import ru.otus.sua.L07.infosystem.*;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -56,7 +54,7 @@ public class AppServletContextListener implements ServletContextListener {
          You can initialize servlet context related data here.
       */
 
-        // becouse Tomcat not support @Startup annotation
+        // because Tomcat not support @Startup annotation
         checkerCurrency.sheduledCheck();
         checkerNews.sheduledCheck();
         wsInfoEndpoint.start();

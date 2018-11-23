@@ -8,8 +8,7 @@
     <meta charset="UTF-8">
     <title>${pageContext.request.contextPath}: Servlet и JSP - Работники</title>
     <link href="${pageContext.request.contextPath}/css/styles2.css" rel="stylesheet" type="text/css">
-    <script src="${pageContext.request.contextPath}/js/currency.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/js/news.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/ws.js" type="text/javascript"></script>
 </head>
 <body onload="getCurrency();getNews();"><doit:statistic/>
 <div class="center">

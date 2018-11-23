@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,9 +25,9 @@ public class Differencer {
     @Inject
     private StorageCacheAndQueueNews storageNews;
 
-    private UpdateAgency updateAgency;
-    private Sheduler shedulerNews;
-    private Sheduler shedulerCurrency;
+    private static UpdateAgency updateAgency;
+    private static Sheduler shedulerNews;
+    private static Sheduler shedulerCurrency;
 
 
     public void subscribe(Channel channel) {
@@ -65,7 +66,7 @@ public class Differencer {
         public Sheduler(Supplier<Integer> supplier) {
             this.supplier = supplier;
             service = Executors.newSingleThreadScheduledExecutor();
-            service.scheduleAtFixedRate(this, 1, 8, TimeUnit.SECONDS);
+            service.scheduleAtFixedRate(this, 5, 10, TimeUnit.SECONDS);
         }
 
         @PreDestroy
@@ -91,7 +92,7 @@ public class Differencer {
             this.channels.remove(channel);
         }
 
-        public void sendUpdate(InfoItem ii) {
+        public synchronized void sendUpdate(InfoItem ii) {
             for (Channel channel : this.channels) {
                 channel.update(ii);
             }
