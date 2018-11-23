@@ -14,8 +14,8 @@
   - [x] и их последующего отображения для _всех_ подключенных пользователей, 
         без необходимости обновления страниц, используя возможности JS.
 
-- [ ] Аналогичный механизм обновления предусмотреть для dashboard статистической информации (адаптировать клиент/сервер).
-  - [ ] добавить в nav-bar "dashboard"  в виде одного поля с количеством сессий на сайте 
+- [x] Аналогичный механизм обновления предусмотреть для dashboard статистической информации (адаптировать клиент/сервер).
+  - [x] добавить в nav-bar "dashboard"  в виде одного поля с количеством сессий на сайте 
 
 - [ ] ~удалить предыдущий функционал страниц/модулей новостей и курса валют~
   - [x] JS
@@ -42,6 +42,38 @@
   - [ ] correct Lucene shutdown
 
 #### Решение
+
+
+Функционал обновления dashboard сессий
+``` 
+22:44:35.457 [http-nio-8080-exec-2] INFO  r.o.s.L.l.SessionsCounterListener - ADD SESSION
+22:44:35.457 [http-nio-8080-exec-2] INFO  r.o.s.L.l.SessionsCounterListener - UPDATE CHANNELS WITH: InfoItemSessions(json={"sessions":4})
+22:44:35.457 [http-nio-8080-exec-2] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Received update: InfoItemSessions(json={"sessions":4})
+22:44:35.457 [http-nio-8080-exec-2] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - clients: 3
+22:44:35.459 [http-nio-8080-exec-2] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Sending to 3 clients, {"sessions":4}
+22:44:35.472 [http-nio-8080-exec-7] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - WS-session closed: id7
+22:44:35.517 [http-nio-8080-exec-9] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - New WS-session opened: id8
+22:44:35.517 [pool-21-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: id8
+22:44:35.529 [pool-22-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: id8
+22:44:55.544 [http-nio-8080-exec-6] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - WS-session closed: id4
+22:45:00.329 [http-nio-8080-exec-7] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - New WS-session opened: id9
+22:45:00.330 [pool-23-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: id9
+22:45:00.330 [pool-24-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: id9
+22:45:01.923 [http-nio-8080-exec-8] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - New WS-session opened: ida
+22:45:01.924 [pool-25-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: ida
+22:45:01.924 [pool-26-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: ida
+22:45:13.181 [http-nio-8080-exec-5] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - New WS-session opened: idb
+22:45:13.182 [pool-28-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: idb
+22:45:13.182 [pool-27-thread-1] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Send cached value to new session: idb
+22:45:52.501 [http-nio-8080-exec-3] INFO  r.o.sua.L07.filters.BrowsersFilter - Firefox 52
+22:45:52.502 [http-nio-8080-exec-3] INFO  r.o.s.L.l.SessionsCounterListener - ADD SESSION
+22:45:52.502 [http-nio-8080-exec-3] INFO  r.o.s.L.l.SessionsCounterListener - UPDATE CHANNELS WITH: InfoItemSessions(json={"sessions":5})
+22:45:52.502 [http-nio-8080-exec-3] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Received update: InfoItemSessions(json={"sessions":5})
+22:45:52.503 [http-nio-8080-exec-3] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - clients: 5
+22:45:52.504 [http-nio-8080-exec-3] INFO  r.o.s.L07.infosystem.WSInfoEndpoint - Sending to 5 clients, {"sessions":5}
+
+```
+
 
 
 Функционал курса и новостей

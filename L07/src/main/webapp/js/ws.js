@@ -7,11 +7,17 @@ function connect() {
 
 function onMessage(evt) {
     var json = JSON.parse(evt.data);
-    if (typeof json.news === 'undefined') {
-        setCurrency(json);
-    } else {
+    if (typeof json.news !== 'undefined') {
         setNews(json);
+    } else if (typeof json.currency_list !== 'undefined') {
+        setCurrency(json);
+    } else if (typeof json.sessions !== 'undefined') {
+        setSessions(json);
     }
+}
+
+function setSessions(json) {
+    document.getElementById("siteSessions").innerHTML = json.sessions;
 }
 
 function setNews(json) {

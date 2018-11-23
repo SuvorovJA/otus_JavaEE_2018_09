@@ -1,12 +1,13 @@
 package ru.otus.sua.L07.listeners;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.otus.sua.L07.entities.EmployeEntity;
 import ru.otus.sua.L07.entities.Employes;
 import ru.otus.sua.L07.entities.helpers.EmployeEntityDAO;
 import ru.otus.sua.L07.entities.helpers.EntitiesHelper;
-import ru.otus.sua.L07.infosystem.*;
+import ru.otus.sua.L07.infosystem.CheckerCurrency;
+import ru.otus.sua.L07.infosystem.CheckerNews;
+import ru.otus.sua.L07.infosystem.WSInfoEndpoint;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -27,9 +28,8 @@ import java.text.SimpleDateFormat;
 import static ru.otus.sua.L07.entities.helpers.EmployeEntityDAO.*;
 
 @WebListener()
+@Slf4j
 public class AppServletContextListener implements ServletContextListener {
-
-    private static Logger log = LoggerFactory.getLogger(AppServletContextListener.class);
 
     @Inject
     private CheckerCurrency checkerCurrency;

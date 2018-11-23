@@ -1,6 +1,7 @@
 package ru.otus.sua.L07.infosystem;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.otus.sua.L07.listeners.SessionsCounterListener;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -30,6 +31,9 @@ public class WSInfoEndpoint implements Channel {
 
     @Inject
     private Differencer differencer;
+
+    @Inject
+    private SessionsCounterListener counterListener;
 
     public void start() {
         log.info("WS-ENDPOINT STARTED");
@@ -74,6 +78,7 @@ public class WSInfoEndpoint implements Channel {
     @PostConstruct
     private void init() {
         differencer.subscribe(this);
+        counterListener.subscribe(this);
     }
 
     @Override
@@ -82,6 +87,7 @@ public class WSInfoEndpoint implements Channel {
         log.info("Received update: " + infoItem.toString());
         if (infoItem instanceof InfoItemNews) sendAll(lastCachedNews.getJson());
         if (infoItem instanceof InfoItemCurrency) sendAll(lastCachedCurrency.getJson());
+        if (infoItem instanceof InfoItemSessions) sendAll(((InfoItemSessions)infoItem).getJson());
     }
 
     @PreDestroy

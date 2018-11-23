@@ -8,6 +8,7 @@
 <div class="navbaritem"><a href="scripts.jsp">Serverside js</a></div>
 <c:if test="${applicationScope.ru_otus_sua_statistic_GATHERING eq 'ENABLED'}">
     <c:if test="${not empty sessionScope.AuthenticatedUser}">
+        <div class="navbaritem"><label id="siteSessions">0</label></div>
         <div class="navbaritem"><a href="${pageContext.request.contextPath}/statistic">Статистика</a></div>
     </c:if>
 </c:if>
