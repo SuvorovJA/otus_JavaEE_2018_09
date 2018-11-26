@@ -41,30 +41,28 @@ public class Differencer {
         shedulerCurrency = new Sheduler(this::sheduledDiffCurrency);
     }
 
-    private Integer sheduledDiffCurrency() {
+    private void sheduledDiffCurrency() {
         InfoItemCurrency itemCurrency = storageCurrency.take();
         if (storageCurrency.isNew(itemCurrency)) {
             updateAgency.sendUpdate(itemCurrency);
         }
-        return 0;
     }
 
-    private Integer sheduledDiffNews() {
+    private void sheduledDiffNews() {
         InfoItemNews itemNews = storageNews.take();
         if (storageNews.isNew(itemNews)) {
             updateAgency.sendUpdate(itemNews);
         }
-        return 0;
     }
 
     private class Sheduler implements Runnable {
 
-        private Supplier<Integer> supplier;
+        private Runnable runnable;
 
         private ScheduledExecutorService service;
 
-        public Sheduler(Supplier<Integer> supplier) {
-            this.supplier = supplier;
+        public Sheduler(Runnable runnable) {
+            this.runnable = runnable;
             service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleAtFixedRate(this, 5, 10, TimeUnit.SECONDS);
         }
@@ -76,7 +74,7 @@ public class Differencer {
 
         @Override
         public void run() {
-            supplier.get();
+            runnable.run();
         }
     }
 
