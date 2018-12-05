@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus.sua</groupId>
-    <artifactId>L10-jaxws-webclient</artifactId>
+    <artifactId>L10-jaxws-yandexspeller</artifactId>
     <version>2018-09</version>
 
-    <name>L10 JAX-WS-webclient</name>
-    <url>http://localhost:8080/L10-webclient</url>
+    <name>L10 JAX-WS-yandexspeller</name>
+    <url>http://localhost:8080/L10-yandexspeller</url>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
