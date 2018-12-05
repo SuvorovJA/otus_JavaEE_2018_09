@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus.sua</groupId>
-    <artifactId>L10</artifactId>
+    <artifactId>L10-webclient</artifactId>
     <version>2018-09</version>
 
-    <name>L10 JAX-WS JAX-RS</name>
-    <url>http://localhost:8080/L10</url>
+    <name>L10 JAX-WS-webclient</name>
+    <url>http://localhost:8080/L10-webclient</url>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -20,7 +20,7 @@
     </properties>
 
     <dependencies>
-
+        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -55,12 +55,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
-        </dependency><dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>RELEASE</version>
-        <scope>test</scope>
-    </dependency>
+        </dependency>
 
 
     </dependencies>
