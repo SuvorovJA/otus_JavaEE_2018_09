@@ -59,5 +59,11 @@
     </tbody>
 </table>
 
+<hr>
+
+<p>
+Try <a href="http://localhost:8080${pageContext.request.contextPath}/YandexSpellerServiceAsRESTSimulator?word=опельсин">RESTwrapper</a>
+</p>
+
 </body>
 </html>
