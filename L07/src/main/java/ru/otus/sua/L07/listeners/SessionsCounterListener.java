@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSessionListener;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ApplicationScoped
-@WebListener()
+//@ApplicationScoped // for glassfish disable
+@WebListener
 @Slf4j
 public class SessionsCounterListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 

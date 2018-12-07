@@ -11,7 +11,7 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>/home/lsua/bin/tomcat-9.0.12/logs/L07-${byDay}.txt</file>
+        <file>/tmp/L07-${byDay}.txt</file>
         <append>true</append>
         <encoder>
             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
