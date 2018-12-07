@@ -5,17 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus.sua</groupId>
-    <artifactId>L10</artifactId>
+    <artifactId>L11</artifactId>
     <version>2018-09</version>
-
-    <name>L10 JAX-WS</name>
-    <url>http://localhost:8080/L10</url>
+    <name>L11 JAX-RS</name>
+    <url>http://localhost:8080/L11</url>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jaxws-maven-plugin.version>2.2</jaxws-maven-plugin.version>
         <javaee.api.version>8.0</javaee.api.version>
     </properties>
 
@@ -56,6 +54,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -75,38 +74,9 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.jvnet.jax-ws-commons</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>${jaxws-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-wsdl</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>wsgen</goal>
-                        </goals>
-                        <configuration>
-                            <sei>ru.otus.sua.L10.EstimateIncomeTax</sei>
-                            <genWsdl>true</genWsdl>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <configuration>
-                    <deployables>
-                        <deployable>
-                            <properties>
-                                <context>jaxwsservice</context>
-                            </properties>
-                        </deployable>
-                    </deployables>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
+
 
 </project>
