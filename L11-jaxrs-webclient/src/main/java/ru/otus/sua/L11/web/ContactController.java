@@ -1,6 +1,6 @@
 package ru.otus.sua.L11.web;
 
-import ru.otus.sua.L11.ejb.ContactFacade;
+import ru.otus.sua.L11.addressbookService.ContactFacade;
 import ru.otus.sua.L11.entity.Contact;
 import ru.otus.sua.L11.web.util.JsfUtil;
 import ru.otus.sua.L11.web.util.PaginationHelper;
@@ -26,7 +26,7 @@ public class ContactController implements Serializable {
     private DataModel items = null;
 
     @EJB
-    private ContactFacade ejbFacade;
+    private ContactFacade cf;
 
     private PaginationHelper pagination;
     private int selectedItemIndex;
@@ -43,7 +43,7 @@ public class ContactController implements Serializable {
     }
 
     private ContactFacade getFacade() {
-        return ejbFacade;
+        return cf;
     }
 
     public PaginationHelper getPagination() {
@@ -178,11 +178,11 @@ public class ContactController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(cf.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(cf.findAll(), true);
     }
 
     @FacesConverter(forClass = Contact.class)
@@ -195,7 +195,7 @@ public class ContactController implements Serializable {
             }
             ContactController controller = (ContactController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "contactController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.cf.find(getKey(value));
         }
 
         Long getKey(String value) {

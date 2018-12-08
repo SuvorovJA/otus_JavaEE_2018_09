@@ -7,15 +7,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import java.awt.print.Book;
 import java.io.Serializable;
 import java.util.Date;
 
 @XmlRootElement
 @Entity
 @Data
+@NamedQuery(name = Contact.FIND_ALL, query = "SELECT c FROM Contact c")
 public class Contact implements Serializable {
 
-    private static final long serialVersionUID = -825634229676522580L;
+    public static final String FIND_ALL = "Contact.findAll";
+    private static final long serialVersionUID = -825634229645522580L;
 
     @NotNull
     protected String firstName;
@@ -38,7 +42,7 @@ public class Contact implements Serializable {
             message = "{invalid.phonenumber}")
     protected String homePhone;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Past
     protected Date birthday;
 

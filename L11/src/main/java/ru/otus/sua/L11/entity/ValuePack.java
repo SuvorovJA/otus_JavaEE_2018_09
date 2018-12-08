@@ -1,4 +1,4 @@
-package ru.otus.sua.L11;
+package ru.otus.sua.L11.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

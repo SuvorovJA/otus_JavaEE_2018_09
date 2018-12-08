@@ -1,4 +1,4 @@
-package ru.otus.sua.L11;
+package ru.otus.sua.L11.entity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

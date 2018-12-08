@@ -1,4 +1,4 @@
-package ru.otus.sua.L11.ejb;
+package ru.otus.sua.L11.addressbookService;
 
 import java.util.List;
 
@@ -28,15 +28,15 @@ public abstract class AbstractFacade<T> {
     }
 
     public List<T> findAll() {
-        return null;
+        return getEntityManager().findAll();
     }
 
     public List<T> findRange(int[] range) {
-        return null;
+        return getEntityManager().findRange(range);
     }
 
     public int count() {
-        return 0;
+        return findAll().size();
     }
 
 }

@@ -1,18 +1,17 @@
-package ru.otus.sua.L11;
+package ru.otus.sua.L11.creditService;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.otus.sua.L11.entity.Estimates;
+import ru.otus.sua.L11.entity.ValuePack;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 
 @Slf4j
 @Path("/monthlyPayment")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-public class MonthlyPaymentServiceV2 {
+public class MonthlyPaymentServiceV1 {
 
     @GET
     @Path("{periods}/{loanAmount}/{interestRates}")
@@ -20,23 +19,23 @@ public class MonthlyPaymentServiceV2 {
                                      @PathParam("loanAmount") double loanAmount,
                                      @PathParam("interestRates") double interestRates,
                                      @Context UriInfo uriInfo) {
-        CalcStrategy calcStrategy = new AnnCalcStrategy() {
-        };
+        CalcStrategy calcStrategy = new DiffCalcStrategy() {};
         Estimates estimates = calcStrategy.calculator(periods, loanAmount, interestRates);
-        log.info("V2_PATH({}): {}", uriInfo.getAbsolutePath(), estimates.toString());
+        log.info("V1_PATH({}): {}",uriInfo.getAbsolutePath(),estimates.toString());
         return Response.ok(estimates).build();
     }
+
 
     @POST
     public Response estimatePaymentsForm(ValuePack valuePack,
                                          @Context UriInfo uriInfo) {
-        CalcStrategy calcStrategy = new AnnCalcStrategy() {};
+        CalcStrategy calcStrategy = new DiffCalcStrategy() {};
         if (valuePack == null) {
-            log.info("V2_POST({}): {}", uriInfo.getAbsolutePath(), "null request");
+            log.info("V1_POST({}): {}", uriInfo.getAbsolutePath(), "null request");
             return Response.noContent().build();
         }
         Estimates estimates = calcStrategy.calculator(valuePack.getNumMonths(), valuePack.getLoanAmount(), valuePack.getInterestRate());
-        log.info("V2_POST({}): {}", uriInfo.getAbsolutePath(), estimates.toString());
+        log.info("V1_POST({}): {}", uriInfo.getAbsolutePath(), estimates.toString());
         return Response.ok(estimates).build();
     }
 

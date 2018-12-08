@@ -41,7 +41,7 @@ public class CreditController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("CreditCalcErrored"));
         }
-        return "credit";
+        return "creditService";
     }
 
     public String sendPost() {
@@ -55,7 +55,7 @@ public class CreditController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("CreditCalcErrored"));
         }
-        return "credit";
+        return "creditService";
     }
 
 }

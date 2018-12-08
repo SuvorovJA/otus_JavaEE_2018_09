@@ -1,4 +1,6 @@
-package ru.otus.sua.L11;
+package ru.otus.sua.L11.creditService;
+
+import ru.otus.sua.L11.entity.Estimates;
 
 import java.util.ArrayList;
 import java.util.List;
