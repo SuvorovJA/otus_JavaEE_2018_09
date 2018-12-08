@@ -24,13 +24,14 @@
     Т = 6 мес.; Кр = $10 000; Ст = 15% годовых/ 12 мес. = 0.0125
     Пл = 10 000 * 0.0125 / (1 – 1/ (1.0125)^6) = 125 / 0.071825 = $1740
 ```    
-- [ ] Для данного сервиса разработать отдельную HTML-форму для возможности передачи расчетных входных параметров и получения результата.
+- [x] Для данного сервиса разработать отдельную HTML-форму для возможности передачи расчетных входных параметров и получения результата.
 - [x] Два варианта расчета необходимо предусмотреть в виде версионности API, используя компонент URI (v1, v2), кастомный заголовок запроса или любой другой способ.
 
 ----
 - [ ] Разработать/отрефакторить справочник ролей/городов/подразделений/сотрудников (любой понравившийся или все при желании) с поддержкой операций создания, чтения, редактирования и удаления данных сущностей в виде RESTful-вебсервисов.
   - [ ] service
   - [ ] Разработать удобный UI для работы с вышеобозначенными сервисами. (?)
+  - [ ] bundle локализация
 ----
 - [ ] Используя возможности библиотеки Swagger, задокументировать разработанные сервисы.
 ----
@@ -71,6 +72,27 @@ java.lang.IllegalArgumentException: interestRate <=0
 
 ```
 
+From UI 
+``` 
+[#|2018-12-08T15:50:32.887+0000|INFO|Payara 5.183||_ThreadID=38;_ThreadName=http-thread-pool::http-listener-1(3);_TimeMillis=1544284232887;_LevelValue=800;|
+  15:50:32.879 [http-thread-pool::http-listener-1(3)] INFO  r.o.sua.L11.MonthlyPaymentServiceV1 - V1_POST(http://localhost:8080/L11-jaxrs-service_Web/v1/monthlyPayment): [1791.6666666666667, 1770.8333333333335, 1750.0, 1729.1666666666667, 1708.3333333333335, 1687.5]
+|#]
+
+[#|2018-12-08T15:50:38.501+0000|INFO|Payara 5.183||_ThreadID=36;_ThreadName=http-thread-pool::http-listener-1(1);_TimeMillis=1544284238501;_LevelValue=800;|
+  15:50:38.500 [http-thread-pool::http-listener-1(1)] INFO  r.o.sua.L11.MonthlyPaymentServiceV1 - V1_PATH(http://localhost:8080/L11-jaxrs-service_Web/v1/monthlyPayment/6/10000.0/15.0): [1791.6666666666667, 1770.8333333333335, 1750.0, 1729.1666666666667, 1708.3333333333335, 1687.5]
+|#]
+
+[#|2018-12-08T15:50:48.222+0000|INFO|Payara 5.183||_ThreadID=38;_ThreadName=http-thread-pool::http-listener-1(3);_TimeMillis=1544284248222;_LevelValue=800;|
+  15:50:48.221 [http-thread-pool::http-listener-1(3)] INFO  r.o.sua.L11.MonthlyPaymentServiceV2 - V2_PATH(http://localhost:8080/L11-jaxrs-service_Web/v2/monthlyPayment/6/10000.0/15.0): [1740.3381021345717]
+|#]
+
+[#|2018-12-08T15:50:49.463+0000|INFO|Payara 5.183||_ThreadID=38;_ThreadName=http-thread-pool::http-listener-1(3);_TimeMillis=1544284249463;_LevelValue=800;|
+  15:50:49.463 [http-thread-pool::http-listener-1(3)] INFO  r.o.sua.L11.MonthlyPaymentServiceV2 - V2_POST(http://localhost:8080/L11-jaxrs-service_Web/v2/monthlyPayment): [1740.3381021345717]
+|#]
+
+
+
+```
 
 #### Материалы
 

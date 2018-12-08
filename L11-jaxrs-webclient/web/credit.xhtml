@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreditCalcTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+                <table columns="3" role="presentation">
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreditCalcLabel_numMonths}"
+                                           for="numMonths"/></td>
+                        <td><h:inputText id="numMonths"
+                                         value="#{creditController.valuePack.numMonths}"
+                                         title="#{bundle.CreditCalcTitle_numMonths}"/>
+                        </td>
+                        <td><h:message for="numMonths"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreditCalcLabel_loanAmount}"
+                                           for="loanAmount"/></td>
+                        <td><h:inputText id="loanAmount"
+                                         value="#{creditController.valuePack.loanAmount}"
+                                         title="#{bundle.CreditCalcTitle_loanAmount}"/>
+                        </td>
+                        <td><h:message for="loanAmount"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreditCalcLabel_interestRate}"
+                                           for="interestRate"/></td>
+                        <td><h:inputText id="interestRate"
+                                         value="#{creditController.valuePack.interestRate}"
+                                         title="#{bundle.CreditCalcTitle_interestRate}"/>
+                        </td>
+                        <td><h:message for="interestRate"/></td>
+                    </tr>
+                </table>
+                <br/>
+                <h:selectOneRadio value="#{creditController.version}">
+                    <f:selectItem itemValue="v1" itemLabel="#{bundle.CreditCalcVersion1Label}" />
+                    <f:selectItem itemValue="v2" itemLabel="#{bundle.CreditCalcVersion2Label}" />
+                </h:selectOneRadio>
+                <br/>
+                <h:commandLink action="#{creditController.sendGet}" value="#{bundle.CreditCalcSendGETLink}"/>
+                <br/>
+                <h:commandLink action="#{creditController.sendPost}" value="#{bundle.CreditCalcSendPOSTLink}"/>
+                <br/><br/>
+                <h:panelGroup rendered="#{creditController.items.rowCount > 0}">
+                    <h:dataTable value="#{creditController.items}" var="item" summary="#{bundle.CreditCalcSummary}" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CreditCalcHeader}"/>
+                            </f:facet>
+                            <h:outputText value="#{item}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br/>
+                <h:commandLink value="#{bundle.CreateContactIndexLink}" action="/index" immediate="true"/>
+            </h:form>
+            <div class="messagecolor">
+                <h:messages showSummary="true"
+                            showDetail="false"
+                            errorStyle="color: #d20005"
+                            infoStyle="color: green"/>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
