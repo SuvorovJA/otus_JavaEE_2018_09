@@ -21,18 +21,18 @@ import java.util.ResourceBundle;
 public class CreditController implements Serializable {
     private static final long serialVersionUID = -8163374738411860014L;
 
-    private static final String CREDIT_CALC_SITE = "http://localhost:8080/L11-jaxrs-service_Web/";
-    private static final String CREDIT_CALC_SERVICE = "/monthlyPayment";
+    private static final String CREDIT_CALC_SITE = "http://localhost:8080/L11-jaxrs-service_Web/monthlyPayment";
 
     private DataModel items = null;
 
-    private ValuePack valuePack = new ValuePack(6, 10000., 15.);
+    private ValuePack valuePack = new ValuePack("v1",6, 10000., 15.);
 
     private String version = "v1";
 
     public String sendGet() {
         try {
-            Estimates estimates = ClientBuilder.newClient().target(CREDIT_CALC_SITE + version + CREDIT_CALC_SERVICE)
+            Estimates estimates = ClientBuilder.newClient().target(CREDIT_CALC_SITE)
+                    .path(version)
                     .path(String.valueOf(valuePack.getNumMonths()))
                     .path(String.valueOf(valuePack.getLoanAmount()))
                     .path(String.valueOf(valuePack.getInterestRate())).request().get(Estimates.class);
@@ -41,12 +41,13 @@ public class CreditController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("CreditCalcErrored"));
         }
-        return "creditService";
+        return "credit";
     }
 
     public String sendPost() {
         try {
-            Estimates estimates = ClientBuilder.newClient().target(CREDIT_CALC_SITE + version + CREDIT_CALC_SERVICE)
+            valuePack.setVersion(version);
+            Estimates estimates = ClientBuilder.newClient().target(CREDIT_CALC_SITE)
                     .request()
                     .post(Entity.entity(valuePack, MediaType.APPLICATION_XML_TYPE))
                     .readEntity(Estimates.class);
@@ -55,7 +56,7 @@ public class CreditController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("CreditCalcErrored"));
         }
-        return "creditService";
+        return "credit";
     }
 
 }

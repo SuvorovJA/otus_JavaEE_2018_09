@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlRootElement
 @XmlSeeAlso({Double.class, Integer.class})
 public class ValuePack {
+    private String version;
     private Integer numMonths;
     private Double loanAmount;
     private Double interestRate;

@@ -16,4 +16,5 @@ public class ValuePack {
     private Integer numMonths;
     private Double loanAmount;
     private Double interestRate;
+    private String version;
 }
