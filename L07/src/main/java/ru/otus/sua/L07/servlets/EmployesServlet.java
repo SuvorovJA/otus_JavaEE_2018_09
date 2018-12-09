@@ -28,6 +28,7 @@ public class EmployesServlet extends HttpServlet {
 
             String errorString = "";
             Employes employes = null;
+            double avgSalary=0;
             EmployeSearchPacket searchPacket = new EmployeSearchPacket();
             try {
                 searchPacket.setFromRequest(request);
@@ -40,6 +41,7 @@ public class EmployesServlet extends HttpServlet {
                     employes = EmployeEntityDAO.queryEmployes(searchPacket);
                 } else {
                     employes = EmployeEntityDAO.readAllEmployes();
+                    avgSalary = EmployeEntityDAO.getAvgSalary();
                 }
             } catch (SQLException e) {
                 errorString += e.getMessage() + "; ";
@@ -48,6 +50,7 @@ public class EmployesServlet extends HttpServlet {
             if (!errorString.isEmpty()) request.setAttribute("errorString", errorString);
 
             request.setAttribute("employes", employes.getEmployes());
+            request.setAttribute("avgSalary", avgSalary);
 
             replaySearchFields(request);
 

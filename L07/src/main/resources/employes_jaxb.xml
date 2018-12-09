@@ -54,7 +54,7 @@
             <fullName>G. Smith</fullName>
             <dateOfBirth>2002-01-11T01:00:00+08:00</dateOfBirth>
             <city>MSK</city>
-            <salary>1500</salary>
+            <salary>2100</salary>
             <departament>
                 <name>Users</name>
             </departament>
@@ -70,7 +70,7 @@
             <fullName>И. Кузнецов</fullName>
             <dateOfBirth>1951-03-01T01:00:00+08:00</dateOfBirth>
             <city>TOMSK</city>
-            <salary>1500</salary>
+            <salary>770</salary>
             <departament>
                 <name>IT Dept.</name>
             </departament>
@@ -86,7 +86,7 @@
             <fullName>Г. Новиков-вано</fullName>
             <dateOfBirth>1986-04-04T01:00:00+08:00</dateOfBirth>
             <city>Иваново</city>
-            <salary>1500</salary>
+            <salary>1450</salary>
             <departament>
                 <name>Производство</name>
             </departament>

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
-             version="2.2">
-
-    <persistence-unit name="JPAPersistenceUnit7" transaction-type="RESOURCE_LOCAL">
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd" version="2.2">
+    <persistence-unit name="jpa" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<exclude-unlisted-classes>false</exclude-unlisted-classes>-->
+        <jta-data-source>PostgresqlDS</jta-data-source>
+
         <class>ru.otus.sua.L07.entities.EmployeEntity</class>
         <class>ru.otus.sua.L07.entities.DepartamentEntity</class>
         <class>ru.otus.sua.L07.entities.AppointmentEntity</class>
         <class>ru.otus.sua.L07.entities.CredentialEntity</class>
         <class>ru.otus.sua.statistic.StatisticEntity</class>
+
+        <!--<exclude-unlisted-classes>false</exclude-unlisted-classes>-->
         <properties>
-            <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/PostgresDS"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
+            <!--<property name="hibernate.connection.datasource" value="java:comp/env/jdbc/PostgresDS"/>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>-->
             <property name="hibernate.hbm2ddl.auto" value="create"/><!--manual dropping DB-->
             <property name="hibernate.search.default.directory_provider" value="filesystem"/>
             <property name="hibernate.search.default.indexBase" value="/tmp/data/index/default"/>
-            <property name="hibernate.connection.autocommit" value="false"/>
+            <!--<property name="hibernate.connection.autocommit" value="false"/>-->
         </properties>
     </persistence-unit>
 </persistence>

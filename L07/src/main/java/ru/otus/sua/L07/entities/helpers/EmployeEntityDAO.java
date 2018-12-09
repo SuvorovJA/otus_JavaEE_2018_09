@@ -223,6 +223,11 @@ public class EmployeEntityDAO {
         return entity;
     }
 
+    public static double getAvgSalary() {
+        TypedQuery<Double> query = em.createNamedQuery(EmployeEntity.AVG_SALARY, Double.class);
+        return query.getSingleResult();
+    }
+
     public Employes instanceReadAllEmployesForJSP() throws SQLException {
         return readAllEmployes();
     }

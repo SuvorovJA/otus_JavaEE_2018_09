@@ -27,7 +27,7 @@
             <td><input type="text" style="width:98%;" name="search_city" value="${search_city}"/></td>
             <td><input type="text" style="width:98%;" name="search_departament" value="${search_departament}"/></td>
             <td><input type="text" style="width:98%;" name="search_appointment" value="${search_appointment}"/></td>
-            <td><%--<input type="text" style="width:98%;" name="search_salary" value="${search_salary}"/>--%></td>
+            <td><c:if test="${not empty avgSalary}">${avgSalary}</c:if></td>
             <td><input type="text" style="width:98%;" name="search_login" value="${search_login}"/></td>
             <td>
                 <button type="submit">Поиск</button>

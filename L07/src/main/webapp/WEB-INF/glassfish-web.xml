@@ -6,4 +6,5 @@ GlassFish Application Server 3.1 Servlet 3.0//EN"
         <res-ref-name>java:comp/env/jdbc/PostgresDS</res-ref-name>
         <jndi-name>PostgresqlDS</jndi-name>
     </resource-ref>
+    <class-loader delegate="false"/>
 </glassfish-web-app>

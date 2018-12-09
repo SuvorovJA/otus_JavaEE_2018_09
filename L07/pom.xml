@@ -151,6 +151,7 @@
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet-core</artifactId>
             <version>3.0.5.Final</version>
+            <!--<scope>provided</scope>-->
         </dependency>
 
 
@@ -164,11 +165,19 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.tomcat</groupId>-->
+        <!--<artifactId>tomcat-catalina</artifactId>-->
+        <!--<version>9.0.12</version>-->
+        <!--</dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.ws/jaxws-rt -->
         <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-catalina</artifactId>
-            <version>9.0.12</version>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.3.1</version>
+            <!--<type>pom</type>-->
         </dependency>
 
 

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSessionListener;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//@ApplicationScoped // for glassfish disable
+@ApplicationScoped
 @WebListener
 @Slf4j
 public class SessionsCounterListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
@@ -64,7 +64,7 @@ public class SessionsCounterListener implements ServletContextListener, HttpSess
         }
 
         public synchronized void sendUpdate(InfoItem ii) {
-            log.info("UPDATE CHANNELS WITH: {}",ii.toString());
+            log.info("UPDATE CHANNELS WITH: {}", ii.toString());
             for (Channel channel : this.channels) {
                 channel.update(ii);
             }

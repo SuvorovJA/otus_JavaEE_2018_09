@@ -18,7 +18,10 @@ import java.util.Date;
 @Table(name = "employes")
 @XmlRootElement(name = "employee")
 @XmlAccessorType(XmlAccessType.FIELD)
+@NamedQuery(name = EmployeEntity.AVG_SALARY, query = "SELECT AVG(e.salary) FROM EmployeEntity e")
 public class EmployeEntity implements Serializable {
+
+    public static final String AVG_SALARY = "EmployeEntity.avgSalary";
 
     @Id
     @GeneratedValue

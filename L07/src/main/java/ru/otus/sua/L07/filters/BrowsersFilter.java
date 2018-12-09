@@ -56,11 +56,14 @@ public class BrowsersFilter implements Filter {
 
         log.info(agentName + " " + agentVersion);
 
+        // TODO JAVA 1 & UNKNOWN 0 is fast workaround for access to JAXWS service http://localhost:8080/L08/InformatoryService?wsdl
         boolean result =
                 (agentName.equalsIgnoreCase("OPERA") && agentVersion >= 38) ||
                         (agentName.equalsIgnoreCase("FIREFOX") && agentVersion >= 45) ||
                         (agentName.equalsIgnoreCase("CHROME") && agentVersion >= 50) ||
                         (agentName.equalsIgnoreCase("YANDEX.BROWSER") && agentVersion >= 17) ||
+                        (agentName.equalsIgnoreCase("JAVA") && agentVersion >= 1) ||
+                        (agentName.equalsIgnoreCase("UNKNOWN") && agentVersion >= 0) ||
                         (agentName.equalsIgnoreCase("IE") && agentVersion >= 10);
 
         if (result) response.addCookie(new Cookie("GoodBrowser", "OK"));

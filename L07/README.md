@@ -43,6 +43,13 @@
 
 #### Решение
 
+jax-ws service (from L11 task)
+``` 
+04:08:16.729 [http-nio-8080-exec-4] INFO  r.o.sua.L07.filters.BrowsersFilter - Java 1
+04:08:17.454 [http-nio-8080-exec-6] INFO  r.o.sua.L07.filters.BrowsersFilter - Not found browser version, set 0.
+04:08:17.454 [http-nio-8080-exec-6] INFO  r.o.sua.L07.filters.BrowsersFilter - unknown 0
+04:08:17.456 [http-nio-8080-exec-6] INFO  r.o.sua.L07.jaxws.InformatoryService - arrived jax-ws request for avgSalary
+```
 
 Функционал обновления dashboard сессий.
 ``` 
