@@ -19,6 +19,10 @@ public class OrderEJB {
         return query.getResultList();
     }
 
+    public Order findOrderById(Long id) {
+        return em.find(Order.class, id);
+    }
+
     public Order createProduct(Order order) {
         em.persist(order);
         return order;

@@ -33,6 +33,7 @@ public class DbPopulate {
         product.setName("Arduino Uno");
         product.setCreationTime(new Date());
         product.setUpdatedTime(new Date());
+        product.setPrice(10.);
         product.setDescription("Arduino Uno контроллер построен на ATmega328");
         product.setImage(resourceImage.getPlaceholderImage());
         return product;

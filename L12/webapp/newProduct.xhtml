@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title"><br/>Create a new product<br/></ui:define>
+
+
+
+    <ui:define name="content">
+        <h:form id="productForm">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Name: "/>
+                <h:inputText value="#{productController.product.name}" />
+
+                <h:outputLabel value="Price: "/>
+                <h:inputText value="#{productController.product.price}" />
+
+                <h:outputLabel value="Description: "/>
+                <h:inputTextarea value="#{productController.product.description}" cols="32" rows="4"/>
+
+                <h:outputLabel value="Image: "/>
+                <o:graphicImage value="#{uploadImageBean.content}"
+                                dataURI="true" width="300"
+                                rendered="#{not empty uploadImageBean.content}"/>
+
+            </h:panelGrid>
+            <h:commandButton value="Create a product" action="#{productController.doCreateProduct}">
+                <f:ajax execute="@form" render=":productlist :errors :imageForm"/>
+            </h:commandButton>
+        </h:form>
+
+        <br/>
+        <h3>Upload an image of max 88KiB and display a preview</h3>
+        <h:form id="imageForm" enctype="multipart/form-data">
+            <h:panelGrid columns="3">
+                <!--<o:outputLabel for="file" value="Image"/>-->
+                <o:inputFile id="file" value="#{uploadImageBean.file}"
+                             accept="image/*"
+                             acceptMessage="Wrong file type! Should match {2}"
+                             maxsize="#{300 * 300}"
+                             maxsizeMessage="File too large! Should be no more than {2}">
+                    <f:ajax listener="#{uploadImageBean.read()}"
+                            render="@form :productForm"/>
+                </o:inputFile>
+                <h:message id="file_m" for="file"/>
+            </h:panelGrid>
+
+        </h:form>
+
+        <hr/>
+        <h1>List of products</h1>
+
+        <h:dataTable id="productlist" value="#{productEJB.findAllProducts()}" var="prdkt" border="1">
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title"/>
+                </f:facet>
+                <h:link outcome="viewProduct.xhtml?id=#{prdkt.id}" value="#{prdkt.name}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Price"/>
+                </f:facet>
+                <h:outputText value="#{prdkt.price}"/>
+            </h:column>
+
+        </h:dataTable>
+    </ui:define>
+
+</ui:composition>
+</html>
