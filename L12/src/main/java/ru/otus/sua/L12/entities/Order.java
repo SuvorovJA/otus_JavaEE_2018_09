@@ -1,10 +1,13 @@
 package ru.otus.sua.L12.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 @Entity
 @Table(name = "ORDERS")
 @NamedQuery(name = "Order.findAllOrders", query = "SELECT o FROM Order o")
@@ -23,6 +26,7 @@ public class Order {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedTime;
 
-    @Basic
-    private String address;
+    @ManyToOne
+    private Customer customer;
+
 }

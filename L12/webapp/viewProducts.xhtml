@@ -15,37 +15,64 @@
 
     <ui:define name="content">
 
-        <h:dataTable id="productlist" value="#{productEJB.findAllProducts()}" var="prdkt" border="1">
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Id"/>
-                </f:facet>
-                <h:outputText value="#{prdkt.id}"/>
-            </h:column>
+        <h:panelGrid columns="2">
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Image"/>
-                </f:facet>
-                <o:graphicImage value="#{imageBean.getImage(prdkt.id)}" dataURI="true" width="300"/>
-            </h:column>
+            <h:dataTable id="productlist" value="#{productEJB.findAllProducts()}" var="prdkt" border="1">
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Title"/>
-                </f:facet>
-                <h:link outcome="viewProduct.xhtml?id=#{prdkt.id}" value="#{prdkt.name}"/>
-            </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{prdkt.id}"/>
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Price"/>
-                </f:facet>
-                <h:outputText value="#{prdkt.price}"/>
-            </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Image"/>
+                    </f:facet>
+                    <o:graphicImage value="#{imageBean.getImage(prdkt.id)}" dataURI="true" width="300"/>
+                </h:column>
 
-        </h:dataTable>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Title"/>
+                    </f:facet>
+                    <h:link outcome="viewProduct.xhtml?id=#{prdkt.id}" value="#{prdkt.name}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Price"/>
+                    </f:facet>
+                    <h:outputText value="#{prdkt.price}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Buy"/>
+                    </f:facet>
+
+                    <h:link outcome="buyProduct.xhtml?id=#{prdkt.id}" value="buy that"/>
+                </h:column>
+
+            </h:dataTable>
+
+            <h:panelGrid columns="2">
+
+                <h:outputLabel value="Products in cart: "/>
+                <h:outputText value="#{cartEJB.productsCountInCart}"/>
+
+                <h:outputLabel value="Total sum in cart: "/>
+                <h:outputText value="#{cartEJB.priceSummInCart}"/>
+
+                <h:outputLabel value="Cart id: "/>
+                <h:outputText value="#{cartEJB.cartId}"/>
+
+            </h:panelGrid>
+
+        </h:panelGrid>
+
     </ui:define>
 
 </ui:composition>

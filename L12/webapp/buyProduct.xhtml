@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui">
+
+<ui:composition template="layout.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{productController.product.id}"/>
+        <f:viewAction action="#{productController.doFindProductById}"/>
+    </f:metadata>
+
+    <ui:define name="title"><br/>View a product<br/></ui:define>
+
+    <ui:define name="content">
+        <h:panelGrid columns="2">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Name: "/>
+                <h:outputText value="#{productController.product.name}"/>
+
+                <h:outputLabel value="Price: "/>
+                <h:outputText value="#{productController.product.price}"/>
+
+                <h:outputLabel value="Description: "/>
+                <h:outputText value="#{productController.product.description}" cols="32" rows="4"/>
+
+                <h:outputLabel value="Created at: "/>
+                <h:outputText value="#{productController.product.creationTime}"/>
+
+                <h:outputLabel value="Updated at: "/>
+                <h:outputText value="#{productController.product.updatedTime}"/>
+
+                <h:outputLabel value="Image: "/>
+                <o:graphicImage value="#{imageBean.getImage(productController.product.id)}" width="300" dataURI="true"/>
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Products in cart: "/>
+                <h:outputText value="#{cartEJB.productsCountInCart}"/>
+
+                <h:outputLabel value="Amount this Product in cart: "/>
+                <h:outputText value="#{cartEJB.getProductAmountInCart(productController.product)}"/>
+
+                <h:outputLabel value="Total sum in cart: "/>
+                <h:outputText value="#{cartEJB.priceSummInCart}"/>
+
+                <h:outputLabel value="Cart id: "/>
+                <h:outputText value="#{cartEJB.cartId}"/>
+
+                <h:form id="buyProductForm">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Amount(may be negative): "/>
+                        <h:inputText value="#{buyProductController.amount}"/>
+                    </h:panelGrid>
+                    <h:commandButton value="Buy a product"
+                                     action="#{buyProductController.doBuyProduct(productController.product.id,cartEJB)}">
+                        <f:ajax execute="@form" render=":errors"/>
+                    </h:commandButton>
+                </h:form>
+                <h:link value="Back to Product List" outcome="viewProducts.xhtml"/>
+            </h:panelGrid>
+        </h:panelGrid>
+    </ui:define>
+
+</ui:composition>
+</html>
