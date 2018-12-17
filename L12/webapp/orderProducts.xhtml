@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title"><br/>Ordering<br/></ui:define>
+
+    <ui:define name="content">
+        <h:panelGrid columns="2">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Products in cart: "/>
+                <h:outputText value="#{cartEJB.productsCountInCart}"/>
+
+                <h:outputLabel value="Total sum in cart: "/>
+                <h:outputText value="#{cartEJB.priceSummInCart}"/>
+
+                <h:outputLabel value="Cart id: "/>
+                <h:outputText value="#{cartEJB.cartId}"/>
+            </h:panelGrid>
+            <h:form id="productForm">
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Customer Id: "/>
+                    <h:outputText value="#{cartEJB.customer.id}"/>
+
+                    <h:outputLabel value="Customer Name: "/>
+                    <h:inputText value="#{cartEJB.customer.name}"/>
+
+                    <h:outputLabel value="Delivery address: "/>
+                    <h:inputTextarea value="#{cartEJB.customer.address}" cols="32" rows="4"/>
+
+                </h:panelGrid>
+                <h:commandButton value="do Order" action="#{orderController.doOrdering(cartEJB)}">
+                    <f:ajax execute="@form" render=":errors"/>
+                </h:commandButton>
+            </h:form>
+
+        </h:panelGrid>
+    </ui:define>
+
+</ui:composition>
+</html>

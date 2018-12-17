@@ -26,7 +26,7 @@ public class Order {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
 }

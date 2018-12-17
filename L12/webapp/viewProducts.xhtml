@@ -69,6 +69,10 @@
                 <h:outputLabel value="Cart id: "/>
                 <h:outputText value="#{cartEJB.cartId}"/>
 
+                <h:link outcome="orderProducts.xhtml" value="Order"
+                        rendered="#{cartEJB.productsCountInCart gt 0}"
+                />
+
             </h:panelGrid>
 
         </h:panelGrid>

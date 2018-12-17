@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="layout.xhtml">
+    <ui:define name="title"><br/>View order list<br/></ui:define>
+    <ui:define name="content">
+        <h:panelGrid columns="1">
+            <h:dataTable id="orderlist" value="#{orderEJB.findAllOrders()}" var="ordr" border="1">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{ordr.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Created"/>
+                    </f:facet>
+                    <h:outputText value="#{ordr.creationTime}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Customer name"/>
+                    </f:facet>
+                    <h:outputText value="#{ordr.customer.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Delivery address"/>
+                    </f:facet>
+                    <h:outputText value="#{ordr.customer.address}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Items"/>
+                    </f:facet>
+                    <h:outputText value="#{ordr.products.size()}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Summ"/>
+                    </f:facet>
+                    <h:outputText value="#{orderController.getPriceSummInOrder(ordr.id)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

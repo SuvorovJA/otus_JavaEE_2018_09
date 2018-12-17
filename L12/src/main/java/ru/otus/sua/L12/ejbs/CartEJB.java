@@ -1,11 +1,16 @@
 package ru.otus.sua.L12.ejbs;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import ru.otus.sua.L12.entities.Customer;
 import ru.otus.sua.L12.entities.Order;
 import ru.otus.sua.L12.entities.Product;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -18,7 +23,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @SessionScoped
 @Named
 @Slf4j
+@Setter
+@Getter
 public class CartEJB implements Serializable {
+
+    @EJB
+    private CustomerEJB customerEJB;
 
     private Map<Product, Integer> cart;
 
@@ -62,8 +72,21 @@ public class CartEJB implements Serializable {
         Order order = new Order();
         order.setCreationTime(new Date());
         order.setUpdatedTime(new Date());
-        order.setCustomer(customer);
         order.setProducts(cart);
+
+        // TODO Internal Exception: org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "customers_pkey"
+        //  Detail: Key (id)=(252) already exists.
+        //  Error Code: 0
+        //  Call: INSERT INTO CUSTOMERS (ID, ADDRESS, NAME) VALUES (?, ?, ?)
+        //	bind => [3 parameters bound]
+        //  Query: InsertObjectQuery(Customer(id=252, name=Том Д. Хоум, address=Австралия, далеко.))
+
+//        if (customerEJB.contains(customer)) {
+//            customer = customerEJB.findCustomerById(customer.getId());
+//        }
+
+        customer.addOrderToHistory(order);
+        order.setCustomer(customer);
         return order;
     }
 

@@ -40,7 +40,7 @@
                 <h:outputLabel value="Products in cart: "/>
                 <h:outputText value="#{cartEJB.productsCountInCart}"/>
 
-                <h:outputLabel value="Amount this Product in cart: "/>
+                <h:outputLabel value="Amount of this Product in cart: "/>
                 <h:outputText value="#{cartEJB.getProductAmountInCart(productController.product)}"/>
 
                 <h:outputLabel value="Total sum in cart: "/>
@@ -50,10 +50,10 @@
                 <h:outputText value="#{cartEJB.cartId}"/>
 
                 <h:form id="buyProductForm">
-                    <h:panelGrid columns="2">
+                    <!--<h:panelGrid columns="2">-->
                         <h:outputLabel value="Amount(may be negative): "/>
                         <h:inputText value="#{buyProductController.amount}"/>
-                    </h:panelGrid>
+                    <!--</h:panelGrid>-->
                     <h:commandButton value="Buy a product"
                                      action="#{buyProductController.doBuyProduct(productController.product.id,cartEJB)}">
                         <f:ajax execute="@form" render=":errors"/>

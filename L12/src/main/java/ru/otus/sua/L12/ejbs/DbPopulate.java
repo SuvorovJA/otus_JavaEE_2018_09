@@ -22,10 +22,12 @@ public class DbPopulate {
 
     @PostConstruct
     private void init() {
-        Product product = newProduct();
-        productEJB.createProduct(product);
-        log.info("Populate database with product: {}", product.toString());
-        productEJB.flush();
+        if (productEJB.findProductById(1L) == null) {
+            Product product = newProduct();
+            productEJB.createProduct(product);
+            log.info("Populate database with product: {}", product.toString());
+            productEJB.flush();
+        }
     }
 
     private Product newProduct() {

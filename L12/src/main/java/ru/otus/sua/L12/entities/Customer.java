@@ -1,13 +1,19 @@
 package ru.otus.sua.L12.entities;
 
+import lombok.Data;
+import lombok.ToString;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMERS")
 @NamedQuery(name = "Customer.findAllCustomers", query = "SELECT c FROM Customer c")
+@Data
 public class Customer {
 
     @Id
@@ -24,6 +30,13 @@ public class Customer {
     @Basic
     private String address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
     private List<Order> orderHistory;
+
+    public void addOrderToHistory(Order order) {
+        if (orderHistory == null) orderHistory = new ArrayList<>();
+        orderHistory.add(order);
+    }
+
 }
