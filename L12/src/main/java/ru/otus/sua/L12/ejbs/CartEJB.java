@@ -1,9 +1,7 @@
 package ru.otus.sua.L12.ejbs;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import ru.otus.sua.L12.entities.Customer;
 import ru.otus.sua.L12.entities.Order;
@@ -49,6 +47,7 @@ public class CartEJB implements Serializable {
                 cart.put(product, newAmount);
             }
         } else {
+            if (amount <= 0) return;
             cart.put(product, amount);
         }
         log.info("Product '{}' added to cart '{}' in amount '{}'", product, getCartId(), amount);
