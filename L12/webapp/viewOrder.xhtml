@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="layout.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{orderController.doFindOrderById}"/>
+        <f:viewParam name="id" value="#{orderController.order.id}"/>
+    </f:metadata>
+
+    <ui:define name="title"><br/>View a order<br/></ui:define>
+
+    <ui:define name="content">
+
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Order num: "/>
+            <h:outputText value="#{orderController.order.id}"/>
+
+            <h:outputLabel value="Customer Name: "/>
+            <h:outputText value="#{orderController.order.customer.name}"/>
+
+            <h:outputLabel value="Delivery address: "/>
+            <h:outputText value="#{orderController.order.customer.address}"/>
+
+            <h:outputLabel value="CreationTime: "/>
+            <h:outputText value="#{orderController.order.creationTime}"/>
+
+            <h:outputLabel value="Updated time: "/>
+            <h:outputText value="#{orderController.order.updatedTime}"/>
+
+            <h:link outcome="viewOrders.xhtml" value="Back"/>
+        </h:panelGrid>
+        <h:panelGrid columns="1">
+
+            <h:outputLabel value="Order positions: "/>
+            <h:dataTable id="productlist" value="#{orderController.orderProducts}" var="prdkt" border="1">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{prdkt.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Title"/>
+                    </f:facet>
+                    <h:outputText value="#{prdkt.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Description"/>
+                    </f:facet>
+                    <h:outputText value="#{prdkt.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Price"/>
+                    </f:facet>
+                    <h:outputText value="#{prdkt.price}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Amount"/>
+                    </f:facet>
+                    <h:outputText value="#{orderController.order.products.get(prdkt)}"/>
+                </h:column>
+            </h:dataTable>
+            <h:link outcome="viewOrders.xhtml" value="Back"/>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

@@ -10,12 +10,13 @@
     <ui:define name="title"><br/>View order list<br/></ui:define>
     <ui:define name="content">
         <h:panelGrid columns="1">
+            <h:outputLabel value="Click id to view order content"/>
             <h:dataTable id="orderlist" value="#{orderEJB.findAllOrders()}" var="ordr" border="1">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Id"/>
                     </f:facet>
-                    <h:outputText value="#{ordr.id}"/>
+                    <h:link outcome="viewOrder.xhtml?id=#{ordr.id}" value="#{ordr.id}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">

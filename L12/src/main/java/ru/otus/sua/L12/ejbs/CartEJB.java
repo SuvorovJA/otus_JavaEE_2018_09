@@ -35,7 +35,7 @@ public class CartEJB implements Serializable {
     private Customer customer;
 
     @PostConstruct
-    private void init() {
+    public void init() {
         cart = new ConcurrentHashMap<>();
         customer = new Customer();
     }
