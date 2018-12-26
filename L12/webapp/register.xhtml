@@ -8,42 +8,33 @@
 
 <ui:composition template="layout.xhtml">
 
-    <ui:define name="title"><br/>Login<br/></ui:define>
+    <ui:define name="title"><br/>User registration<br/></ui:define>
 
     <ui:define name="content">
 
-        <h:form id="login">
+        <h:form id="register">
             <h:panelGrid columns="3">
                 <h:outputLabel for="username" value="Username:"/>
-                <h:inputText id="username" value="#{loginController.username}" required="true">
+                <h:inputText id="username" value="#{registerController.username}" required="true">
                     <f:ajax event="blur" render="m_username"/>
                 </h:inputText>
                 <h:message id="m_username" for="username"/>
 
+                <h:outputLabel for="email" value="Email:"/>
+                <h:inputText id="email" value="#{registerController.email}" required="true">
+                    <f:ajax event="blur" render="m_email"/>
+                </h:inputText>
+                <h:message id="m_email" for="username"/>
+
                 <h:outputLabel for="password" value="Password:"/>
-                <h:inputSecret id="password" value="#{loginController.password}" required="true">
+                <h:inputSecret id="password" value="#{registerController.password}" required="true">
                     <f:ajax event="blur" render="m_password"/>
                 </h:inputSecret>
                 <h:message id="m_password" for="password"/>
 
-                <h:outputLabel for="rememberMe" value="Remember Me:"/>
-                <h:selectBooleanCheckbox id="rememberMe" value="#{loginController.remember}"/>
-
-                <h:panelGroup/>
-                <h:panelGroup/>
-
-                <h:commandButton value="Login" action="#{loginController.submit}">
+                <h:commandButton value="Register" action="#{registerController.submit}">
                     <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
-
-                <h:panelGroup/>
-                <h:panelGroup/>
-                <p/>
-                <h:panelGroup/>
-                <h:panelGroup/>
-
-                <h:button value="Register" outcome="/register.xhtml"/>
-
                 <h:messages globalOnly="true" layout="table"/>
             </h:panelGrid>
         </h:form>

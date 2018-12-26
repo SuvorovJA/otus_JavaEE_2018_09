@@ -4,16 +4,53 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:o="http://omnifaces.org/ui">
+>
 
 <ui:composition template="layout.xhtml">
 
-        <ui:define name="title"><br/>Users and roles<br/></ui:define>
+    <ui:define name="title"><br/>Users and roles<br/></ui:define>
 
     <ui:define name="content">
 
         <h:panelGrid columns="2">
+            <h:dataTable id="accountslist" value="#{accountStoreEJB.findAllAccounts()}" var="acct" border="1">
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{acct.id}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText value="#{acct.username}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Email"/>
+                    </f:facet>
+                    <h:outputText value="#{acct.email}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Roles"/>
+                    </f:facet>
+                    <h:outputText value="#{acct.getRoles()}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Active"/>
+                    </f:facet>
+                    <h:outputText value="#{acct.active}"/>
+                </h:column>
+
+            </h:dataTable>
         </h:panelGrid>
 
     </ui:define>

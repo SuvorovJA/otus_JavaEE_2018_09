@@ -3,17 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:o="http://omnifaces.org/ui">
+>
 
 <ui:composition template="layout.xhtml">
 
-        <ui:define name="title"><br/>Logout<br/></ui:define>
+    <ui:define name="title"><br/>Logout<br/></ui:define>
 
     <ui:define name="content">
 
         <h:panelGrid columns="2">
-
+            <h:form>
+                <h:commandButton action="#{logoutController.submit()}" value="Logout"/>
+            </h:form>
         </h:panelGrid>
 
     </ui:define>
