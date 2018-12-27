@@ -1,10 +1,12 @@
 package ru.otus.sua.L12.appSecure;
 
 import ru.otus.sua.L12.appSecure.entities.Account;
+import ru.otus.sua.L12.appSecure.entities.Role;
 import ru.otus.sua.L12.appSecure.entities.TokenType;
 import ru.otus.sua.L12.appSecure.exception.InvalidPasswordException;
 import ru.otus.sua.L12.appSecure.exception.InvalidUsernameException;
 import ru.otus.sua.L12.appSecure.hashing.*;
+import ru.otus.sua.L12.entities.Product;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,6 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.omnifaces.util.Messages.addGlobalError;
 
@@ -39,12 +42,24 @@ public class AccountStoreEJB {
     TokenStoreEJB tokenStoreEJB;
 
     public void registerAccount(final String username, final String email, final String password) {
+        registerAccount(username, email, password, "CUSTOMER");
+    }
+
+    public void registerAccount(final String username, final String email, final String password, final String rolename) {
         String securedPassword = this.passwordHash.getHashedText(password);
-        Account account = new Account(username, securedPassword, email);
+        Account account = new Account(username, securedPassword, email, rolename);
         // TODO Account should not activated by default. But email activation not implemented.
         account.setActive(true);
         this.em.persist(account);
     }
+
+    public void updateAccountRoles(Set<Role> roles, Account account){
+        Account account1 = this.em.find(Account.class,account.getId());
+        account1.setRoles(roles);
+        this.em.merge(account1);
+        this.em.flush();
+    }
+
 
     public Optional<Account> getByUsername(final String username) {
         try {
@@ -82,6 +97,10 @@ public class AccountStoreEJB {
             throw new InvalidPasswordException();
         }
         return managedAccount;
+    }
+
+     public Account findAccountById(Long id) {
+        return em.find(Account.class, id);
     }
 
     public List<Account> findAllAccounts() {

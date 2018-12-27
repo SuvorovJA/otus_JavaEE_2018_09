@@ -8,15 +8,20 @@ import ru.otus.sua.L12.appSecure.hashing.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.UUID.randomUUID;
 
 @Stateless
+@Named
 public class TokenStoreEJB {
 
     @PersistenceContext
@@ -36,7 +41,7 @@ public class TokenStoreEJB {
                            final TokenType tokenType) {
         String rawToken = randomUUID().toString();
         Instant expiration = now().plus(14, DAYS);
-        save(rawToken, username, ipAddress, description, tokenType, expiration);
+        save(rawToken, username, ipAddress, description, tokenType, Date.from(expiration));
         return rawToken;
     }
 
@@ -45,7 +50,7 @@ public class TokenStoreEJB {
                      final String ipAddress,
                      final String description,
                      final TokenType tokenType,
-                     final Instant expiration) {
+                     final Date expiration) {
 
         Account account = this.accountStore.getByUsername(username).orElseThrow(InvalidUsernameException::new);
         Token token = new Token();
@@ -64,5 +69,10 @@ public class TokenStoreEJB {
 
     public void removeExpired() {
         this.em.createNamedQuery(Token.REMOVE_EXPIRED_TOKEN, Token.class).executeUpdate();
+    }
+
+    public List<Token> findAllTokens() {
+        TypedQuery<Token> query = em.createNamedQuery("Token.findAllTokens", Token.class);
+        return query.getResultList();
     }
 }

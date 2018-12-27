@@ -5,18 +5,18 @@ L13: Security
 
 - [x] Разработать стилизованную страницы входа в приложение с поддержкой FORM-метода аутентификации, используя стандартные механизмы, предлагаемые JavaEE Security.
 - [x] создание класса, имплементирующего интерфейс ~LoginModule~ IdentityStore(JSR375), производящего авторизацию на основе данных, хранящихся на уровне БД (таблица пользователей – логин и хэш-пароля). 
-- [ ] После успешной авторизации пользователю должны быть выданы права на основании связанной таблицы ролей.
+- [x] После успешной авторизации пользователю должны быть выданы права на основании связанной таблицы ролей.
 - [x] Добавить кнопку «Выход» на всех авторизованных страницах приложения (например, в разделе навигации).
-- [ ] разграничение ролевого доступа к бизнес-логике сервлетов, EJB и т.д. 
-- [ ] Необходимо иметь, как минимум две основных роли: 
-  - [ ] рядовой пользователь (создание заказов)
-  - [ ] +менеджер (просмотр заказов, создание продукта) 
-  - [ ] администратор (справочник ролей) 
-- [ ] Разработать интерфейсную часть для управлением справочником ролей с возможностью присвоения их пользователям системы. Данный функционал доступен только администраторам системы.
+- [x] разграничение ролевого доступа к бизнес-логике сервлетов, EJB и т.д. 
+- [x] Необходимо иметь, как минимум две основных роли: 
+  - [x] рядовой пользователь (создание заказов)
+  - [x] +менеджер (просмотр заказов, создание продукта) 
+  - [x] администратор (справочник ролей) 
+- [x] Разработать интерфейсную часть для управлением справочником ролей с возможностью присвоения их пользователям системы. Данный функционал доступен только администраторам системы.
 - [ ] Разработать сервисы и интерфейсную часть с поддержкой ДФА в системе. В данном задании не требуется реальной отправки смс-сообщения пользователя, это значение достаточно генерировать случайно на сервере (опциональное задание)*.
 
 - [ ] Предусмотреть RESTful веб-сервисы, предоставляющие возможность программной авторизации пользователя в приложении, а также возможного выхода из него.
-- [ ] скорректировать rmi client на авторизацию под manager ролью
+- [ ] скорректировать rmi client на авторизацию под REMOTE ролью
     
 L12: EJB    
     
@@ -43,6 +43,19 @@ L12: EJB
     - [x] вызываемый метод разместить в синглтоне, конкурентность
             
 #### Решение
+
+no auth RMI client
+```
+дек 27, 2018 11:16:44 PM com.sun.enterprise.v3.server.CommonClassLoaderServiceImpl findDerbyClient
+INFO: Cannot find javadb client jar file, derby jdbc driver will not be available by default.
+Exception in thread "main" javax.naming.NamingException: Lookup failed for 'java:global/L12/OrderRemoteMonEJB!ru.otus.sua.L12.ejbs.OrderRemote' in SerialContext[myEnv={org.omg.CORBA.ORBInitialPort=3700, java.naming.factory.initial=com.sun.enterprise.naming.SerialInitContextFactory, org.omg.CORBA.ORBInitialHost=localhost, java.naming.factory.state=com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl, java.naming.factory.url.pkgs=com.sun.enterprise.naming} [Root exception is javax.naming.NamingException: ejb ref resolution error for remote business interfaceru.otus.sua.L12.ejbs.OrderRemote [Root exception is java.rmi.AccessException: CORBA NO_PERMISSION 0 No; nested exception is: 
+	org.omg.CORBA.NO_PERMISSION: ----------BEGIN server-side stack trace----------
+
+```
+
+
+
+
 
 rmi client log
 ``` 

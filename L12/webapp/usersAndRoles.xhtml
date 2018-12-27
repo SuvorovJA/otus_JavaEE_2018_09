@@ -12,6 +12,43 @@
 
     <ui:define name="content">
 
+        APPLICATION ROLES:
+        <h:panelGrid columns="3">
+
+            <h:dataTable id="approleslist" value="#{appRoleStoreEJB.findAllAppRoles()}" var="apprls" border="1">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{apprls.id}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Role"/>
+                    </f:facet>
+                    <h:outputText value="#{apprls.role}"/>
+                </h:column>
+
+            </h:dataTable>
+
+            <h:form id="newroleForm">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Role Name: "/>
+                    <h:inputText value="#{appRoleController.rolename}"/>
+                </h:panelGrid>
+                <h:commandButton value="Create a role" action="#{appRoleController.doCreateRole}">
+                    <f:ajax execute="@form" render=":approleslist :errors :newroleForm"/>
+                </h:commandButton>
+            </h:form>
+
+            <h:outputText
+                    value='Note: Adding roles there was not affect. Therefore need @DeclareRoles({"MANAGER", "ADMIN", "CUSTOMER" }) in source code.'/>
+
+        </h:panelGrid>
+
+        ACCOUNTS:
         <h:panelGrid columns="2">
             <h:dataTable id="accountslist" value="#{accountStoreEJB.findAllAccounts()}" var="acct" border="1">
 
@@ -40,7 +77,7 @@
                     <f:facet name="header">
                         <h:outputText value="Roles"/>
                     </f:facet>
-                    <h:outputText value="#{acct.getRoles()}"/>
+                    <h:outputText value="#{acct.getRolesAsStrings()}"/>
                 </h:column>
 
                 <h:column>
@@ -48,6 +85,107 @@
                         <h:outputText value="Active"/>
                     </f:facet>
                     <h:outputText value="#{acct.active}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Add role"/>
+                    </f:facet>
+                    <h:link outcome="addRoleToAccount.xhtml?id=#{acct.id}" value="Add Role to this account"/>
+                </h:column>
+
+
+            </h:dataTable>
+        </h:panelGrid>
+
+        ROLES:
+        <h:panelGrid columns="2">
+
+            <h:dataTable id="roleslist" value="#{roleStoreEJB.findAllRoles()}" var="rls" border="1">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{rls.id}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText value="#{rls.role}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Account"/>
+                    </f:facet>
+                    <h:outputText value="#{rls.account.username}"/>
+                </h:column>
+
+            </h:dataTable>
+        </h:panelGrid>
+
+
+        TOKENS:
+        <h:panelGrid columns="2">
+            <h:dataTable id="tokenslist" value="#{tokenStoreEJB.findAllTokens()}" var="tkns" border="1">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.id}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Account"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.account.username}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="token hash"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.tokenHash}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="token type"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.tokenType}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ip address"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.ipAddress}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="description"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.description}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="created"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.created}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="expiration"/>
+                    </f:facet>
+                    <h:outputText value="#{tkns.expiration}"/>
                 </h:column>
 
             </h:dataTable>

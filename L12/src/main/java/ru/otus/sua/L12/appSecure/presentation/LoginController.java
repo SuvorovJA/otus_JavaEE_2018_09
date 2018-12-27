@@ -1,4 +1,4 @@
-package ru.otus.sua.L12.appSecure;
+package ru.otus.sua.L12.appSecure.presentation;
 
 import lombok.Data;
 import org.omnifaces.cdi.Param;
@@ -45,7 +45,7 @@ public class LoginController {
                         .newAuthentication(!loginToContinue)
                         .rememberMe(remember));
         if (status.equals(SUCCESS)) {
-            loginStatus.setUser(securityContext.getCallerPrincipal().getName());
+            loginStatus.checkUserAndRoles();
             redirect("viewProducts.xhtml");
         } else if (status.equals(SEND_FAILURE)) {
             addGlobalError("auth failure");

@@ -1,6 +1,7 @@
 package ru.otus.sua.L12.appSecure.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -19,6 +20,7 @@ public class Role {
     private String role;
 
     @ManyToOne(optional = false)
+    @EqualsAndHashCode.Exclude
     private Account account;
 
 }

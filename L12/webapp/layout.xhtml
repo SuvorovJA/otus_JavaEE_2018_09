@@ -18,7 +18,8 @@
   <h:link value="Users and Roles" outcome="usersAndRoles.xhtml"/> &nbsp;&nbsp;
   <h:link value="Login" outcome="login.xhtml"/> &nbsp;&nbsp;
   <h:link value="Logout" outcome="logout.xhtml"/> &nbsp;&nbsp;
-  <h:outputLabel value="logged as: #{loginStatus.user}"/>
+  <h:outputLabel value="logged as: #{loginStatus.user}"/> &nbsp;&nbsp;
+  <h:outputLabel value="#{loginStatus.roles}"/>
 
   <h1>
     <ui:insert name="title">DEFAULT TITLE</ui:insert>

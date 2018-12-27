@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.Date;
 
 import static java.time.temporal.ChronoUnit.MONTHS;
 
@@ -51,18 +52,18 @@ public class Token {
     private String description;
 
     @Basic
-//    @Temporal(value = TemporalType.TIMESTAMP)
-    private Instant created;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date created;
 
     @Basic
-//    @Temporal(value = TemporalType.TIMESTAMP)
-    private Instant expiration;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date expiration;
 
     @PrePersist
     public void generateInformation() {
-        this.created = Instant.now();
+        this.created = new Date();
         if (this.expiration == null) {
-            this.expiration = this.created.plus(1, MONTHS);
+            this.expiration =Date.from(this.created.toInstant().plus(1, MONTHS));
         }
     }
 

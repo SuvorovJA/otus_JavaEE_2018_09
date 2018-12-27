@@ -3,6 +3,7 @@ package ru.otus.sua.L12.ejbs;
 import ru.otus.sua.L12.entities.Order;
 import ru.otus.sua.L12.entities.Product;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Stateless
 @Named
+@RolesAllowed({"MANAGER","ADMIN","CUSTOMER"})
 public class OrderEJB {
 
     @PersistenceContext(unitName = "shopsimulator-persistens-unit")

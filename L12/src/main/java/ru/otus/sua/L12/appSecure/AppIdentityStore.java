@@ -1,6 +1,7 @@
 package ru.otus.sua.L12.appSecure;
 
 
+import lombok.extern.slf4j.Slf4j;
 import ru.otus.sua.L12.appSecure.entities.Account;
 import ru.otus.sua.L12.appSecure.exception.AccountNotVerifiedException;
 import ru.otus.sua.L12.appSecure.exception.InvalidCredentialException;
@@ -13,15 +14,14 @@ import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
-import java.util.HashSet;
 
-import static java.util.Arrays.asList;
 import static javax.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
 import static javax.security.enterprise.identitystore.CredentialValidationResult.NOT_VALIDATED_RESULT;
 
 
 @ApplicationScoped
 @Default
+@Slf4j
 public class AppIdentityStore implements IdentityStore {
 
     @Inject
@@ -48,6 +48,7 @@ public class AppIdentityStore implements IdentityStore {
     // before return the CredentialValidationResult, check if the account is active or not
     private CredentialValidationResult validate(Account account) {
         if (!account.isActive()) throw new AccountNotVerifiedException();
-        return new CredentialValidationResult(account.getUsername(),account.getRoles());
+        log.info("Validated login: {}, {}", account.getUsername(), account.getRolesAsStrings());
+        return new CredentialValidationResult(account.getUsername(), account.getRolesAsStrings());
     }
 }

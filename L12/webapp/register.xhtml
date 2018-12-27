@@ -32,9 +32,18 @@
                 </h:inputSecret>
                 <h:message id="m_password" for="password"/>
 
+                <h:outputLabel for="role" value="Select role:"/>
+                <h:selectOneMenu id="role" value="#{registerController.selectedrole}">
+                    <f:selectItems value="#{appRoleStoreEJB.findAllAppRolesAsStrings()}"/>
+                </h:selectOneMenu>
+                <h:panelGroup/>
+
+                <h:panelGroup/>
                 <h:commandButton value="Register" action="#{registerController.submit}">
                     <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
+                <h:panelGroup/>
+
                 <h:messages globalOnly="true" layout="table"/>
             </h:panelGrid>
         </h:form>

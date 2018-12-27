@@ -67,6 +67,15 @@ public class Account {
         this.email = email;
     }
 
+    public Account(String username, String password, String email, String rolename) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        Role role = new Role();
+        role.setRole(rolename);
+        addRole(role);
+    }
+
     public void addToken(Token token) {
         this.tokens.add(token);
         token.setAccount(this);
@@ -87,8 +96,12 @@ public class Account {
         role.setAccount(this);
     }
 
-    public Set<String> getRoles(){
+    public Set<String> getRolesAsStrings(){
         return this.roles.stream().map(Role::getRole).collect(Collectors.toSet());
+    }
+
+    public Set<Role> getRoles(){
+        return this.roles;
     }
 
     @Override

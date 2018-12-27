@@ -1,4 +1,4 @@
-package ru.otus.sua.L12.appSecure;
+package ru.otus.sua.L12.appSecure.presentation;
 
 import org.omnifaces.util.Faces;
 

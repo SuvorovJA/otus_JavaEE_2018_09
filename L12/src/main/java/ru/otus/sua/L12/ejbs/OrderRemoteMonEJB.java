@@ -4,6 +4,7 @@ import lombok.Data;
 import ru.otus.sua.L12.entities.Order;
 import ru.otus.sua.L12.entities.Product;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
@@ -18,6 +19,7 @@ public class OrderRemoteMonEJB implements OrderRemote {
 
     private Order lastOrder;
 
+    @RolesAllowed({"CUSTOMER"})
     public void setLastOrder(Order order){
         synchronized (this) {
             lastOrder = order;
@@ -25,6 +27,7 @@ public class OrderRemoteMonEJB implements OrderRemote {
     }
 
     @Override
+    @RolesAllowed({"REMOTE"})
     public String getLastOrder(){
 
         if (lastOrder == null) return "none orders";

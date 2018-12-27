@@ -2,6 +2,7 @@ package ru.otus.sua.L12.appSecure;
 
 
 import ru.otus.sua.L12.appSecure.entities.Account;
+import ru.otus.sua.L12.appSecure.presentation.LoginStatus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -29,10 +30,17 @@ public class AppRememberMeIdentityStore implements RememberMeIdentityStore {
     @Inject
     TokenStoreEJB tokenStore;
 
+    @Inject
+    private LoginStatus loginStatus;
+
     @Override
     public CredentialValidationResult validate(RememberMeCredential rmc) {
         Optional<Account> account = this.accountStore.getByLoginToken(rmc.getToken(), REMEMBER_ME);
-        return account.map(a -> new CredentialValidationResult(new CallerPrincipal(a.getUsername()))).orElse(INVALID_RESULT);
+        loginStatus.checkUserAndRoles();
+        return account.map(a -> new CredentialValidationResult(
+                new CallerPrincipal(a.getUsername()),
+                a.getRolesAsStrings())).
+                orElse(INVALID_RESULT);
     }
 
     // TODO method not specify said to store the token into database, you only need to return the token and everything is work, but like I said earlier you need to guard the remember me cookie session and then store it on the database which is have been done in EJB TokenStore.
