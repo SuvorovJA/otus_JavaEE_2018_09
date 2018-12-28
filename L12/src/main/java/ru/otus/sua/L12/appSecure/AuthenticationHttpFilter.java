@@ -46,6 +46,7 @@ public class AuthenticationHttpFilter extends HttpFilter {
 
         String loginUrl = req.getContextPath() + "/login.xhtml";
         String tfaUrl = req.getContextPath() + "/tfa.xhtml";
+        String restAuthUrl = req.getContextPath() + "/auth";
 
         String path = req.getRequestURI().substring(req.getContextPath().length()).replaceAll("[/]+$", "");
 
@@ -53,7 +54,9 @@ public class AuthenticationHttpFilter extends HttpFilter {
         boolean loggedIn = (req.getRemoteUser() != null);
 
         // check if the URL was appointed to login URL or not
-        boolean loginRequest = (req.getRequestURI().equals(loginUrl) || req.getRequestURI().equals(tfaUrl));
+        boolean loginRequest = (req.getRequestURI().equals(loginUrl) ||
+                req.getRequestURI().equals(tfaUrl) ||
+                req.getRequestURI().startsWith(restAuthUrl));
 
         // jsf resources
         boolean resourceRequest = Servlets.isFacesResourceRequest(req);

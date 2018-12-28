@@ -33,7 +33,7 @@ public class AppFormAuthenticationMechanism implements HttpAuthenticationMechani
     public AuthenticationStatus validateRequest(HttpServletRequest req, HttpServletResponse res, HttpMessageContext context) {
         Credential credential = context.getAuthParameters().getCredential();
         if (credential != null) {
-            log.info("Credential {0}", credential);
+            log.info("Credential {}", credential);
             return context.notifyContainerAboutLogin(this.identityStoreHandler.validate(credential));
         } else {
             return context.doNothing();

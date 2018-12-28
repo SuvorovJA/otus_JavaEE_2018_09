@@ -20,8 +20,8 @@ L13: Security
   - [x] бин по обслуживанию "кода"
   - [x] страница для ввода "кода"
 
-- [ ] Предусмотреть RESTful веб-сервисы, предоставляющие возможность программной авторизации пользователя в приложении, а также возможного выхода из него.
-- [x] скорректировать rmi client на авторизацию под REMOTE ролью
+- [x] Предусмотреть RESTful веб-сервисы, предоставляющие возможность программной авторизации пользователя в приложении, а также возможного выхода из него.
+- [x] скорректировать rmi client на авторизацию под REMOTE ролью (см. Note в клиете)
     
 L12: EJB    
     
@@ -49,13 +49,47 @@ L12: EJB
             
 #### Решение
 
+REST auth requests (registered user=aaa, pass=aaa)
+``` 
+$ curl -X GET -H "Accept: application/json" http://pg-payara.docker:8080/L12/auth/login/aaa/aaa
+logged in: SUCCESS as 'aaa'
+$ curl -X GET -H "Accept: application/json" http://pg-payara.docker:8080/L12/auth/logout/aaa
+logged out: no principal
+$ curl -X GET -H "Accept: application/json" http://pg-payara.docker:8080/L12/auth/login/unknownuser/aaa
+logged in: NOT_DONE
+$ curl -X GET -H "Accept: application/json" http://pg-payara.docker:8080/L12/auth/login/aaa/unknownpass
+logged in: NOT_DONE
+$ curl -X GET -H "Accept: application/json" http://pg-payara.docker:8080/L12/auth/login/aaa/aaa
+logged in: SUCCESS as 'aaa'
+$ 
+
+```
+
+REST auth server logs
+``` 
+  14:22:13.579 [http-thread-pool::http-listener-1(3)] INFO  r.o.s.L12.appSecure.AuthRestService - REST login: aaa
+  14:22:13.581 [http-thread-pool::http-listener-1(3)] INFO  r.o.s.L.a.AppFormAuthenticationMechanism - Credential {0}
+  14:22:13.591 [http-thread-pool::http-listener-1(3)] INFO  r.o.s.L12.appSecure.AppIdentityStore - Validated login: aaa, [CUSTOMER, ADMIN, REMOTE]
+  14:22:18.434 [http-thread-pool::http-listener-1(1)] INFO  r.o.s.L12.appSecure.AuthRestService - REST logout: aaa
+  14:22:33.546 [http-thread-pool::http-listener-1(2)] INFO  r.o.s.L12.appSecure.AuthRestService - REST login: unknownuser
+  14:22:33.549 [http-thread-pool::http-listener-1(2)] INFO  r.o.s.L.a.AppFormAuthenticationMechanism - Credential {0}
+  ru.otus.sua.L12.appSecure.exception.InvalidUsernameException
+  14:22:44.321 [http-thread-pool::http-listener-1(5)] INFO  r.o.s.L12.appSecure.AuthRestService - REST login: aaa
+  14:22:44.324 [http-thread-pool::http-listener-1(5)] INFO  r.o.s.L.a.AppFormAuthenticationMechanism - Credential {0}
+  JASPIC: http msg authentication fail
+  14:22:58.313 [http-thread-pool::http-listener-1(1)] INFO  r.o.s.L12.appSecure.AuthRestService - REST login: aaa
+  14:22:58.316 [http-thread-pool::http-listener-1(1)] INFO  r.o.s.L.a.AppFormAuthenticationMechanism - Credential {0}
+  14:22:58.322 [http-thread-pool::http-listener-1(1)] INFO  r.o.s.L12.appSecure.AppIdentityStore - Validated login: aaa, [CUSTOMER, ADMIN, REMOTE]
+
+```
+
+
 RMI client with JAAS auth
 ``` 
 дек 28, 2018 7:28:49 PM com.sun.enterprise.v3.server.CommonClassLoaderServiceImpl findDerbyClient
 INFO: Cannot find javadb client jar file, derby jdbc driver will not be available by default.
 19:28:56.071 [main] INFO  ru.otus.sua.L12client.RmiClient - none orders
 19:29:50.346 [main] INFO  ru.otus.sua.L12client.RmiClient - id: 951; customer: assigned roles; address: REMOTE;ADMIN;CUSTOMER;); total summ: 10000.0
-
 ```
 
 
@@ -77,10 +111,7 @@ TFA (ДФА) login process
   11:33:42.160 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.p.LogoutController - Logout user aaa.
   11:33:49.254 [http-thread-pool::http-listener-1(2)] INFO  r.o.s.L.a.ejbs.TfaGeneratorEJB - Security code for account 'aaa' is '3491'
   11:34:16.515 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.p.LoginController - Entered incorrect security code '1234' for account 'aaa'
-
 ```
-
-
 
 no auth RMI client
 ```
@@ -88,12 +119,7 @@ no auth RMI client
 INFO: Cannot find javadb client jar file, derby jdbc driver will not be available by default.
 Exception in thread "main" javax.naming.NamingException: Lookup failed for 'java:global/L12/OrderRemoteMonEJB!ru.otus.sua.L12.ejbs.OrderRemote' in SerialContext[myEnv={org.omg.CORBA.ORBInitialPort=3700, java.naming.factory.initial=com.sun.enterprise.naming.SerialInitContextFactory, org.omg.CORBA.ORBInitialHost=localhost, java.naming.factory.state=com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl, java.naming.factory.url.pkgs=com.sun.enterprise.naming} [Root exception is javax.naming.NamingException: ejb ref resolution error for remote business interfaceru.otus.sua.L12.ejbs.OrderRemote [Root exception is java.rmi.AccessException: CORBA NO_PERMISSION 0 No; nested exception is: 
 	org.omg.CORBA.NO_PERMISSION: ----------BEGIN server-side stack trace----------
-
 ```
-
-
-
-
 
 rmi client log
 ``` 
@@ -110,8 +136,10 @@ INFO: id: 51; customer: Джохн Смитх; address: Джакарта, Инд
 INFO: id: 101; customer: Администрация города; address: Город Н-ск, Администрация.; total summ: 1000000.0
 дек 18, 2018 11:41:52 PM ru.otus.sua.L12client.RmiClient main
 INFO: id: 103; customer: Леопольд Катц; address: DIY Center, New-york, 45 42; total summ: 570.0
-
 ```
 
 #### Материалы
 
+RMI auth:
+[IIOP Client Authentication and ProgrammaticLogin in Glassfish v3](https://stackoverflow.com/questions/3519676/iiop-client-authentication-and-programmaticlogin-in-glassfish-v3)
+[Call a secured remote ejb deployed in glassfish from a Java client application](https://stackoverflow.com/questions/10370475/call-a-secured-remote-ejb-deployed-in-glassfish-from-a-java-client-application)
