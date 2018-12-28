@@ -1,4 +1,4 @@
-package ru.otus.sua.L12.appSecure;
+package ru.otus.sua.L12.appSecure.ejbs;
 
 import ru.otus.sua.L12.appSecure.entities.Account;
 import ru.otus.sua.L12.appSecure.entities.AppRole;

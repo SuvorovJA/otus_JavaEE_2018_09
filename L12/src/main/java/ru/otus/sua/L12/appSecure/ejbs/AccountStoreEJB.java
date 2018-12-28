@@ -1,4 +1,4 @@
-package ru.otus.sua.L12.appSecure;
+package ru.otus.sua.L12.appSecure.ejbs;
 
 import ru.otus.sua.L12.appSecure.entities.Account;
 import ru.otus.sua.L12.appSecure.entities.Role;
@@ -6,7 +6,6 @@ import ru.otus.sua.L12.appSecure.entities.TokenType;
 import ru.otus.sua.L12.appSecure.exception.InvalidPasswordException;
 import ru.otus.sua.L12.appSecure.exception.InvalidUsernameException;
 import ru.otus.sua.L12.appSecure.hashing.*;
-import ru.otus.sua.L12.entities.Product;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -41,25 +40,37 @@ public class AccountStoreEJB {
     @Inject
     TokenStoreEJB tokenStoreEJB;
 
-    public void registerAccount(final String username, final String email, final String password) {
-        registerAccount(username, email, password, "CUSTOMER");
+    public void registerAccount(final String username, final String email, final String password, boolean tfaEnabled) {
+        registerAccount(username, email, password, tfaEnabled, "CUSTOMER");
     }
 
-    public void registerAccount(final String username, final String email, final String password, final String rolename) {
+    public void registerAccount(final String username, final String email, final String password, boolean tfaEnabled, final String rolename) {
         String securedPassword = this.passwordHash.getHashedText(password);
-        Account account = new Account(username, securedPassword, email, rolename);
+        Account account = new Account(username, securedPassword, email, tfaEnabled, rolename);
         // TODO Account should not activated by default. But email activation not implemented.
         account.setActive(true);
         this.em.persist(account);
     }
 
-    public void updateAccountRoles(Set<Role> roles, Account account){
-        Account account1 = this.em.find(Account.class,account.getId());
+    public void updateAccountRoles(Set<Role> roles, Account account) {
+        Account account1 = this.em.find(Account.class, account.getId());
         account1.setRoles(roles);
         this.em.merge(account1);
         this.em.flush();
     }
+    public void updateAccountRoles(Role role, Long id) {
+        Account account1 = this.em.find(Account.class, id);
+        account1.addRole(role);
+        this.em.merge(account1);
+        this.em.flush();
+    }
 
+    public void updateAccountTfa(boolean tfa, Long id) {
+        Account account1 = this.em.find(Account.class, id);
+        account1.setTfaEnabled(tfa);
+        this.em.merge(account1);
+        this.em.flush();
+    }
 
     public Optional<Account> getByUsername(final String username) {
         try {
@@ -99,7 +110,7 @@ public class AccountStoreEJB {
         return managedAccount;
     }
 
-     public Account findAccountById(Long id) {
+    public Account findAccountById(Long id) {
         return em.find(Account.class, id);
     }
 

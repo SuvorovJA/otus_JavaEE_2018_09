@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="layout.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{accountController.account.id}"/>
+        <f:viewAction action="#{accountController.doFindAccountById}"/>
+    </f:metadata>
+
+    <ui:define name="title"><br/>Change TFA to account<br/></ui:define>
+
+    <ui:define name="content">
+
+        ACCOUNT:
+        <h:panelGrid columns="1">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Name: "/>
+                <h:outputText value="#{accountController.account.username}"/>
+
+                <h:outputLabel value="Email: "/>
+                <h:outputText value="#{accountController.account.email}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1">
+                <h:form id="modTfaForm">
+                    <h:outputLabel for="tfa" value="Two Factor Authentication enable:"/>
+                    <h:selectBooleanCheckbox id="tfa" value="#{accountController.tfaEnabled}"/>
+                    <h:commandButton value="Modify" action="#{accountController.doModifyTfaToAccount()}">
+                        <f:ajax execute="@form" render=":modTfaForm :errors"/>
+                    </h:commandButton>
+                </h:form>
+                <h:link value="Back to UsersAndRoles" outcome="usersAndRoles.xhtml"/>
+            </h:panelGrid>
+        </h:panelGrid>
+    </ui:define>
+
+</ui:composition>
+</html>

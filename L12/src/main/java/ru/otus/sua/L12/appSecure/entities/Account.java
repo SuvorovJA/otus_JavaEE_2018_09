@@ -55,6 +55,11 @@ public class Account {
     @NotNull
     private boolean active;
 
+    @Basic
+    @Column(name = "tfa_enabled")
+    @NotNull
+    private boolean tfaEnabled;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Role> roles = new HashSet<>();
 
@@ -67,10 +72,11 @@ public class Account {
         this.email = email;
     }
 
-    public Account(String username, String password, String email, String rolename) {
+    public Account(String username, String password, String email, boolean tfaEnabled, String rolename) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.tfaEnabled = tfaEnabled;
         Role role = new Role();
         role.setRole(rolename);
         addRole(role);

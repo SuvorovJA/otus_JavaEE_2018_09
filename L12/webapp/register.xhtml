@@ -32,10 +32,17 @@
                 </h:inputSecret>
                 <h:message id="m_password" for="password"/>
 
+                <h:outputLabel for="tfa" value="Two Factor Enable:"/>
+                <h:selectBooleanCheckbox id="tfa" value="#{registerController.tfaEnabled}"/>
+                <h:message id="m_tfa" for="tfa"/>
+
+
                 <h:outputLabel for="role" value="Select role:"/>
                 <h:selectOneMenu id="role" value="#{registerController.selectedrole}">
                     <f:selectItems value="#{appRoleStoreEJB.findAllAppRolesAsStrings()}"/>
                 </h:selectOneMenu>
+
+
                 <h:panelGroup/>
 
                 <h:panelGroup/>

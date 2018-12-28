@@ -2,6 +2,7 @@ package ru.otus.sua.L12.appSecure;
 
 
 import lombok.extern.slf4j.Slf4j;
+import ru.otus.sua.L12.appSecure.ejbs.AccountStoreEJB;
 import ru.otus.sua.L12.appSecure.entities.Account;
 import ru.otus.sua.L12.appSecure.exception.AccountNotVerifiedException;
 import ru.otus.sua.L12.appSecure.exception.InvalidCredentialException;

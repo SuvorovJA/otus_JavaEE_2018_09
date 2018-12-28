@@ -89,9 +89,18 @@
 
                 <h:column>
                     <f:facet name="header">
+                        <h:outputText value="TFA enabled"/>
+                    </f:facet>
+                    <h:outputText value="#{acct.tfaEnabled}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
                         <h:outputText value="Add role"/>
                     </f:facet>
                     <h:link outcome="addRoleToAccount.xhtml?id=#{acct.id}" value="Add Role to this account"/>
+                    <br/>
+                    <h:link outcome="modTfaToAccount.xhtml?id=#{acct.id}" value="Modify TFA in this account"/>
                 </h:column>
 
 

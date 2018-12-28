@@ -2,13 +2,11 @@ package ru.otus.sua.L12.appSecure.presentation;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import ru.otus.sua.L12.appSecure.AppRoleStoreEJB;
+import ru.otus.sua.L12.appSecure.ejbs.AppRoleStoreEJB;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

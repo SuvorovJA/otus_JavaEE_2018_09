@@ -1,5 +1,7 @@
 package ru.otus.sua.L12.appSecure;
 
+import ru.otus.sua.L12.appSecure.ejbs.AppRoleStoreEJB;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;

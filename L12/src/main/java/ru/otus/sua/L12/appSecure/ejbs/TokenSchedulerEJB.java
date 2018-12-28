@@ -1,6 +1,4 @@
-package ru.otus.sua.L12.appSecure;
-
-import ru.otus.sua.L12.appSecure.TokenStoreEJB;
+package ru.otus.sua.L12.appSecure.ejbs;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;

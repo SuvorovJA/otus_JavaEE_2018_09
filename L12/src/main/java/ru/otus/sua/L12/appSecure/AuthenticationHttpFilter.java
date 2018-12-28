@@ -22,11 +22,11 @@ public class AuthenticationHttpFilter extends HttpFilter {
 
     // list URL that want to exclude from authentication filter
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/login.xhtml", "/register.xhtml", "/index.html", "/viewProducts.xhtml", "/logout.xhtml", "/loginError.xhtml")
+            Arrays.asList("/tfa.xhtml", "/login.xhtml", "/register.xhtml", "/index.html", "/viewProducts.xhtml", "/logout.xhtml", "/loginError.xhtml")
     ));
 
     private static final Set<String> ADMIN_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/usersAndRoles.xhtml", "/addRoleToAccount.xhtml")
+            Arrays.asList("/usersAndRoles.xhtml", "/addRoleToAccount.xhtml","/modTfaToAccount.xhtml")
     ));
 
     private static final Set<String> MANAGER_PATHS = Collections.unmodifiableSet(new HashSet<>(
@@ -45,6 +45,7 @@ public class AuthenticationHttpFilter extends HttpFilter {
     public void doFilter(HttpServletRequest req, HttpServletResponse res, HttpSession session, FilterChain chain) throws ServletException, IOException {
 
         String loginUrl = req.getContextPath() + "/login.xhtml";
+        String tfaUrl = req.getContextPath() + "/tfa.xhtml";
 
         String path = req.getRequestURI().substring(req.getContextPath().length()).replaceAll("[/]+$", "");
 
@@ -52,7 +53,7 @@ public class AuthenticationHttpFilter extends HttpFilter {
         boolean loggedIn = (req.getRemoteUser() != null);
 
         // check if the URL was appointed to login URL or not
-        boolean loginRequest = req.getRequestURI().equals(loginUrl);
+        boolean loginRequest = (req.getRequestURI().equals(loginUrl) || req.getRequestURI().equals(tfaUrl));
 
         // jsf resources
         boolean resourceRequest = Servlets.isFacesResourceRequest(req);
@@ -70,7 +71,7 @@ public class AuthenticationHttpFilter extends HttpFilter {
         boolean customerUrl = CUSTOMER_PATHS.contains(path);
         boolean remoteUrl = REMOTE_PATHS.contains(path);
 
-         log.info("login url: {}, path:{}, " +
+         log.info("loginurl: {}, path:{}, " +
                          "url(allowed:{}, customer:{}, manager:{}, admin:{}, remote:{}), " +
                          "auth(isCustomer:{}, isManager:{}, isAdmin:{}, isRemote:{})",
                  loginUrl,path,

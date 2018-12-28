@@ -2,8 +2,8 @@ package ru.otus.sua.L12.appSecure.presentation;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import ru.otus.sua.L12.appSecure.AccountStoreEJB;
-import ru.otus.sua.L12.appSecure.AppRoleStoreEJB;
+import ru.otus.sua.L12.appSecure.ejbs.AccountStoreEJB;
+import ru.otus.sua.L12.appSecure.ejbs.AppRoleStoreEJB;
 import ru.otus.sua.L12.appSecure.entities.Account;
 import ru.otus.sua.L12.appSecure.entities.Role;
 
@@ -29,32 +29,35 @@ public class AccountController {
 
     private String selectedrole;
 
+    private boolean tfaEnabled;
+
     @PostConstruct
     private void init() {
         account = new Account();
     }
 
     public void doFindAccountById() {
-        log.info("Account id={} for modification.",account.getId());
+        log.info("Account id={} for modification.", account.getId());
         account = accountStoreEJB.findAccountById(account.getId());
+        tfaEnabled = account.isTfaEnabled();
     }
 
     public void doFindAccountById(long id) {
-        log.info("Account id={} for modification.",id);
+        log.info("Account id={} for modification.", id);
         account = accountStoreEJB.findAccountById(id);
+        tfaEnabled = account.isTfaEnabled();
     }
 
     public String doAddRoleToAccount() {
-        log.info("Selected role={} for account modification.",
-                Objects.toString(selectedrole,"null-role"));
         if (selectedrole == null) return "usersAndRoles.xhtml";
-        doFindAccountById(account.getId());
         Role role = new Role();
         role.setRole(selectedrole);
-        account.addRole(role);
-        log.info("Account roleset for save: {}",account.getRolesAsStrings());
-        accountStoreEJB.updateAccountRoles(account.getRoles(),account);
-        log.info("Account={}, Account roleset={}",account,account.getRolesAsStrings());
+        accountStoreEJB.updateAccountRoles(role,account.getId());
+        return "usersAndRoles.xhtml";
+    }
+
+    public String doModifyTfaToAccount() {
+        accountStoreEJB.updateAccountTfa(tfaEnabled,account.getId());
         return "usersAndRoles.xhtml";
     }
 }
