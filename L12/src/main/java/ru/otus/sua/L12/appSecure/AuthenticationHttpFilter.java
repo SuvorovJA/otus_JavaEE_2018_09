@@ -71,12 +71,12 @@ public class AuthenticationHttpFilter extends HttpFilter {
         boolean customerUrl = CUSTOMER_PATHS.contains(path);
         boolean remoteUrl = REMOTE_PATHS.contains(path);
 
-         log.info("loginurl: {}, path:{}, " +
-                         "url(allowed:{}, customer:{}, manager:{}, admin:{}, remote:{}), " +
-                         "auth(isCustomer:{}, isManager:{}, isAdmin:{}, isRemote:{})",
-                 loginUrl,path,
-                 allowedUrl,customerUrl,managerUrl,adminUrl,remoteUrl,
-                 isCustomer,isManager,isAdmin,isRemote);
+//         log.info("loginurl: {}, path:{}, " +
+//                         "url(allowed:{}, customer:{}, manager:{}, admin:{}, remote:{}), " +
+//                         "auth(isCustomer:{}, isManager:{}, isAdmin:{}, isRemote:{})",
+//                 loginUrl,path,
+//                 allowedUrl,customerUrl,managerUrl,adminUrl,remoteUrl,
+//                 isCustomer,isManager,isAdmin,isRemote);
 
         if ((loginRequest || resourceRequest || allowedUrl) ||
                 (loggedIn && (adminUrl || managerUrl || customerUrl) && isAdmin) ||
@@ -86,7 +86,7 @@ public class AuthenticationHttpFilter extends HttpFilter {
         ) {
             // Prevent browser from caching restricted resources
             if (!resourceRequest) Servlets.setNoCacheHeaders(res);
-             log.info("filter passed to path: {}",path);
+//             log.info("filter passed to path: {}",path);
             chain.doFilter(req, res); // So, just continue request.
         } else {
             Servlets.facesRedirect(req, res, loginUrl);

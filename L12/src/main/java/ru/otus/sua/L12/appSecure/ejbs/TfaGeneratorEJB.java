@@ -4,31 +4,37 @@ package ru.otus.sua.L12.appSecure.ejbs;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 import java.util.Random;
 
-@Singleton
+@Stateful
+@SessionScoped
 @Slf4j
-@Startup
 @Getter
-public class TfaGeneratorEJB {
+public class TfaGeneratorEJB implements Serializable {
 
+    private String username;
+    private String password;
+    private boolean remember;
     private int code;
 
     private int getRandom() {
         return new Random().nextInt(9000) + 1000;
     }
 
-    @PostConstruct
-    private void init() {
+    public void createCode(String username, String password, boolean remember) {
+        this.password = password;
+        this.remember = remember;
+        this.username = username;
         code = getRandom();
+        log.info("Security code for account '{}' is '{}'", username, code);
     }
 
-    @Schedule(dayOfWeek = "*", hour = "*", minute = "*/5", second = "0", persistent = false)
-    private void change() {
-        code = getRandom();
+    public void reset() {
+        this.password = "";
+        this.remember = false;
+        this.username = "";
     }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title"><br/>TwoFactor Auth<br/></ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="tfa">
+            <h:panelGrid columns="3">
+                <h:outputLabel for="code" value="Enter a secure code:"/>
+                <h:inputText id="code" value="#{loginController.code}" required="true">
+                    <f:ajax event="blur" render="m_code"/>
+                </h:inputText>
+                <h:message id="m_code" for="code"/>
+
+                <h:panelGroup/>
+                <h:commandButton value="Continue" action="#{loginController.submitCode}">
+                    <f:ajax execute="@form" render="@form"/>
+                </h:commandButton>
+                <h:panelGroup/>
+
+                <h:messages globalOnly="true" layout="table"/>
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+</html>

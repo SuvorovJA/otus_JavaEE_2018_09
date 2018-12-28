@@ -13,7 +13,12 @@ L13: Security
   - [x] +менеджер (просмотр заказов, создание продукта) 
   - [x] администратор (справочник ролей) 
 - [x] Разработать интерфейсную часть для управлением справочником ролей с возможностью присвоения их пользователям системы. Данный функционал доступен только администраторам системы.
-- [ ] Разработать сервисы и интерфейсную часть с поддержкой ДФА в системе. В данном задании не требуется реальной отправки смс-сообщения пользователя, это значение достаточно генерировать случайно на сервере (опциональное задание)*.
+- [x] Разработать сервисы и интерфейсную часть с поддержкой ДФА в системе. В данном задании не требуется реальной отправки смс-сообщения пользователя, это значение достаточно генерировать случайно на сервере (опциональное задание)*.
+  - [x] регистрация с флагом ДФА
+  - [x] изменение флага из админки
+  - [x] поле в БД
+  - [x] бин по обслуживанию "кода"
+  - [x] страница для ввода "кода"
 
 - [ ] Предусмотреть RESTful веб-сервисы, предоставляющие возможность программной авторизации пользователя в приложении, а также возможного выхода из него.
 - [ ] ~скорректировать rmi client на авторизацию под REMOTE ролью~
@@ -43,6 +48,29 @@ L12: EJB
     - [x] вызываемый метод разместить в синглтоне, конкурентность
             
 #### Решение
+
+TFA (ДФА) login process
+```
+  11:32:12.048 [http-thread-pool::http-listener-1(5)] INFO  r.o.s.L.a.AppFormAuthenticationMechanism - Credential {0}
+  11:32:12.072 [http-thread-pool::http-listener-1(5)] INFO  r.o.s.L12.appSecure.AppIdentityStore - Validated login: tre, [CUSTOMER, REMOTE, ADMIN]
+  11:32:12.087 [http-thread-pool::http-listener-1(5)] INFO  r.o.s.L.a.presentation.LoginStatus - LoginStatus account: tre,  (assigned roles: REMOTE;ADMIN;CUSTOMER;)
+  11:32:12.195 [http-thread-pool::http-listener-1(1)] INFO  ru.otus.sua.L12.ejbs.ImageBean - Get image from product id=1, size =3977 bytes.
+  11:32:12.212 [http-thread-pool::http-listener-1(1)] INFO  ru.otus.sua.L12.ejbs.ImageBean - Get image from product id=703, size =9290 bytes.
+  11:32:20.665 [http-thread-pool::http-listener-1(1)] INFO  r.o.s.L.a.p.LogoutController - Logout user tre.
+  11:32:52.780 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.ejbs.TfaGeneratorEJB - Security code for account 'aaa' is '3064'
+  11:33:16.388 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.p.LoginController - Entered correct security code '3064' for account 'aaa'
+  11:33:16.399 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.AppFormAuthenticationMechanism - Credential {0}
+  11:33:16.408 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L12.appSecure.AppIdentityStore - Validated login: aaa, [CUSTOMER, ADMIN, REMOTE]
+  11:33:16.421 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.presentation.LoginStatus - LoginStatus account: aaa,  (assigned roles: REMOTE;ADMIN;CUSTOMER;)
+  11:33:16.467 [http-thread-pool::http-listener-1(2)] INFO  ru.otus.sua.L12.ejbs.ImageBean - Get image from product id=1, size =3977 bytes.
+  11:33:16.473 [http-thread-pool::http-listener-1(2)] INFO  ru.otus.sua.L12.ejbs.ImageBean - Get image from product id=703, size =9290 bytes.
+  11:33:42.160 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.p.LogoutController - Logout user aaa.
+  11:33:49.254 [http-thread-pool::http-listener-1(2)] INFO  r.o.s.L.a.ejbs.TfaGeneratorEJB - Security code for account 'aaa' is '3491'
+  11:34:16.515 [http-thread-pool::http-listener-1(4)] INFO  r.o.s.L.a.p.LoginController - Entered incorrect security code '1234' for account 'aaa'
+
+```
+
+
 
 no auth RMI client
 ```
