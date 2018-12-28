@@ -21,7 +21,7 @@ L13: Security
   - [x] страница для ввода "кода"
 
 - [ ] Предусмотреть RESTful веб-сервисы, предоставляющие возможность программной авторизации пользователя в приложении, а также возможного выхода из него.
-- [ ] ~скорректировать rmi client на авторизацию под REMOTE ролью~
+- [x] скорректировать rmi client на авторизацию под REMOTE ролью
     
 L12: EJB    
     
@@ -48,6 +48,16 @@ L12: EJB
     - [x] вызываемый метод разместить в синглтоне, конкурентность
             
 #### Решение
+
+RMI client with JAAS auth
+``` 
+дек 28, 2018 7:28:49 PM com.sun.enterprise.v3.server.CommonClassLoaderServiceImpl findDerbyClient
+INFO: Cannot find javadb client jar file, derby jdbc driver will not be available by default.
+19:28:56.071 [main] INFO  ru.otus.sua.L12client.RmiClient - none orders
+19:29:50.346 [main] INFO  ru.otus.sua.L12client.RmiClient - id: 951; customer: assigned roles; address: REMOTE;ADMIN;CUSTOMER;); total summ: 10000.0
+
+```
+
 
 TFA (ДФА) login process
 ```

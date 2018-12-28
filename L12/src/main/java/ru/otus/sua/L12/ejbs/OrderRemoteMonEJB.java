@@ -4,6 +4,7 @@ import lombok.Data;
 import ru.otus.sua.L12.entities.Order;
 import ru.otus.sua.L12.entities.Product;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
